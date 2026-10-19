@@ -4,8 +4,8 @@ This is a static site for client review. Open `index.html` to compare the two vi
 
 ## Theme options
 
-- **OptimIQ brand theme**: new logo-led screens for Client, Consultant, Consulting Firm, and Staff/Admin.
-- **Existing demo theme**: the `existing-theme/OptimIQ_Client_Demo_Design2.html` copy, with direct links to its Public, Expert, and Admin MIS screens. Demo names and client/payment examples in the hosted copy are neutralized; the original local file in the Downloads folder is left unchanged and excluded from publishing.
+- **Theme 1**: OptimIQ workspace screens for Client, Consultant, Consulting Firm, and Staff/Admin, using the dark green and mint workspace design direction.
+- **Theme 2**: the current `existing-theme/OptimIQ_Client_Demo_Design2.html` copy, with direct links to its Public, Expert, and Admin MIS screens. Demo names and client/payment examples in the hosted copy are neutralized; the original local file in the Downloads folder is left unchanged and excluded from publishing.
 
 ## Hosting
 
