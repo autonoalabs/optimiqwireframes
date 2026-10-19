@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OptimIQ Consultus — Client Workspace Concept</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --forest: #0f2e29;
+      --forest-2: #17443b;
+      --teal: #2b8e79;
+      --teal-soft: #e2f1eb;
+      --mint: #dff0ea;
+      --canvas: #f7faf8;
+      --paper: #ffffff;
+      --ink: #173c35;
+      --muted: #668179;
+      --line: #d5e7e0;
+      --amber: #b7791f;
+      --amber-soft: #fff5df;
+      --shadow: 0 12px 32px rgba(15, 46, 41, .07);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 360px; background: var(--canvas); color: var(--ink); }
+    button { font: inherit; }
+    .app { min-height: 100vh; display: grid; grid-template-columns: 268px minmax(0, 1fr); }
+    aside { background: var(--forest); color: #eaf6f1; padding: 20px 15px; display: flex; flex-direction: column; gap: 25px; }
+    .brand { padding: 3px 7px 0; display: flex; justify-content: center; }
+    .brand img { width: 158px; height: 158px; object-fit: contain; display: block; border-radius: 15px; }
+    .workspace-label { margin: -11px 9px 0; padding: 12px 13px; border: 1px solid rgba(223,240,234,.16); border-radius: 12px; color: #c4ddd4; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-label { padding: 0 13px; color: #93b8ab; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px; }
+    nav { display: grid; gap: 5px; }
+    nav a { display: flex; align-items: center; gap: 12px; color: #d5e8e1; text-decoration: none; padding: 12px 13px; border-radius: 10px; font-size: 14px; }
+    nav a .icon { width: 20px; text-align: center; color: #9dc9ba; font-size: 17px; }
+    nav a.active { background: var(--forest-2); box-shadow: inset 3px 0 var(--teal); color: #fff; font-weight: 650; }
+    .side-bottom { margin-top: auto; border-top: 1px solid rgba(223,240,234,.16); padding: 16px 7px 0; display: flex; align-items: center; gap: 10px; }
+    .avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #cde8dd; color: var(--forest); font-weight: 750; font-size: 13px; }
+    .person { font-size: 13px; font-weight: 650; }
+    .person small { display: block; color: #9dc2b6; font-size: 11px; font-weight: 450; margin-top: 3px; }
+    main { min-width: 0; padding: 22px clamp(20px, 3vw, 46px) 38px; }
+    .topbar { height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 27px; }
+    .crumb { font-size: 13px; color: var(--muted); }
+    .crumb strong { color: var(--ink); font-weight: 650; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .role-select, .icon-btn { border: 1px solid var(--line); background: var(--paper); color: var(--ink); height: 40px; border-radius: 11px; }
+    .role-select { padding: 0 13px; font-size: 13px; font-weight: 650; }
+    .icon-btn { width: 40px; font-size: 17px; }
+    .concept { display: flex; gap: 10px; align-items: flex-start; padding: 12px 15px; background: var(--amber-soft); border: 1px solid #f2dfb7; border-radius: 12px; color: #75551c; font-size: 12px; line-height: 1.45; margin-bottom: 24px; }
+    .concept b { white-space: nowrap; }
+    .eyebrow { margin: 0 0 7px; color: var(--teal); font-weight: 750; font-size: 11px; letter-spacing: .11em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(27px, 3vw, 36px); line-height: 1.15; letter-spacing: -.035em; color: var(--forest); }
+    .intro { margin: 9px 0 24px; color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 750px; }
+    .headline { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 24px; }
+    .outline-btn, .primary-btn { border-radius: 10px; padding: 11px 15px; font-size: 13px; font-weight: 700; cursor: default; }
+    .outline-btn { color: var(--forest); background: #fff; border: 1px solid var(--line); }
+    .primary-btn { color: #fff; background: var(--teal); border: 1px solid var(--teal); box-shadow: 0 5px 12px rgba(43,142,121,.18); }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 21px; }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: 15px; box-shadow: var(--shadow); }
+    .summary { padding: 17px 19px; min-height: 126px; }
+    .summary-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; color: var(--muted); font-size: 13px; font-weight: 650; }
+    .summary-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; color: var(--teal); background: var(--teal-soft); font-size: 16px; }
+    .summary-value { margin-top: 12px; font-size: 25px; line-height: 1; color: var(--forest); font-weight: 750; }
+    .summary-note { margin-top: 7px; color: #839891; font-size: 11px; }
+    .content-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, .85fr); gap: 17px; align-items: stretch; }
+    .journey { padding: 20px 21px; }
+    .card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 19px; }
+    h2 { margin: 0; color: var(--forest); font-size: 17px; letter-spacing: -.02em; }
+    .subheading { color: var(--muted); font-size: 12px; margin-top: 5px; line-height: 1.45; }
+    .tag { padding: 6px 9px; border-radius: 999px; color: #267360; background: var(--teal-soft); font-size: 10px; font-weight: 750; white-space: nowrap; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; gap: 5px; }
+    .steps:before { content: ""; position: absolute; left: 12%; right: 12%; top: 15px; height: 2px; background: #cde4da; }
+    .step { position: relative; z-index: 1; text-align: center; padding: 0 5px; }
+    .dot { display: grid; place-items: center; margin: 0 auto 11px; width: 31px; height: 31px; border: 2px solid #a9d4c5; border-radius: 50%; background: #fff; color: var(--teal); font-size: 12px; font-weight: 750; }
+    .step:nth-child(1) .dot { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .step-title { font-size: 11px; font-weight: 700; line-height: 1.35; }
+    .step-note { margin-top: 5px; color: #899d96; font-size: 10px; line-height: 1.35; }
+    .activity { padding: 20px 20px; }
+    .activity-list { display: grid; gap: 15px; margin-top: 17px; }
+    .activity-row { display: flex; gap: 11px; align-items: flex-start; }
+    .activity-mark { flex: 0 0 9px; width: 9px; height: 9px; margin-top: 4px; border-radius: 50%; background: #6fb39e; box-shadow: 0 0 0 4px #e7f3ee; }
+    .activity-row b { display: block; font-size: 12px; }
+    .activity-row span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .lower-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; margin-top: 17px; }
+    .shortcut { padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .shortcut p { margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .arrow { color: var(--teal); font-size: 20px; }
+    .footer-note { margin-top: 19px; color: #839891; font-size: 10px; text-align: right; }
+    @media (max-width: 1000px) {
+      .app { grid-template-columns: 228px minmax(0, 1fr); }
+      .content-grid { grid-template-columns: 1fr; }
+      .brand img { width: 142px; height: 142px; }
+    }
+    @media (max-width: 720px) {
+      .app { grid-template-columns: 1fr; }
+      aside { padding: 12px; gap: 12px; }
+      .brand { justify-content: flex-start; }
+      .brand img { width: 108px; height: 108px; }
+      .workspace-label, .nav-label, .side-bottom { display: none; }
+      nav { display: flex; overflow-x: auto; gap: 5px; padding-bottom: 2px; }
+      nav a { flex: 0 0 auto; padding: 10px; }
+      nav a .icon { display: none; }
+      main { padding: 17px 16px 28px; }
+      .topbar { margin-bottom: 16px; }
+      .headline { align-items: flex-start; flex-direction: column; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .summary { min-height: 105px; }
+      .steps { grid-template-columns: repeat(2, 1fr); row-gap: 17px; }
+      .steps:before { display: none; }
+      .lower-grid { grid-template-columns: 1fr; }
+      .concept { flex-direction: column; gap: 3px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside aria-label="Client workspace navigation">
+      <div class="brand"><img src="OptimIQ_Consultus_Logo.png" alt="OptimIQ Consultus"></div>
+      <div class="workspace-label">Client workspace</div>
+      <div>
+        <div class="nav-label">Workspace</div>
+        <nav>
+          <a class="active" href="#"><span class="icon">◫</span>Overview</a>
+          <a href="#"><span class="icon">▤</span>Requirements</a>
+          <a href="#"><span class="icon">◉</span>Shortlists</a>
+          <a href="#"><span class="icon">▧</span>Engagements</a>
+          <a href="#"><span class="icon">◷</span>Meetings</a>
+          <a href="#"><span class="icon">▱</span>Invoices &amp; payments</a>
+          <a href="#"><span class="icon">☆</span>Feedback</a>
+        </nav>
+      </div>
+      <div class="side-bottom">
+        <div class="avatar">CL</div>
+        <div class="person">Client account<small>Active role</small></div>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div class="crumb">Workspace <span aria-hidden="true">/</span> <strong>Overview</strong></div>
+        <div class="top-actions">
+          <button class="role-select" type="button">Client workspace ▾</button>
+          <button class="icon-btn" type="button" aria-label="Notifications">♧</button>
+          <button class="icon-btn" type="button" aria-label="Help">?</button>
+        </div>
+      </header>
+
+      <div class="concept"><b>Client review concept</b><span>This page demonstrates the logo, theme, role-based navigation, and dashboard layout. Metrics and workflow details are illustrative placeholders for review.</span></div>
+
+      <section class="headline">
+        <div>
+          <p class="eyebrow">Client portal</p>
+          <h1>Your OptimIQ workspace</h1>
+          <p class="intro">A single place to follow requirements, review curated profiles, and track your engagements with OptimIQ.</p>
+        </div>
+        <button class="outline-btn" type="button">View all activity <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <section class="summary-grid" aria-label="Workspace summaries">
+        <article class="card summary">
+          <div class="summary-top"><span>Requirements in progress</span><span class="summary-icon">▤</span></div>
+          <div class="summary-value">—</div><div class="summary-note">Example metric · confirm final dashboard fields</div>
+        </article>
+        <article class="card summary">
+          <div class="summary-top"><span>Shortlists to review</span><span class="summary-icon">◉</span></div>
+          <div class="summary-value">—</div><div class="summary-note">Example metric · confirm final dashboard fields</div>
+        </article>
+        <article class="card summary">
+          <div class="summary-top"><span>Active engagements</span><span class="summary-icon">▧</span></div>
+          <div class="summary-value">—</div><div class="summary-note">Example metric · confirm final dashboard fields</div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="card journey">
+          <div class="card-heading">
+            <div><h2>How your OptimIQ journey works</h2><div class="subheading">A high-level view of the managed client journey in the BRD.</div></div>
+            <span class="tag">Journey concept</span>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="dot">1</div><div class="step-title">Requirement review</div><div class="step-note">Need assessed by OptimIQ</div></div>
+            <div class="step"><div class="dot">2</div><div class="step-title">Curated shortlist</div><div class="step-note">Masked profiles with rationale</div></div>
+            <div class="step"><div class="dot">3</div><div class="step-title">Award &amp; introduction</div><div class="step-note">Controlled steps and approvals</div></div>
+            <div class="step"><div class="dot">4</div><div class="step-title">Engagement</div><div class="step-note">Delivery and follow-up</div></div>
+          </div>
+        </article>
+        <article class="card activity">
+          <div class="card-heading"><div><h2>Recent activity</h2><div class="subheading">A compact view of updates that need your attention.</div></div></div>
+          <div class="activity-list">
+            <div class="activity-row"><span class="activity-mark"></span><div><b>Requirement updates</b><span>Latest progress and OptimIQ notes appear here.</span></div></div>
+            <div class="activity-row"><span class="activity-mark"></span><div><b>Shortlist updates</b><span>Review masked profiles and their match rationale.</span></div></div>
+            <div class="activity-row"><span class="activity-mark"></span><div><b>Engagement updates</b><span>Follow agreed milestones and required actions.</span></div></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="lower-grid">
+        <article class="card shortcut"><div><h2>Requirements</h2><p>Follow requirements managed through the OptimIQ process.</p></div><span class="arrow">→</span></article>
+        <article class="card shortcut"><div><h2>Engagements</h2><p>Review awards, delivery progress, and related updates.</p></div><span class="arrow">→</span></article>
+      </section>
+      <div class="footer-note">Screen concept for client feedback · Final labels, fields, and workflow details remain subject to approval.</div>
+    </main>
+  </div>
+</body>
+</html>
