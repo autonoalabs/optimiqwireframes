@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consultant onboarding terms, confidentiality and declarations screen concept.">
+  <title>Terms &amp; Declarations — OptimIQ Consultus</title>
+  <link rel="stylesheet" href="portal-demo.css">
+  <style>
+    body{min-width:320px;min-height:100vh;background:var(--canvas)}
+    .shell{min-height:100vh;display:grid;grid-template-columns:278px minmax(0,1fr)}
+    .rail{display:flex;flex-direction:column;gap:34px;padding:26px 20px;background:linear-gradient(160deg,#062d27,#07382f);color:#eaf6f1}
+    .brand{display:flex;align-items:center;gap:12px;padding:0 4px}.brand img{width:47px;height:47px;object-fit:contain;border-radius:10px;background:#dff3eb}
+    .brand-wordmark{line-height:1.05}.brand-wordmark b{display:block;color:#abf2d5;font-size:21px;letter-spacing:-.04em}.brand-wordmark small{display:block;margin-top:3px;color:#f1f5f3;font:15px Georgia,serif}
+    .side-label{padding:0 10px;color:#91c5b2;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    .side-flow{display:grid;gap:7px;margin-top:-24px}.flow-item{display:flex;align-items:center;gap:11px;padding:12px 11px;border-radius:11px;color:#b9d4ca;font-size:12px;line-height:1.35}.flow-item.active{background:#ffffff10;color:#fff;font-weight:750;box-shadow:inset 3px 0 #42b493}.flow-item.done{color:#d9f3e7}.flow-dot{width:23px;height:23px;flex:none;display:grid;place-items:center;border:1px solid #ffffff38;border-radius:50%;font-size:10px}.flow-item.active .flow-dot{border-color:#42b493;background:#288e76;color:#fff}.flow-item.done .flow-dot{border-color:#4bb291;color:#9ce0c3}
+    .rail-note{margin-top:auto;padding:15px 10px 4px;border-top:1px solid #ffffff26;color:#bbd5cb;font-size:10px;line-height:1.6}
+    main{min-width:0;padding:25px clamp(20px,5vw,68px) 36px;background:#fbfcfb}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:35px}.crumb{color:#77837f;font-size:12px}.crumb strong{color:var(--ink)}.user-chip{display:flex;align-items:center;gap:9px;color:#687b74;font-size:11px}.avatar{width:33px;height:33px;display:grid;place-items:center;border-radius:50%;background:#dff0e8;color:#236e59;font-weight:800}
+    .content{width:min(100%,820px);margin:0 auto}.eyebrow{margin:0 0 9px;color:#27836e;font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;color:var(--forest);font-size:clamp(29px,4vw,40px);line-height:1.12;letter-spacing:-.045em}.lead{max-width:700px;margin:12px 0 21px;color:#71817b;font-size:14px;line-height:1.65}
+    .progress{display:flex;align-items:center;gap:10px;margin:0 0 22px;color:#71817b;font-size:11px}.progress-track{height:5px;flex:1;overflow:hidden;border-radius:99px;background:#e3ebe7}.progress-fill{width:58%;height:100%;border-radius:99px;background:#35a187}.progress strong{color:#286b58;font-size:10px;white-space:nowrap}
+    .section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:10px}.section-title h2{font-size:15px}.section-title span{color:#80908a;font-size:10px}
+    .documents{display:grid;gap:9px}.document{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;padding:13px 14px;border:1px solid #dbe7e2;border-radius:13px;background:#fff}.doc-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:#e7f4ed;color:#23745f;font-weight:800}.doc-copy{min-width:0}.doc-copy strong{display:block;color:var(--forest);font-size:12px;line-height:1.4}.doc-copy small{display:block;margin-top:3px;color:#87958f;font-size:10px;line-height:1.45}.doc-action{padding:8px 10px;border:1px solid #d7e6df;border-radius:9px;background:#fff;color:#246f5b;font:inherit;font-size:10px;font-weight:750;cursor:pointer}.doc-action:hover{border-color:#82bca7;background:#f5fbf8}
+    .detail{grid-column:2 / 4;padding:12px 13px;border-radius:10px;background:#f3f8f5;color:#62766d;font-size:11px;line-height:1.6}.detail p{margin:0}.detail b{color:#255e4e}
+    .confirmations{display:grid;gap:8px;margin-top:14px}.confirm{display:flex;align-items:flex-start;gap:10px;padding:12px 13px;border:1px solid #e1eae6;border-radius:11px;background:#fff;color:#556a61;font-size:11px;line-height:1.55;cursor:pointer}.confirm input{width:16px;height:16px;flex:none;margin:1px 0 0;accent-color:#27876f}.confirm b{color:var(--forest)}
+    .notice{display:flex;align-items:flex-start;gap:10px;margin-top:15px;padding:12px 13px;border:1px solid #f0dfbb;border-radius:11px;background:#fff8e9;color:#806637;font-size:10px;line-height:1.55}.notice-icon{width:20px;height:20px;flex:none;display:grid;place-items:center;border-radius:50%;background:#faeacb;color:#8a6524;font-weight:800}
+    .bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:21px;padding-top:17px;border-top:1px solid #e8eeeb}.save{color:#72827c;font-size:10px;line-height:1.5}.continue{min-width:170px;padding:12px 18px;border:0;border-radius:10px;background:#1b755e;color:#fff;font:inherit;font-size:12px;font-weight:750;cursor:pointer}.continue:hover:not(:disabled){background:#105a48}.continue:disabled{background:#c9d7d1;color:#fff;cursor:not-allowed}.next-hint{margin:10px 0 0;color:#8a9691;font-size:10px;text-align:right}
+    @media(max-width:900px){.shell{grid-template-columns:230px minmax(0,1fr)}.rail{padding:23px 15px}}
+    @media(max-width:700px){.shell{grid-template-columns:1fr}.rail{gap:10px;padding:12px 15px}.brand img{width:40px;height:40px}.brand-wordmark b{font-size:18px}.brand-wordmark small{font-size:13px}.side-label{display:none}.side-flow{display:flex;overflow-x:auto;gap:5px;margin:0;padding-bottom:2px}.flow-item{flex:none;padding:8px 10px;font-size:10px}.flow-dot{width:20px;height:20px}.rail-note{display:none}main{padding:17px 17px 28px}.topbar{margin-bottom:25px}.content{width:100%}}
+    @media(max-width:470px){main{padding:15px 13px 23px}.topbar{align-items:flex-start;margin-bottom:21px}.crumb{max-width:180px;line-height:1.5}.user-chip{font-size:0}.avatar{font-size:11px}.section-title{align-items:flex-start;flex-direction:column;gap:4px}.document{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:11px}.doc-icon{width:32px;height:32px}.doc-action{grid-column:2;justify-self:start}.detail{grid-column:1 / 3}.bottom{align-items:stretch;flex-direction:column}.continue{width:100%}.next-hint{text-align:left}.progress{gap:7px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail" aria-label="Consultant onboarding progress">
+      <div class="brand"><img src="OptimIQ_Short_logo.png" alt=""><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
+      <div class="side-label">Consultant onboarding</div>
+      <nav class="side-flow" aria-label="Onboarding steps">
+        <div class="flow-item done"><span class="flow-dot">✓</span><span>Choose role profiles</span></div>
+        <div class="flow-item active" aria-current="step"><span class="flow-dot">2</span><span>Terms &amp; declarations</span></div>
+        <div class="flow-item"><span class="flow-dot">3</span><span>Profile &amp; CTQ</span></div>
+      </nav>
+      <div class="rail-note">These are the registration terms and declarations for the OptimIQ platform. Project-specific agreements happen later in the project journey.</div>
+    </aside>
+    <main>
+      <header class="topbar"><div class="crumb">Consultant workspace <span aria-hidden="true">/</span> <strong>Terms &amp; declarations</strong></div><div class="user-chip"><span class="avatar" aria-hidden="true">JD</span> Jordan Davis</div></header>
+      <section class="content" aria-labelledby="page-title">
+        <p class="eyebrow">Consultant profile setup</p>
+        <h1 id="page-title">Review the terms and declarations</h1>
+        <p class="lead">Please review each item below. These acknowledgements are recorded with the document version and the date you accept them.</p>
+        <div class="progress" aria-label="Step 2 of 3"><span>Getting started</span><span class="progress-track"><span class="progress-fill"></span></span><strong>STEP 2 OF 3</strong></div>
+        <div class="section-title"><h2>Required for your consultant account</h2><span>5 items</span></div>
+        <form id="terms-form">
+          <div class="documents">
+            <article class="document"><span class="doc-icon" aria-hidden="true">T</span><div class="doc-copy"><strong>OptimIQ platform terms</strong><small>Terms for using the OptimIQ Consultus platform</small></div><button class="doc-action" type="button" aria-expanded="false">Review</button><div class="detail" hidden><p>Approved platform terms will be presented here for review.</p></div></article>
+            <article class="document"><span class="doc-icon" aria-hidden="true">N</span><div class="doc-copy"><strong>Non-disclosure agreement (NDA)</strong><small>Confidentiality obligations for information accessed through the platform</small></div><button class="doc-action" type="button" aria-expanded="false">Review</button><div class="detail" hidden><p>Approved NDA wording will be presented here for review.</p></div></article>
+            <article class="document"><span class="doc-icon" aria-hidden="true">NC</span><div class="doc-copy"><strong>Non-circumvention</strong><small>Rules relating to introductions and opportunities through OptimIQ</small></div><button class="doc-action" type="button" aria-expanded="false">Review</button><div class="detail" hidden><p>Approved non-circumvention wording will be presented here for review.</p></div></article>
+            <article class="document"><span class="doc-icon" aria-hidden="true">CO</span><div class="doc-copy"><strong>Conflict of interest declaration</strong><small>Declare any actual or potential conflicts that may be relevant</small></div><button class="doc-action" type="button" aria-expanded="false">Review</button><div class="detail" hidden><p>Approved conflict-of-interest wording and declaration fields will be presented here for review.</p></div></article>
+            <article class="document"><span class="doc-icon" aria-hidden="true">C</span><div class="doc-copy"><strong>Code of conduct</strong><small>Professional conduct expected when participating in OptimIQ</small></div><button class="doc-action" type="button" aria-expanded="false">Review</button><div class="detail" hidden><p>Approved code-of-conduct wording will be presented here for review.</p></div></article>
+          </div>
+          <div class="confirmations">
+            <label class="confirm"><input type="checkbox" name="accept-all"><span><b>I confirm that I have reviewed and accept the required terms and declarations listed above.</b></span></label>
+          </div>
+          <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><span>The BRD lists these five items but does not provide their final legal wording. OptimIQ must provide and approve the document text before this screen is finalized for implementation.</span></div>
+          <div class="bottom"><div class="save">Your acceptance date and the version of each document will be saved to your account.</div><button class="continue" id="continue" type="button" disabled>Continue to profile setup</button></div>
+          <p class="next-hint">Next: Complete a profile and CTQ stepper for each role you selected</p>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script>
+    const reviewButtons = [...document.querySelectorAll('.doc-action')];
+    const acceptance = document.querySelector('input[name="accept-all"]');
+    const continueButton = document.getElementById('continue');
+    reviewButtons.forEach((button) => button.addEventListener('click', () => {
+      const detail = button.nextElementSibling;
+      const open = detail.hidden;
+      detail.hidden = !open;
+      button.setAttribute('aria-expanded', String(open));
+      button.textContent = open ? 'Close' : 'Review';
+    }));
+    acceptance.addEventListener('change', () => { continueButton.disabled = !acceptance.checked; });
+  </script>
+</body>
+</html>
