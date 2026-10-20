@@ -9,36 +9,25 @@
   <style>
     body { min-width: 320px; min-height: 100vh; background: #f5f8f6; }
     .login-page { display: grid; min-height: 100vh; grid-template-columns: minmax(320px, .92fr) minmax(420px, 1.08fr); background: #fbfcfb; }
-    .brand-panel { position: relative; display: flex; min-height: 100vh; flex-direction: column; justify-content: space-between; overflow: hidden; padding: clamp(26px, 5vw, 68px); color: #eaf6f1; background: radial-gradient(circle at 80% 82%, rgb(55 167 138 / 16%), transparent 34%), linear-gradient(145deg, #052b25, #0c4036); }
+    .brand-panel { position: relative; display: grid; min-height: 100vh; place-items: center; overflow: hidden; padding: clamp(26px, 5vw, 68px); color: #eaf6f1; background: radial-gradient(circle at 80% 82%, rgb(55 167 138 / 16%), transparent 34%), linear-gradient(145deg, #052b25, #0c4036); }
     .brand-panel::after { position: absolute; right: -105px; bottom: 100px; width: 350px; aspect-ratio: 1; border: 1px solid rgb(141 197 177 / 15%); border-radius: 50%; content: ""; box-shadow: 0 0 0 30px rgb(141 197 177 / 4%), 0 0 0 70px rgb(141 197 177 / 3%); pointer-events: none; }
     .brand-logo { position: relative; z-index: 1; width: min(100%, 260px); padding: 12px; border-radius: 14px; background: #e0f1eb; }
-    .brand-copy { position: relative; z-index: 1; max-width: 520px; margin-block: auto; padding-block: 58px 44px; }
-    .eyebrow { margin: 0 0 10px; color: #8ed1b8; font-size: 11px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
-    .brand-copy h1 { max-width: 470px; margin: 0 0 16px; color: #fff; font-size: clamp(35px, 4.4vw, 58px); line-height: 1.02; letter-spacing: -.05em; }
-    .brand-copy p:last-child { max-width: 440px; margin: 0; color: #c4ddd4; font-size: 15px; line-height: 1.7; }
-    .audience-list { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-    .audience-list li { padding: 8px 11px; border: 1px solid rgb(185 226 208 / 23%); border-radius: 999px; color: #d8eee5; background: rgb(255 255 255 / 5%); font-size: 12px; }
+    .eyebrow { margin: 0 0 10px; color: #23856f; font-size: 11px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
     .form-panel { display: grid; place-items: center; padding: 38px clamp(22px, 6vw, 82px); }
     .form-wrap { width: min(100%, 440px); }
     .form-wrap .eyebrow { color: #23856f; }
     .form-wrap h2 { margin: 0; color: #062f29; font-size: clamp(30px, 3vw, 38px); letter-spacing: -.04em; }
     .subtitle { margin: 9px 0 24px; color: #637a72; font-size: 14px; }
-    .review-note { display: grid; gap: 5px; margin: 0 0 22px; padding: 13px 15px; border: 1px solid #efdfbd; border-inline-start: 4px solid #d9a441; border-radius: 11px; color: #76551c; background: #fff5df; font-size: 12px; line-height: 1.55; }
-    .review-note strong { color: #594013; }
     .login-form { display: grid; gap: 9px; }
     .login-form label { color: #092e28; font-size: 12px; font-weight: 750; }
     .login-form input { width: 100%; min-height: 48px; margin-bottom: 8px; padding: 0 13px; border: 1px solid #cfded7; border-radius: 10px; color: #092e28; background: #fff; font: inherit; font-size: 13px; }
     .login-form input::placeholder { color: #91a39b; }
     .login-form input:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid rgb(55 167 138 / 35%); outline-offset: 2px; }
     .password-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .password-label a, .back-link { color: #23856f; font-size: 12px; font-weight: 700; text-decoration: none; }
-    .password-label a:hover, .back-link:hover { text-decoration: underline; }
+    .password-label a { color: #23856f; font-size: 12px; font-weight: 700; text-decoration: none; }
+    .password-label a:hover { text-decoration: underline; }
     .sign-in { min-height: 49px; margin-top: 4px; border: 0; border-radius: 10px; color: #fff; background: #0c604f; font: inherit; font-size: 14px; font-weight: 800; cursor: default; }
-    .prototype-note { margin: 13px 0 22px; color: #879c95; font-size: 11px; text-align: center; }
-    .registration-note { margin: 0; color: #637a72; font-size: 12px; line-height: 1.6; }
-    .registration-note strong { color: #092e28; }
-    .back-link { display: inline-block; margin-top: 20px; }
-    @media (max-width: 760px) { .login-page { grid-template-columns: 1fr; } .brand-panel { min-height: auto; gap: 24px; padding: 23px 20px; } .brand-logo { width: 190px; } .brand-copy { margin: 0; padding-block: 12px 0; } .brand-copy h1 { max-width: 620px; font-size: clamp(32px, 8vw, 48px); } .audience-list { gap: 6px; } .audience-list li { padding: 7px 9px; font-size: 11px; } .form-panel { padding: 30px 20px 40px; } }
+    @media (max-width: 760px) { .login-page { grid-template-columns: 1fr; } .brand-panel { min-height: 180px; padding: 23px 20px; } .brand-logo { width: 190px; } .form-panel { padding: 30px 20px 40px; } }
     @media (max-width: 420px) { .brand-panel { padding: 18px 15px; } .form-panel { padding-inline: 15px; } .brand-logo { width: 165px; } }
   </style>
 </head>
@@ -46,29 +35,19 @@
   <main class="login-page">
     <section class="brand-panel" aria-label="OptimIQ Consultus shared portal">
       <img class="brand-logo" src="OptimIQ_Consultus_Logo.png" alt="OptimIQ Consultus">
-      <div class="brand-copy">
-        <p class="eyebrow">One secure entry</p>
-        <h1>Your OptimIQ workspace starts here.</h1>
-        <p>Sign in once. Your workspace and available sections are based on your account type and assigned roles.</p>
-      </div>
-      <ul class="audience-list" aria-label="Portal account types"><li>Clients</li><li>Consultants</li><li>Consulting firms</li><li>OptimIQ staff</li></ul>
     </section>
     <section class="form-panel" aria-labelledby="login-heading">
       <div class="form-wrap">
         <p class="eyebrow">Member portal</p>
         <h2 id="login-heading">Welcome back</h2>
         <p class="subtitle">Sign in to continue to your workspace.</p>
-        <aside class="review-note" id="account-recovery"><strong>Before sign-in</strong><span>Email verification and password setup happen during CTA registration. The account-recovery process needs clarification.</span></aside>
         <form class="login-form">
           <label for="email">Email address</label>
           <input id="email" name="email" type="email" autocomplete="username" placeholder="name@company.com">
-          <div class="password-label"><label for="password">Password</label><a href="#account-recovery">Forgot password?</a></div>
+          <div class="password-label"><label for="password">Password</label></div>
           <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password">
           <button class="sign-in" type="button">Sign in</button>
         </form>
-        <p class="prototype-note">Screen concept only · Sign-in is not connected</p>
-        <p class="registration-note"><strong>New to OptimIQ?</strong> Start with the appropriate registration form on the public website. Verification and password setup happen there, before portal sign-in.</p>
-        <a class="back-link" href="index.html">← Back to all screens</a>
       </div>
     </section>
   </main>
