@@ -1,16 +1,23 @@
-# OptimIQ Consultus Wireframe Approval Site
+# OptimIQ Consultus Theme 1 Screen Review
 
-This is a static site for client review. Open `index.html` to compare the two visual options and select a screen by name.
+The client approved Theme 1. This repository contains a React/Next.js implementation of the review hub and four role workspace concepts. The source is in [`next-app/`](next-app/README.md).
 
-## Theme options
+## Stack direction
 
-- **Theme 1**: OptimIQ workspace screens for Client, Consultant, Consulting Firm, and Staff/Admin, using the dark green and mint workspace design direction.
-- **Theme 2**: the current `existing-theme/OptimIQ_Client_Demo_Design2.html` copy, with direct links to its Public, Expert, and Admin MIS screens. Demo names and client/payment examples in the hosted copy are neutralized; the original local file in the Downloads folder is left unchanged and excluded from publishing.
+- React with TypeScript, using the Next.js App Router.
+- Next.js static export for client review. The wireframes do not require a Node.js runtime server.
+- GitHub Pages receives the generated static site from `next-app/out` through the workflow in `.github/workflows/pages.yml`.
+- The eventual .NET backend is not connected to these presentation-only wireframes.
 
-## Hosting
+## Local preview
 
-The site has no build step. GitHub Pages can serve the repository root on the `main` branch. Screen links are relative, so they work locally and on GitHub Pages.
+From `next-app/`, run `npm install`, then `npm run dev`.
 
-## Review status
+## Review screens
 
-These are screen concepts for client feedback. Unresolved workflow and role details remain identified in the approval inventory. Record feedback in the inventory; only explicit client approval changes a screen to Approved.
+- Client workspace
+- Consultant workspace
+- Consulting firm workspace
+- Staff / Admin workspace
+
+Theme 1 is approved. Individual screen concepts are marked **Awaiting screen feedback** until each receives separate approval. Record client feedback in the approval inventory linked from the review hub.

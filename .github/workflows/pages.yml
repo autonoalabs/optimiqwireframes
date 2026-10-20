@@ -1,0 +1,56 @@
+name: Build and publish Theme 1 wireframes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'next-app/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install packages
+        working-directory: next-app
+        run: npm install
+      - name: Build static site
+        working-directory: next-app
+        env:
+          NEXT_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+        run: npm run build
+      - name: Keep Next.js assets visible to GitHub Pages
+        working-directory: next-app
+        run: touch out/.nojekyll
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: next-app/out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
