@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Consultant profile and CTQ stepper screen concept for OptimIQ Consultus.">
-  <title>Consultant Profile &amp; CTQ — OptimIQ Consultus</title>
+  <meta name="description" content="Consultant CTQ form screen concept for OptimIQ Consultus.">
+  <title>Consultant CTQ Form — OptimIQ Consultus</title>
   <link rel="stylesheet" href="portal-demo.css">
   <style>
     body{min-width:320px;min-height:100vh;background:var(--canvas)}
@@ -16,22 +16,21 @@
     main{min-width:0;padding:23px clamp(18px,4vw,55px) 32px;background:#fbfcfb}.topbar{display:flex;justify-content:space-between;align-items:center;gap:13px;margin-bottom:28px}.crumb{color:#77837f;font-size:11px}.crumb strong{color:var(--ink)}.user-chip{display:flex;align-items:center;gap:9px;color:#687b74;font-size:10px}.avatar{width:31px;height:31px;display:grid;place-items:center;border-radius:50%;background:#dff0e8;color:#236e59;font-weight:800}
     .content{width:min(100%,1020px);margin:0 auto}.heading-row{display:flex;justify-content:space-between;align-items:flex-end;gap:15px}.eyebrow{margin:0 0 7px;color:#27836e;font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;color:var(--forest);font-size:clamp(27px,3.2vw,38px);line-height:1.12;letter-spacing:-.045em}.profile-status{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid #d5e8df;border-radius:9px;background:#f4faf7;color:#3a7661;font-size:10px;font-weight:700;white-space:nowrap}.status-dot{width:7px;height:7px;border-radius:50%;background:#50aa88}.lead{max-width:780px;margin:10px 0 18px;color:#71817b;font-size:12px;line-height:1.6}
     .notice{display:flex;align-items:flex-start;gap:9px;margin-bottom:17px;padding:11px 12px;border:1px solid #d9ebe3;border-radius:11px;background:#f0f8f4;color:#5c7369;font-size:10px;line-height:1.55}.notice b{color:#255e4e}.notice-icon{width:20px;height:20px;flex:none;display:grid;place-items:center;border-radius:50%;background:#d9eee3;color:#24755f;font-weight:800}
-    .score-preview{margin-bottom:17px;padding:13px;border:1px solid #dce8e2;border-radius:12px;background:#fff}.score-preview-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.score-preview-head strong{display:block;color:var(--forest);font-size:11px}.score-preview-head span{display:block;margin-top:3px;color:#84928c;font-size:9px}.score-preview-tag{padding:5px 7px!important;border:1px solid #f0dfbb;border-radius:99px;background:#fff5df;color:#76551c!important;font-size:8px!important;font-weight:750}.score-preview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.score-preview-card{display:grid;gap:4px;padding:10px;border:1px solid #e5ece8;border-radius:9px;background:#fbfcfb}.score-preview-card span{color:#61756c;font-size:9px;font-weight:750}.score-preview-card strong{color:#26745f;font-size:20px;line-height:1}.score-preview-card small{color:#84928c;font-size:8px}.score-preview-foot{margin:10px 0 0;color:#71817b;font-size:9px;line-height:1.5}
     .progress-row{display:flex;align-items:center;gap:10px;margin-bottom:17px;color:#71817b;font-size:10px}.progress-track{height:5px;flex:1;overflow:hidden;border-radius:99px;background:#e3ebe7}.progress-fill{width:12.5%;height:100%;border-radius:99px;background:#35a187}.progress-row strong{color:#286b58;font-size:9px;white-space:nowrap}
     .step-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;padding:14px 15px;border:1px solid #dbe7e2;border-radius:13px;background:#fff}.step-kicker{color:#27836e;font-size:9px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.step-header h2{margin-top:4px;font-size:17px}.step-header p{margin:5px 0 0;color:#7c8b85;font-size:10px;line-height:1.5}.step-count{padding:6px 8px;border-radius:999px;background:#e8f4ed;color:#26745f;font-size:9px;font-weight:800;white-space:nowrap}
     .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{min-width:0;padding:13px;border:1px solid #e0e9e5;border-radius:12px;background:#fff}.field.wide{grid-column:1 / -1}.field-head{display:flex;justify-content:space-between;align-items:flex-start;gap:9px;margin-bottom:8px}.field-title{min-width:0;color:var(--forest);font-size:11px;font-weight:780;line-height:1.4}.field-id{display:inline-block;margin-right:5px;color:#84958e;font-size:9px;font-weight:700}.badge{flex:none;padding:4px 6px;border-radius:999px;background:#fff4df;color:#806128;font-size:8px;font-weight:800;white-space:nowrap}.badge.optional{background:#f0f3f1;color:#6f7e78}.prefill{display:inline-flex;align-items:center;gap:5px;margin:-2px 0 8px;color:#31806a;font-size:9px;font-weight:700}.prefill:before{content:"↳";font-size:12px}.field select{width:100%;min-height:38px;padding:8px 32px 8px 10px;border:1px solid #d9e4df;border-radius:8px;background:#fff;color:#53665e;font:inherit;font-size:10px}.field select:focus{outline:3px solid #34a08033;border-color:#27876f}.field-help{margin:6px 0 0;color:#8a9792;font-size:9px;line-height:1.4}
     .bottom{display:flex;justify-content:space-between;align-items:center;gap:13px;margin-top:16px;padding-top:14px;border-top:1px solid #e8eeeb}.save-state{display:flex;align-items:center;gap:7px;color:#6e8078;font-size:9px}.save-icon{color:#32836b;font-size:13px}.actions{display:flex;gap:8px}.btn{min-height:38px;padding:9px 13px;border:1px solid #dbe7e2;border-radius:9px;background:#fff;color:#31594c;font:inherit;font-size:10px;font-weight:750;cursor:pointer}.btn.primary{border-color:#1b755e;background:#1b755e;color:#fff}.btn.primary:hover{background:#105a48}.btn:disabled{border-color:#cad8d2;background:#cad8d2;color:#fff;cursor:not-allowed}.footer-note{margin:9px 0 0;color:#8a9691;font-size:9px;text-align:right}
     @media(max-width:940px){.shell{grid-template-columns:238px minmax(0,1fr)}.rail{padding:20px 14px}.fields{grid-template-columns:1fr}}
     @media(max-width:700px){.shell{grid-template-columns:1fr}.rail{gap:10px;padding:11px 14px}.brand img{width:38px;height:38px}.brand-wordmark b{font-size:17px}.brand-wordmark small{font-size:12px}.role-label{padding:8px 10px}.side-heading,.rail-note{display:none}.step-list{display:flex;overflow-x:auto;gap:4px;margin:0;padding-bottom:2px}.step-link{flex:none;padding:7px 8px;font-size:9px}.step-number{width:19px;height:19px}main{padding:15px 15px 25px}.topbar{margin-bottom:21px}.heading-row{align-items:flex-start;flex-direction:column}.profile-status{padding:6px 8px}.content{width:100%}}
-    @media(max-width:450px){.rail{padding:9px 11px}.role-label strong{font-size:11px}main{padding:13px 12px 22px}.topbar{align-items:flex-start}.crumb{max-width:180px;line-height:1.5}.user-chip{font-size:0}.avatar{font-size:10px}.lead{font-size:11px}.notice{padding:10px;font-size:9px}.score-preview{padding:10px}.score-preview-grid{gap:5px}.score-preview-card{padding:8px 6px}.score-preview-card span{font-size:8px}.score-preview-card strong{font-size:17px}.score-preview-card small{font-size:7px}.score-preview-foot{font-size:8px}.progress-row{gap:7px}.step-header{padding:12px}.step-header h2{font-size:15px}.field{padding:11px}.bottom{align-items:stretch;flex-direction:column}.actions{width:100%}.btn{flex:1}.footer-note{text-align:left}}
+    @media(max-width:450px){.rail{padding:9px 11px}.role-label strong{font-size:11px}main{padding:13px 12px 22px}.topbar{align-items:flex-start}.crumb{max-width:180px;line-height:1.5}.user-chip{font-size:0}.avatar{font-size:10px}.lead{font-size:11px}.notice{padding:10px;font-size:9px}.progress-row{gap:7px}.step-header{padding:12px}.step-header h2{font-size:15px}.field{padding:11px}.bottom{align-items:stretch;flex-direction:column}.actions{width:100%}.btn{flex:1}.footer-note{text-align:left}}
   </style>
 </head>
 <body>
   <div class="shell">
     <aside class="rail" aria-label="Consultant profile steps">
       <div class="brand"><img src="OptimIQ_Short_logo.png" alt=""><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
-      <div class="role-label"><span><small>Candidate profile</small><strong>Consultant roles</strong></span><span class="role-tag">3 role scores</span></div>
-      <div class="side-heading">Profile &amp; CTQ · 8 steps</div>
+      <div class="role-label"><span><small>Application</small><strong>Consultant CTQ</strong></span><span class="role-tag">8 steps</span></div>
+      <div class="side-heading">CTQ form · 8 steps</div>
       <nav class="step-list" aria-label="Profile and CTQ steps">
         <div class="step-link active" aria-current="step"><span class="step-number">1</span>Eligibility &amp; Compliance</div>
         <div class="step-link"><span class="step-number">2</span>Industry Experience</div>
@@ -42,23 +41,14 @@
         <div class="step-link"><span class="step-number">7</span>Demographics &amp; Logistics</div>
         <div class="step-link"><span class="step-number">8</span>Digital Readiness &amp; Commercial</div>
       </nav>
-      <div class="rail-note">Complete the shared CTQ questions once. The platform applies each role’s approved weightings to calculate separate scores.</div>
+      <div class="rail-note">Complete one form for your Consultant application. Fit recommendations are shared after submission.</div>
     </aside>
     <main>
-      <header class="topbar"><div class="crumb">Consultant workspace <span aria-hidden="true">/</span> <strong>Profile &amp; CTQ</strong></div><div class="user-chip"><span class="avatar" aria-hidden="true">JD</span> Jordan Davis</div></header>
+      <header class="topbar"><div class="crumb">Consultant workspace <span aria-hidden="true">/</span> <strong>CTQ form</strong></div><div class="user-chip"><span class="avatar" aria-hidden="true">JD</span> Jordan Davis</div></header>
       <section class="content" aria-labelledby="page-title">
-        <div class="heading-row"><div><p class="eyebrow">Consultant candidate profile</p><h1 id="page-title">Build your profile &amp; complete CTQ</h1></div><div class="profile-status"><span class="status-dot" aria-hidden="true"></span>Draft in progress</div></div>
-        <p class="lead">Complete the shared eight-step CTQ form once. You can edit every answer until final submission.</p>
-        <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><span><b>One question set, three role scores.</b> The same answers are evaluated using separate approved weightings for Consultant, Strategic Advisor, and Project Manager. Your fit for other roles may be recommended from those results.</span></div>
-        <section class="score-preview" aria-label="Role-specific CTQ scores">
-          <div class="score-preview-head"><div><strong>Your CTQ results by role</strong><span>Calculated after you submit your answers</span></div><span class="score-preview-tag">Illustrative</span></div>
-          <div class="score-preview-grid">
-            <div class="score-preview-card"><span>Consultant</span><strong>—</strong><small>Role-specific weighting</small></div>
-            <div class="score-preview-card"><span>Strategic Advisor</span><strong>—</strong><small>Role-specific weighting</small></div>
-            <div class="score-preview-card"><span>Project Manager</span><strong>—</strong><small>Role-specific weighting</small></div>
-          </div>
-          <p class="score-preview-foot">A role-fit recommendation can highlight other roles that match your results. Project assignments can use different roles—for example, Consultant on Project A and Strategic Advisor on Project B.</p>
-        </section>
+        <div class="heading-row"><div><p class="eyebrow">Consultant application</p><h1 id="page-title">Complete your CTQ form</h1></div><div class="profile-status"><span class="status-dot" aria-hidden="true"></span>Draft in progress</div></div>
+        <p class="lead">Complete the eight-step form to share your experience and availability. You can edit every answer until final submission.</p>
+        <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><span><b>Your fit results come after submission.</b> We’ll review your answers for Consultant, Strategic Advisor, and Project Manager opportunities, then show your fit level for each role.</span></div>
         <div class="progress-row" aria-label="Step 1 of 8"><span>Overall progress</span><span class="progress-track"><span class="progress-fill"></span></span><strong>STEP 1 OF 8</strong></div>
         <div class="step-header"><div><span class="step-kicker">Step 1 · CTQ category A</span><h2>Eligibility &amp; Compliance</h2><p>Tell us about your engagement availability, professional references, documentation, and conflicts.</p></div><span class="step-count">5 questions</span></div>
         <form id="ctq-form">
@@ -70,7 +60,7 @@
             <div class="field"><div class="field-head"><label class="field-title" for="conflict"><span class="field-id">A05</span>Conflict of Interest / Non-compete <span aria-hidden="true">*</span></label><span class="badge">Must have · Required</span></div><select id="conflict" name="conflict" required><option value="">Select a status</option><option>Fully clear</option><option>Minor, manageable</option><option>Significant restrictions</option><option>Active conflict</option></select></div>
           </div>
           <div class="bottom"><div class="save-state"><span class="save-icon" aria-hidden="true">✓</span>Your answers are saved as a draft. You can return and edit before final submission.</div><div class="actions"><button class="btn" type="button">Save &amp; exit</button><button class="btn primary" type="button">Continue to Step 2</button></div></div>
-          <p class="footer-note">Next: Industry Experience · 4 steps remain after this one</p>
+          <p class="footer-note">Next: Industry Experience · role-fit results are shown after you submit the full form</p>
         </form>
       </section>
     </main>

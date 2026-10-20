@@ -8,6 +8,7 @@ on:
       - 'OptimIQ_Portal_Login_Concept.html'
       - 'OptimIQ_Consultant_Terms_Declarations.html'
       - 'OptimIQ_Consultant_Profile_CTQ_Stepper.html'
+      - 'OptimIQ_Consultant_Role_Fit_Selection.html'
       - 'OptimIQ_Client_Workspace_Concept.html'
       - 'OptimIQ_Consultant_Workspace_Concept.html'
       - 'OptimIQ_Consulting_Firm_Workspace_Concept.html'
@@ -36,7 +37,7 @@ jobs:
       - name: Assemble the HTML and CSS client review site
         run: |
           mkdir _site
-          cp index.html OptimIQ_Portal_Login_Concept.html OptimIQ_Consultant_Terms_Declarations.html OptimIQ_Consultant_Profile_CTQ_Stepper.html OptimIQ_Client_Workspace_Concept.html OptimIQ_Consultant_Workspace_Concept.html OptimIQ_Consulting_Firm_Workspace_Concept.html OptimIQ_Admin_Workspace_Concept.html portal-demo.css OptimIQ_Consultus_Logo.png OptimIQ_Short_logo.png OptimIQ_Portal_Screen_Approval_Inventory.xlsx _site/
+          cp index.html OptimIQ_Portal_Login_Concept.html OptimIQ_Consultant_Terms_Declarations.html OptimIQ_Consultant_Profile_CTQ_Stepper.html OptimIQ_Consultant_Role_Fit_Selection.html OptimIQ_Client_Workspace_Concept.html OptimIQ_Consultant_Workspace_Concept.html OptimIQ_Consulting_Firm_Workspace_Concept.html OptimIQ_Admin_Workspace_Concept.html portal-demo.css OptimIQ_Consultus_Logo.png OptimIQ_Short_logo.png OptimIQ_Portal_Screen_Approval_Inventory.xlsx _site/
           touch _site/.nojekyll
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3

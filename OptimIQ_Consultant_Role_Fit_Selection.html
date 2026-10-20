@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consultant role fit results and role selection screen concept for OptimIQ Consultus.">
+  <title>Your role fit results — OptimIQ Consultus</title>
+  <link rel="stylesheet" href="portal-demo.css">
+  <style>
+    body{min-width:320px;min-height:100vh;background:var(--canvas)}
+    .shell{min-height:100vh;display:grid;grid-template-columns:258px minmax(0,1fr)}
+    .rail{display:flex;flex-direction:column;gap:22px;padding:24px 18px;background:linear-gradient(160deg,#062d27,#07382f);color:#eaf6f1}
+    .brand{display:flex;align-items:center;gap:12px;padding:0 4px}.brand img{width:44px;height:44px;object-fit:contain;border-radius:10px;background:#dff3eb}.brand-wordmark{line-height:1.05}.brand-wordmark b{display:block;color:#abf2d5;font-size:20px;letter-spacing:-.04em}.brand-wordmark small{display:block;margin-top:3px;color:#f1f5f3;font:14px Georgia,serif}
+    .workspace-label{padding:11px 12px;border:1px solid #ffffff2c;border-radius:12px;background:#ffffff08}.workspace-label small{display:block;color:#91c5b2;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.workspace-label strong{display:block;margin-top:4px;color:#fff;font-size:12px}
+    .nav-heading{padding:0 9px;color:#91c5b2;font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.nav{display:grid;gap:4px;margin-top:-18px}.nav a{display:flex;align-items:center;gap:9px;padding:9px;border-radius:10px;color:#b9d4ca;font-size:10px;line-height:1.35;text-decoration:none}.nav a.active{background:#ffffff10;color:#fff;font-weight:750;box-shadow:inset 3px 0 #42b493}.nav-number{width:22px;height:22px;flex:none;display:grid;place-items:center;border:1px solid #ffffff32;border-radius:50%;font-size:9px}.nav a.active .nav-number{border-color:#42b493;background:#288e76;color:#fff}.rail-note{margin-top:auto;padding:13px 9px 3px;border-top:1px solid #ffffff26;color:#bbd5cb;font-size:10px;line-height:1.55}
+    main{min-width:0;padding:23px clamp(18px,4vw,55px) 34px;background:#fbfcfb}.topbar{display:flex;justify-content:space-between;align-items:center;gap:13px;margin-bottom:30px}.crumb{color:#77837f;font-size:11px}.crumb strong{color:var(--ink)}.user{display:flex;align-items:center;gap:9px;color:#687b74;font-size:10px}.avatar{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#dff0e8;color:#236e59;font-weight:800}
+    .content{width:min(100%,1040px);margin:0 auto}.eyebrow{margin:0 0 7px;color:#27836e;font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;color:var(--forest);font-size:clamp(28px,3.5vw,40px);line-height:1.12;letter-spacing:-.045em}.lead{max-width:760px;margin:10px 0 22px;color:#71817b;font-size:13px;line-height:1.65}.complete{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #d5e8df;border-radius:999px;background:#f4faf7;color:#3a7661;font-size:9px;font-weight:750;white-space:nowrap}.complete i{width:7px;height:7px;border-radius:50%;background:#50aa88}
+    .fit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.fit-card{position:relative;display:flex;flex-direction:column;min-width:0;padding:17px;border:1px solid #dce8e2;border-radius:15px;background:#fff;box-shadow:0 8px 20px #153e3310}.fit-card.best{border-color:#8dc5b1;box-shadow:0 10px 24px #1a76541a}.fit-card.low{background:#f8faf9}.fit-label{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#819089;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.fit-rank{padding:6px 8px;border-radius:999px;background:#e7f4ed;color:#28775e;font-size:9px;font-weight:800;letter-spacing:0;text-transform:none;white-space:nowrap}.moderate .fit-rank{background:#fff4df;color:#86621e}.low .fit-rank{background:#eef1ef;color:#65756e}.fit-card h2{margin:15px 0 6px;color:var(--forest);font-size:18px}.fit-desc{min-height:38px;margin:0;color:#708078;font-size:10px;line-height:1.5}.fit-divider{height:1px;margin:15px 0 12px;background:#e8eeeb}.choose{display:flex;align-items:flex-start;gap:9px;margin-top:auto;padding:10px;border:1px solid #dfe9e4;border-radius:10px;color:#31584a;font-size:10px;font-weight:750;line-height:1.4;cursor:pointer}.choose input{width:16px;height:16px;flex:none;margin:0;accent-color:#1b755e}.choose:has(input:disabled){color:#8b9791;background:#f4f6f5;cursor:not-allowed}.choose-note{display:block;margin:7px 0 0 26px;color:#8b9791;font-size:8px;line-height:1.45}
+    .selection-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;padding:15px 16px;border:1px solid #dce8e2;border-radius:13px;background:#f1f8f4}.selection-copy strong{display:block;color:var(--forest);font-size:11px}.selection-copy span{display:block;margin-top:4px;color:#6f8178;font-size:9px;line-height:1.5}.selection-count{display:block;margin-top:5px;color:#2a745d;font-size:9px;font-weight:750}.primary{min-height:42px;padding:10px 15px;border:1px solid #1b755e;border-radius:9px;background:#1b755e;color:#fff;font:inherit;font-size:10px;font-weight:800;white-space:nowrap;cursor:pointer}.primary:hover{background:#105a48}
+    .privacy-note{display:flex;align-items:flex-start;gap:9px;margin-top:18px;padding:12px 13px;border:1px solid #e1eae6;border-radius:11px;background:#fff;color:#72817b;font-size:9px;line-height:1.55}.privacy-icon{width:20px;height:20px;flex:none;display:grid;place-items:center;border-radius:50%;background:#edf4f0;color:#31745d;font-weight:800}.privacy-note strong{color:#385f51}.foot{margin-top:21px;color:#87958f;font-size:9px}
+    @media(max-width:850px){.shell{grid-template-columns:1fr}.rail{gap:10px;padding:11px 15px}.brand img{width:38px;height:38px}.brand-wordmark b{font-size:17px}.brand-wordmark small{font-size:12px}.workspace-label{padding:8px 10px}.nav-heading,.rail-note{display:none}.nav{display:flex;overflow-x:auto;gap:4px;margin:0;padding-bottom:2px}.nav a{flex:none;padding:7px 8px;font-size:9px}.nav-number{width:19px;height:19px}main{padding:17px 20px 28px}.topbar{margin-bottom:22px}}
+    @media(max-width:650px){.fit-grid{grid-template-columns:1fr}.fit-card{padding:14px}.fit-card h2{margin-top:10px}.fit-desc{min-height:0}.selection-bar{align-items:stretch;flex-direction:column}.primary{width:100%}}
+    @media(max-width:420px){main{padding:14px 12px 23px}.topbar{align-items:flex-start}.crumb{max-width:190px;line-height:1.5}.user{font-size:0}.avatar{font-size:10px}.lead{font-size:11px}.fit-card{padding:12px}.selection-bar{padding:12px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail" aria-label="Consultant application navigation">
+      <div class="brand"><img src="OptimIQ_Short_logo.png" alt=""><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
+      <div class="workspace-label"><small>Consultant application</small><strong>Profile &amp; role fit</strong></div>
+      <div class="nav-heading">Application journey</div>
+      <nav class="nav" aria-label="Application steps">
+        <a href="#"><span class="nav-number">1</span>Registration</a>
+        <a href="#"><span class="nav-number">2</span>Portal sign-in</a>
+        <a href="#"><span class="nav-number">3</span>Terms &amp; declarations</a>
+        <a href="#"><span class="nav-number">4</span>CTQ form · complete</a>
+        <a class="active" href="#" aria-current="step"><span class="nav-number">5</span>Role fit &amp; selection</a>
+      </nav>
+      <div class="rail-note">Choose one role or several roles that match your interests and fit results.</div>
+    </aside>
+    <main>
+      <header class="topbar"><div class="crumb">Consultant workspace <span aria-hidden="true">/</span> <strong>Role fit &amp; selection</strong></div><div class="user"><span class="avatar" aria-hidden="true">JD</span> Jordan Davis</div></header>
+      <section class="content" aria-labelledby="page-title">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap"><div><p class="eyebrow">Your CTQ review is complete</p><h1 id="page-title">Your role fit results</h1></div><span class="complete"><i aria-hidden="true"></i>Assessment complete</span></div>
+        <p class="lead">Your answers have been reviewed for the three consultant roles. Choose the role or roles you want to pursue. You can keep one role or select more than one.</p>
+        <form id="role-selection-form">
+          <div class="fit-grid">
+            <article class="fit-card best">
+              <div class="fit-label"><span>Role fit</span><span class="fit-rank">Best fit</span></div>
+              <h2>Consultant</h2>
+              <p class="fit-desc">Your experience appears to align strongly with Consultant opportunities.</p>
+              <div class="fit-divider"></div>
+              <label class="choose"><input type="checkbox" name="roles" value="consultant" checked><span>Include Consultant in my roles</span></label>
+            </article>
+            <article class="fit-card moderate">
+              <div class="fit-label"><span>Role fit</span><span class="fit-rank">Moderate fit</span></div>
+              <h2>Strategic Advisor</h2>
+              <p class="fit-desc">Your experience may also fit some Strategic Advisor opportunities.</p>
+              <div class="fit-divider"></div>
+              <label class="choose"><input type="checkbox" name="roles" value="strategic-advisor"><span>Include Strategic Advisor in my roles</span></label>
+            </article>
+            <article class="fit-card low">
+              <div class="fit-label"><span>Role fit</span><span class="fit-rank">Low fit</span></div>
+              <h2>Project Manager</h2>
+              <p class="fit-desc">Your current answers show a lower match for Project Manager opportunities.</p>
+              <div class="fit-divider"></div>
+              <label class="choose"><input type="checkbox" name="roles" value="project-manager" disabled><span>Project Manager is not selectable at this fit level</span></label>
+              <span class="choose-note">If you believe this result does not reflect your experience, contact OptimIQ for a review.</span>
+            </article>
+          </div>
+          <div class="selection-bar">
+            <div class="selection-copy"><strong>Your selected roles</strong><span>You can select Consultant only or add Strategic Advisor to your profile.</span><span class="selection-count" id="selection-count" aria-live="polite">1 role selected · Consultant</span></div>
+            <button class="primary" type="submit">Confirm selected roles</button>
+          </div>
+        </form>
+        <div class="privacy-note"><span class="privacy-icon" aria-hidden="true">i</span><span><strong>Your assessment details stay private.</strong> This page shows role-fit categories, not numerical scores or weighting details.</span></div>
+        <p class="foot">Role recommendations are based on the information you submitted. Your role for a project is confirmed separately for each engagement.</p>
+      </section>
+    </main>
+  </div>
+  <script>
+    const form = document.querySelector('#role-selection-form');
+    const count = document.querySelector('#selection-count');
+    const names = { consultant: 'Consultant', 'strategic-advisor': 'Strategic Advisor', 'project-manager': 'Project Manager' };
+    const updateSelection = () => {
+      const selected = [...form.querySelectorAll('input[name="roles"]:checked')].map((input) => names[input.value]);
+      count.textContent = `${selected.length} ${selected.length === 1 ? 'role' : 'roles'} selected${selected.length ? ` · ${selected.join(', ')}` : ''}`;
+    };
+    form.addEventListener('change', updateSelection);
+    form.addEventListener('submit', (event) => event.preventDefault());
+  </script>
+</body>
+</html>
