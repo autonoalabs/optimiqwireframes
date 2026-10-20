@@ -72,7 +72,7 @@
     h2 { margin: 0; color: var(--forest); font-size: 17px; letter-spacing: -.02em; }
     .subheading { color: var(--muted); font-size: 12px; margin-top: 5px; line-height: 1.45; }
     .tag { padding: 6px 9px; border-radius: 999px; color: #267360; background: var(--teal-soft); font-size: 10px; font-weight: 750; white-space: nowrap; }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; gap: 5px; }
+      .steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: relative; gap: 5px; }
     .steps:before { content: ""; position: absolute; left: 12%; right: 12%; top: 15px; height: 2px; background: #cde4da; }
     .step { position: relative; z-index: 1; text-align: center; padding: 0 5px; }
     .dot { display: grid; place-items: center; margin: 0 auto 11px; width: 31px; height: 31px; border: 2px solid #a9d4c5; border-radius: 50%; background: #fff; color: var(--teal); font-size: 12px; font-weight: 750; }
@@ -94,20 +94,21 @@
       .app { grid-template-columns: 255px minmax(0, 1fr); }
       .content-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 720px) {
+    @media (max-width: 820px) {
       .app { grid-template-columns: 1fr; }
-      aside { padding: 12px; gap: 12px; }
-      .brand { justify-content: flex-start; }
-      .brand { min-height: 52px; }
-      .brand img { width: 46px; height: 46px; }
+      aside { padding: 14px 15px; gap: 10px; }
+      .brand { justify-content: flex-start; min-height: 50px; }
+      .brand img { width: 44px; height: 44px; }
       .brand-wordmark b { font-size: 21px; }
       .brand-wordmark small { font-size: 15px; }
-      .workspace-label, .nav-label, .side-bottom { display: none; }
-      nav { display: flex; overflow-x: auto; gap: 5px; padding-bottom: 2px; }
-      nav a { flex: 0 0 auto; padding: 10px; }
-      nav a .icon { display: none; }
-      main { padding: 17px 16px 28px; }
-      .topbar { margin-bottom: 16px; }
+      .workspace-label { display: block; margin: 0; padding: 9px 11px; font-size: 10px; }
+      .nav-label, .side-bottom { display: none; }
+      nav { display: flex; overflow-x: auto; gap: 5px; padding: 0 0 3px; scrollbar-width: thin; }
+      nav a { flex: 0 0 auto; padding: 10px 12px; white-space: nowrap; }
+      nav a .icon { display: inline; }
+      main { padding: 18px 16px 28px; }
+      .topbar { height: auto; min-height: 45px; flex-wrap: wrap; margin-bottom: 18px; }
+      .top-actions { margin-left: auto; }
       .headline { align-items: flex-start; flex-direction: column; }
       .summary-grid { grid-template-columns: 1fr; }
       .summary { min-height: 105px; }
@@ -115,6 +116,18 @@
       .steps:before { display: none; }
       .lower-grid { grid-template-columns: 1fr; }
       .concept { flex-direction: column; gap: 3px; }
+    }
+    @media (max-width: 520px) {
+      body { min-width: 320px; }
+      main { padding: 15px 12px 25px; }
+      .top-actions { width: 100%; justify-content: flex-end; }
+      .role-select { flex: 1; }
+      .concept { font-size: 11px; padding: 11px 12px; }
+      h1 { font-size: 29px; }
+      .intro { font-size: 13px; }
+      .content-grid { grid-template-columns: minmax(0,1fr); }
+      .card { min-width: 0; }
+      .steps { grid-template-columns: repeat(2,minmax(0,1fr)); }
     }
   </style>
 </head>
@@ -150,7 +163,7 @@
         </div>
       </header>
 
-      <div class="concept"><b>Client review concept</b><span>This page demonstrates the logo, theme, role-based navigation, and dashboard layout. Metrics and workflow details are illustrative placeholders for review.</span></div>
+      <div class="concept"><b>Client review concept</b><span>Theme 1 reflects your feedback: required agreements are shown before award and introduction. The agreement types, signatories, and exact order relative to the BRD LOI remain open for clarification.</span></div>
 
       <section class="headline">
         <div>
@@ -185,8 +198,9 @@
           <div class="steps">
             <div class="step"><div class="dot">1</div><div class="step-title">Requirement review</div><div class="step-note">Need assessed by OptimIQ</div></div>
             <div class="step"><div class="dot">2</div><div class="step-title">Curated shortlist</div><div class="step-note">Masked profiles with rationale</div></div>
-            <div class="step"><div class="dot">3</div><div class="step-title">Award &amp; introduction</div><div class="step-note">Controlled steps and approvals</div></div>
-            <div class="step"><div class="dot">4</div><div class="step-title">Engagement</div><div class="step-note">Delivery and follow-up</div></div>
+            <div class="step"><div class="dot">3</div><div class="step-title">Required agreements</div><div class="step-note">Signed before award and introduction</div></div>
+            <div class="step"><div class="dot">4</div><div class="step-title">Award &amp; introduction</div><div class="step-note">Controlled steps; LOI sequence needs confirmation</div></div>
+            <div class="step"><div class="dot">5</div><div class="step-title">Engagement</div><div class="step-note">Delivery and follow-up</div></div>
           </div>
         </article>
         <article class="card activity">
@@ -202,6 +216,7 @@
       <section class="lower-grid">
         <article class="card shortcut"><div><h2>Requirements</h2><p>Follow requirements managed through the OptimIQ process.</p></div><span class="arrow">→</span></article>
         <article class="card shortcut"><div><h2>Engagements</h2><p>Review awards, delivery progress, and related updates.</p></div><span class="arrow">→</span></article>
+        <article class="card shortcut"><div><h2>Project feedback</h2><p>Provide feedback for each completed engagement. How it affects the consultant score remains to be confirmed.</p></div><span class="arrow">→</span></article>
       </section>
       <div class="footer-note">Screen concept for client feedback · Final labels, fields, and workflow details remain subject to approval.</div>
     </main>
