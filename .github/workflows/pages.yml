@@ -1,10 +1,18 @@
-name: Build and publish Theme 1 wireframes
+name: Publish client review screens
 
 on:
   push:
     branches: [main]
     paths:
-      - 'next-app/**'
+      - 'index.html'
+      - 'OptimIQ_Portal_Login_Concept.html'
+      - 'OptimIQ_Client_Workspace_Concept.html'
+      - 'OptimIQ_Consultant_Workspace_Concept.html'
+      - 'OptimIQ_Consulting_Firm_Workspace_Concept.html'
+      - 'OptimIQ_Admin_Workspace_Concept.html'
+      - 'portal-demo.css'
+      - '*.png'
+      - '*.xlsx'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -23,26 +31,15 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install packages
-        working-directory: next-app
-        run: npm install
-      - name: Build static site
-        working-directory: next-app
-        env:
-          NEXT_BASE_PATH: /${{ github.event.repository.name }}
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-        run: npm run build
-      - name: Keep Next.js assets visible to GitHub Pages
-        working-directory: next-app
-        run: touch out/.nojekyll
+      - name: Assemble the HTML and CSS client review site
+        run: |
+          mkdir _site
+          cp index.html OptimIQ_Portal_Login_Concept.html OptimIQ_Client_Workspace_Concept.html OptimIQ_Consultant_Workspace_Concept.html OptimIQ_Consulting_Firm_Workspace_Concept.html OptimIQ_Admin_Workspace_Concept.html portal-demo.css OptimIQ_Consultus_Logo.png OptimIQ_Short_logo.png OptimIQ_Portal_Screen_Approval_Inventory.xlsx _site/
+          touch _site/.nojekyll
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: next-app/out
+          path: _site
 
   deploy:
     environment:

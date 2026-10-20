@@ -1,6 +1,6 @@
 # OptimIQ Theme 1 Wireframes (Next.js)
 
-This folder contains the React/Next.js source for the Theme 1 client-review wireframes. It uses the App Router, TypeScript, shared role-workspace components, and a responsive navigation component.
+This folder contains developer source for the application screens in React/Next.js. It is for developers to clone and build on after client approval. The client reviews the separate HTML/CSS pages at the repository root; GitHub Pages does not publish this folder.
 
 ## Local preview
 
@@ -9,11 +9,11 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Next.js. The review hub links to the client, consultant, consulting firm, and staff/admin workspaces.
+Open the local URL printed by Next.js. The developer preview links to the shared sign-in and role workspace concepts.
 
-## Static GitHub Pages build
+## GitHub Pages
 
-This project uses `output: 'export'`, so `npm run build` creates a static `out/` folder with no runtime server. The GitHub Pages workflow builds and publishes that folder. For local builds, the base path is empty. The workflow sets the repository subpath during the build so assets and links work under `https://<owner>.github.io/<repository>/`.
+GitHub Pages publishes only the HTML/CSS review site from the repository root. This Next.js source is not part of the client-facing Pages artifact.
 
 The static review screens do not call the .NET backend. They are presentation-only concepts; live identity, role permissions, configuration approvals, and business data are outside this wireframe build.
 
