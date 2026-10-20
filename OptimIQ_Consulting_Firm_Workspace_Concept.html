@@ -46,6 +46,6 @@
       <div class="foot">Screen concept · agreement order, commercial amounts, and detailed request fields remain subject to clarification.</div>
     </main>
   </div>
-<script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width: 820px)');const syncMenu=()=>{mobileMenu.open=!menuBreakpoint.matches};syncMenu();menuBreakpoint.addEventListener('change',syncMenu);</script>
+<script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width: 820px)');const syncMenu=()=>document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open);mobileMenu.open=!menuBreakpoint.matches;mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&(!mobileMenu.contains(event.target)||event.target.closest('.mobile-menu a')))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',()=>{mobileMenu.open=!menuBreakpoint.matches;syncMenu()});syncMenu();</script>
 </body>
 </html>

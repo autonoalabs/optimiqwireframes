@@ -28,17 +28,25 @@
     @media(max-width:700px){.shell{grid-template-columns:1fr}.rail{gap:10px;padding:12px 15px}.brand img{width:40px;height:40px}.brand-wordmark b{font-size:18px}.brand-wordmark small{font-size:13px}.side-label{display:none}.side-flow{display:flex;overflow-x:auto;gap:5px;margin:0;padding-bottom:2px}.flow-item{flex:none;padding:8px 10px;font-size:10px}.flow-dot{width:20px;height:20px}.rail-note{display:none}main{padding:17px 17px 28px}.topbar{margin-bottom:25px}.content{width:100%}}
     @media(max-width:470px){main{padding:15px 13px 23px}.topbar{align-items:flex-start;margin-bottom:21px}.crumb{max-width:180px;line-height:1.5}.user-chip{font-size:0}.avatar{font-size:11px}.section-title{align-items:flex-start;flex-direction:column;gap:4px}.document{grid-template-columns:34px minmax(0,1fr);gap:9px;padding:11px}.doc-icon{width:32px;height:32px}.doc-action{grid-column:2;justify-self:start}.detail{grid-column:1 / 3}.bottom{align-items:stretch;flex-direction:column}.continue{width:100%}.next-hint{text-align:left}.progress{gap:7px}}
   </style>
+  <style>
+    @media(max-width:700px){body.navigation-open{overflow:hidden}body.navigation-open::before{content:"";position:fixed;inset:0;z-index:999;background:rgb(3 24 20 / 58%)}body.navigation-open .shell>.rail{position:fixed;inset:0 auto 0 0;z-index:1000;width:min(86vw,320px);height:100dvh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;padding:calc(14px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));box-shadow:14px 0 40px rgb(0 0 0 / 20%)}.mobile-menu>summary{display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 12px;border:1px solid #ffffff30;border-radius:11px;background:#ffffff0a;color:#fff;font-size:12px;font-weight:750;list-style:none;cursor:pointer}.mobile-menu>summary::-webkit-details-marker{display:none}.mobile-menu>summary:after{content:"▾";margin-left:auto;color:#91c5b2}.mobile-menu[open]>summary:after{content:"▴"}.mobile-menu-panel{display:none}.mobile-menu[open] .mobile-menu-panel{display:block;max-height:none;overflow:visible;margin-top:8px;padding:9px;border:1px solid #ffffff22;border-radius:12px;background:#052a25}.mobile-menu-panel .side-label{display:block;padding:2px 8px 8px}.side-flow{display:grid;overflow:visible;gap:4px;margin:0;padding:0}.flow-item{padding:10px 9px;font-size:10px}.rail-note{display:none}}
+  </style>
 </head>
 <body>
   <div class="shell">
     <aside class="rail" aria-label="Consultant onboarding progress">
       <div class="brand"><img src="OptimIQ_Short_logo.png" alt=""><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
+      <details class="mobile-menu terms-menu">
+        <summary>☰ <span>Consultant onboarding</span></summary>
+        <div class="mobile-menu-panel">
       <div class="side-label">Consultant onboarding</div>
       <nav class="side-flow" aria-label="Onboarding steps">
         <div class="flow-item done"><span class="flow-dot">✓</span><span>Roles selected during CTA</span></div>
         <div class="flow-item active" aria-current="step"><span class="flow-dot">2</span><span>Terms &amp; declarations</span></div>
         <div class="flow-item"><span class="flow-dot">3</span><span>Profile &amp; CTQ</span></div>
       </nav>
+        </div>
+      </details>
       <div class="rail-note">Your consultant role selection was captured on the public CTA form. This step records your review of the platform terms and declarations.</div>
     </aside>
     <main>
@@ -80,5 +88,6 @@
     }));
     acceptance.addEventListener('change', () => { continueButton.disabled = !acceptance.checked; });
   </script>
+<script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width:700px)');const syncMenu=()=>{if(!menuBreakpoint.matches)mobileMenu.open=true;document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open)};mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&!mobileMenu.contains(event.target))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',syncMenu);syncMenu();</script>
 </body>
 </html>

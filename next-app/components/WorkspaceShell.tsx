@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 
 export type NavigationItem = { label: string; href?: string };
@@ -24,9 +24,21 @@ export default function WorkspaceShell({ workspace, section, active, navigation,
   const [menuOpen, setMenuOpen] = useState(false);
   const overviewHref = workspace === 'Client workspace' ? '/client/' : workspace === 'Expert workspace' ? '/consultant/' : workspace === 'Firm workspace' ? '/consulting-firm/' : '/admin/';
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setMenuOpen(false); };
+    document.body.classList.add('navigation-open');
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.body.classList.remove('navigation-open');
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [menuOpen]);
+
   return (
-    <div className="workspace-app">
-      <aside className="workspace-sidebar" aria-label={`${workspace} navigation`}>
+    <div className={`workspace-app${menuOpen ? ' workspace-app--menu-open' : ''}`}>
+      {menuOpen && <button className="workspace-menu-backdrop" type="button" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
+      <aside className={`workspace-sidebar${menuOpen ? ' workspace-sidebar--open' : ''}`} aria-label={`${workspace} navigation`}>
         <Link className="workspace-brand" href="/" aria-label="OptimIQ Consultus home">
           <img src={`${basePath}/OptimIQ_Short_logo.png`} alt="" />
           <span><strong>OptimIQ</strong><small>Consultus</small></span>

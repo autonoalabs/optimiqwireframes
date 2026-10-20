@@ -147,13 +147,13 @@ h1, h2, h3, p { margin-block-start: 0; }
   .screen-grid { grid-template-columns: 1fr; }
   .screen-card { min-height: 0; }
   .workspace-app { grid-template-columns: minmax(0, 1fr); }
-  .workspace-sidebar { position: relative; height: auto; overflow: visible; gap: 11px; padding: 12px; }
+  .workspace-sidebar { position: relative; z-index: auto; height: auto; overflow: visible; gap: 11px; padding: 12px; }
   .workspace-brand { min-height: 44px; }
   .workspace-brand img { width: 40px; }
   .workspace-label { padding: 9px 11px; font-size: .66rem; }
   .mobile-menu-button { display: flex; width: 100%; align-items: center; gap: 10px; padding: 11px 12px; border: 1px solid rgb(255 255 255 / 20%); border-radius: 11px; color: #fff; background: rgb(255 255 255 / 5%); text-align: start; cursor: pointer; }
   .mobile-menu-chevron { margin-inline-start: auto; color: #91c5b2; }
-  .workspace-menu { display: none; max-height: min(60vh, 420px); overflow-y: auto; margin-block-start: 7px; padding: 9px; border: 1px solid rgb(255 255 255 / 13%); border-radius: 12px; background: #052a25; }
+  .workspace-menu { display: none; max-height: none; overflow: visible; margin-block-start: 7px; padding: 9px; border: 1px solid rgb(255 255 255 / 13%); border-radius: 12px; background: #052a25; }
   .workspace-menu--open { display: grid; }
   .workspace-menu__label { padding: 3px 8px 5px; }
   .workspace-menu__link { min-height: 42px; white-space: normal; }
@@ -168,6 +168,11 @@ h1, h2, h3, p { margin-block-start: 0; }
   .login-page { grid-template-columns: minmax(0, 1fr); }
   .login-brand-panel { min-height: 180px; padding: 24px 20px; }
   .login-form-panel { padding: 30px 20px 40px; }
+  body.navigation-open { overflow: hidden; }
+  .workspace-menu-backdrop { position: fixed; inset: 0; z-index: 999; border: 0; background: rgb(3 24 20 / 58%); }
+  .workspace-sidebar--open { position: fixed; inset: 0 auto 0 0; z-index: 1000; width: min(86vw, 320px); height: 100dvh; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain; padding: calc(14px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom)); box-shadow: 14px 0 40px rgb(0 0 0 / 20%); }
+  .workspace-sidebar--open .workspace-menu { max-height: none; }
+  .mobile-menu-button { min-height: 44px; touch-action: manipulation; }
 }
 @media (max-width: 420px) {
   .review-brand img { width: 52px; }

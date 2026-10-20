@@ -24,12 +24,18 @@
     @media(max-width:700px){.shell{grid-template-columns:1fr}.rail{gap:10px;padding:11px 14px}.brand img{width:38px;height:38px}.brand-wordmark b{font-size:17px}.brand-wordmark small{font-size:12px}.role-label{padding:8px 10px}.side-heading,.rail-note{display:none}.step-list{display:flex;overflow-x:auto;gap:4px;margin:0;padding-bottom:2px}.step-link{flex:none;padding:7px 8px;font-size:9px}.step-number{width:19px;height:19px}main{padding:15px 15px 25px}.topbar{margin-bottom:21px}.heading-row{align-items:flex-start;flex-direction:column}.profile-status{padding:6px 8px}.content{width:100%}}
     @media(max-width:450px){.rail{padding:9px 11px}.role-label strong{font-size:11px}main{padding:13px 12px 22px}.topbar{align-items:flex-start}.crumb{max-width:180px;line-height:1.5}.user-chip{font-size:0}.avatar{font-size:10px}.lead{font-size:11px}.notice{padding:10px;font-size:9px}.progress-row{gap:7px}.step-header{padding:12px}.step-header h2{font-size:15px}.field{padding:11px}.bottom{align-items:stretch;flex-direction:column}.actions{width:100%}.btn{flex:1}.footer-note{text-align:left}}
   </style>
+  <style>
+    @media(max-width:700px){body.navigation-open{overflow:hidden}body.navigation-open::before{content:"";position:fixed;inset:0;z-index:999;background:rgb(3 24 20 / 58%)}body.navigation-open .shell>.rail{position:fixed;inset:0 auto 0 0;z-index:1000;width:min(86vw,320px);height:100dvh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;padding:calc(14px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));box-shadow:14px 0 40px rgb(0 0 0 / 20%)}.mobile-menu>summary{display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 12px;border:1px solid #ffffff30;border-radius:11px;background:#ffffff0a;color:#fff;font-size:12px;font-weight:750;list-style:none;cursor:pointer}.mobile-menu>summary::-webkit-details-marker{display:none}.mobile-menu>summary:after{content:"▾";margin-left:auto;color:#91c5b2}.mobile-menu[open]>summary:after{content:"▴"}.mobile-menu-panel{display:none}.mobile-menu[open] .mobile-menu-panel{display:block;max-height:none;overflow:visible;margin-top:8px;padding:9px;border:1px solid #ffffff22;border-radius:12px;background:#052a25}.mobile-menu-panel .side-heading{display:block;padding:2px 8px 8px}.step-list{display:grid;overflow:visible;gap:4px;margin:0;padding:0}.step-link{padding:10px 9px;font-size:10px}.rail-note{display:none}}
+  </style>
 </head>
 <body>
   <div class="shell">
     <aside class="rail" aria-label="Consultant profile steps">
       <div class="brand"><img src="OptimIQ_Short_logo.png" alt=""><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
       <div class="role-label"><span><small>Application</small><strong>Consultant CTQ</strong></span><span class="role-tag">8 steps</span></div>
+      <details class="mobile-menu ctq-menu">
+        <summary>☰ <span>CTQ form · 8 steps</span></summary>
+        <div class="mobile-menu-panel">
       <div class="side-heading">CTQ form · 8 steps</div>
       <nav class="step-list" aria-label="Profile and CTQ steps">
         <div class="step-link active" aria-current="step"><span class="step-number">1</span>Eligibility &amp; Compliance</div>
@@ -41,6 +47,8 @@
         <div class="step-link"><span class="step-number">7</span>Demographics &amp; Logistics</div>
         <div class="step-link"><span class="step-number">8</span>Digital Readiness &amp; Commercial</div>
       </nav>
+        </div>
+      </details>
       <div class="rail-note">Complete one form for your Consultant application. Fit recommendations are shared after submission.</div>
     </aside>
     <main>
@@ -65,5 +73,6 @@
       </section>
     </main>
   </div>
+<script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width:700px)');const syncMenu=()=>{if(!menuBreakpoint.matches)mobileMenu.open=true;document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open)};mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&!mobileMenu.contains(event.target))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',syncMenu);syncMenu();</script>
 </body>
 </html>

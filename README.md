@@ -7,6 +7,7 @@ The client approved Theme 1. The client-facing review site is a simple HTML/CSS 
 - Static HTML/CSS pages for client review, published from the repository root by `.github/workflows/pages.yml`.
 - React with TypeScript and Next.js for the developer handoff after screen approval.
 - The eventual .NET backend is not connected to these presentation-only wireframes.
+- Keep every audience screen responsive. Use a persistent left sidebar on desktop and the same vertical navigation in a left-edge drawer on mobile; avoid horizontal scrolling navigation on mobile. Apply this pattern in both the static review pages and the Next.js developer screens.
 
 ## Local preview
 
