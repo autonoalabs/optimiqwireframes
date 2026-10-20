@@ -2,10 +2,11 @@ import Link from 'next/link';
 import { ScreenStatus } from './ScreenStatus';
 
 const screens = [
-  { title: 'Client workspace', description: 'Client overview, requirements, agreement gate, and project journey.', href: '/client/' },
-  { title: 'Consultant workspace', description: 'Role profiles, CTQ, certification, concurrent assignments, and feedback.', href: '/consultant/' },
-  { title: 'Consulting firm workspace', description: 'One firm account with Seller, Buyer, and Win-and-Staff modes.', href: '/consulting-firm/' },
-  { title: 'Staff / Admin workspace', description: 'Role-based administration and Master Admin configuration approvals.', href: '/admin/' },
+  { title: 'Portal sign-in', description: 'After CTA registration, use the verified email and password to enter the shared portal.', href: '/login/', status: 'Needs clarification' as const },
+  { title: 'Client workspace', description: 'Client overview, requirements, agreement gate, and project journey.', href: '/client/', status: 'Awaiting screen feedback' as const },
+  { title: 'Consultant workspace', description: 'Role profiles, CTQ, certification, concurrent assignments, and feedback.', href: '/consultant/', status: 'Awaiting screen feedback' as const },
+  { title: 'Consulting firm workspace', description: 'One firm account with Seller, Buyer, and Win-and-Staff modes.', href: '/consulting-firm/', status: 'Awaiting screen feedback' as const },
+  { title: 'Staff / Admin workspace', description: 'Role-based administration and Master Admin configuration approvals.', href: '/admin/', status: 'Awaiting screen feedback' as const },
 ];
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -30,7 +31,7 @@ export default function ReviewHome() {
           {screens.map((screen) => (
             <Link className="screen-card" href={screen.href} key={screen.href}>
               <span className="screen-card__content"><span className="screen-card__title">{screen.title}</span><span className="screen-card__description">{screen.description}</span></span>
-              <span className="screen-card__bottom"><ScreenStatus status="Awaiting screen feedback" /><span className="screen-card__arrow" aria-hidden="true">↗</span></span>
+              <span className="screen-card__bottom"><ScreenStatus status={screen.status} /><span className="screen-card__arrow" aria-hidden="true">↗</span></span>
             </Link>
           ))}
         </div>

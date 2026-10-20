@@ -20,6 +20,7 @@ The static review screens do not call the .NET backend. They are presentation-on
 ## Routes
 
 - `/` — Theme 1 review hub and per-screen statuses
+- `/login/` — Shared portal sign-in concept. Account registration, email verification, and password setup happen in the existing public CTA forms before this route.
 - `/client/` — Client workspace concept
 - `/consultant/` — Consultant lifecycle and concurrent assignments
 - `/consulting-firm/` — Seller, Buyer, and Win-and-Staff concepts

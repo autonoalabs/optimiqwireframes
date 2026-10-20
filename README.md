@@ -15,6 +15,7 @@ From `next-app/`, run `npm install`, then `npm run dev`.
 
 ## Review screens
 
+- Shared portal sign-in
 - Client workspace
 - Consultant workspace
 - Consulting firm workspace
