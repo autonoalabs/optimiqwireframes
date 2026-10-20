@@ -3,44 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="OptimIQ Consultus wireframe theme comparison and screen approval hub.">
-  <title>OptimIQ Consultus — Wireframe Approval</title>
+  <meta name="description" content="OptimIQ Consultus Theme 1 screen approval hub.">
+  <title>OptimIQ Consultus — Theme 1 Screen Review</title>
   <link rel="stylesheet" href="portal-demo.css">
   <style>
     body { min-width: 320px; background: var(--canvas); }
     .page { max-width: 1240px; margin: 0 auto; padding: 30px 28px 54px; }
-    .masthead { display:flex; justify-content:space-between; align-items:center; gap:22px; margin-bottom:30px; }
+    .masthead { display:flex; justify-content:space-between; align-items:center; gap:22px; margin-bottom:26px; }
     .brand { display:flex; align-items:center; gap:17px; }
-    .brand img { width:112px; height:112px; object-fit:contain; border-radius:14px; }
+    .brand img { width:92px; height:92px; object-fit:contain; border-radius:14px; }
     .brandcopy small { color:var(--teal); font-size:10px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
     .brandcopy h1 { margin-top:5px; font-size:29px; }
     .brandcopy p { margin:7px 0 0; color:var(--muted); font-size:12px; }
-    .review-state { padding:9px 13px; border-radius:999px; background:#fff5df; border:1px solid #f0dfbb; color:#76551c; font-size:11px; font-weight:750; white-space:nowrap; }
+    .review-state { padding:9px 13px; border-radius:999px; background:#e5f4ed; border:1px solid #c8e5d7; color:#216348; font-size:11px; font-weight:750; white-space:nowrap; }
+    .intro { margin:0 0 22px; max-width:850px; color:var(--muted); line-height:1.6; }
+    .approval-note { margin:0 0 22px; padding:14px 16px; border-left:4px solid var(--teal); border-radius:9px; background:#eaf5f1; color:#456b60; font-size:12px; line-height:1.55; }
+    .approval-note b { color:var(--forest); }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin:25px 0 13px; }
+    .section-head h2 { font-size:19px; }
+    .section-head p { margin:5px 0 0; color:var(--muted); font-size:11px; }
+    .screens { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .screen-card { display:flex; flex-direction:column; gap:12px; min-height:165px; padding:17px; border:1px solid var(--line); border-radius:15px; background:#fff; box-shadow:var(--shadow); color:var(--ink); text-decoration:none; transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease; }
+    .screen-card:hover { transform:translateY(-2px); border-color:#8dc5b1; box-shadow:0 9px 24px #0f2e2912; }
+    .screen-card-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+    .screen-name { font-size:15px; font-weight:780; }
+    .screen-desc { display:block; margin-top:5px; color:var(--muted); font-size:11px; line-height:1.5; }
+    .arrow { color:var(--teal); font-size:19px; font-weight:700; }
+    .status { align-self:flex-start; padding:6px 9px; border-radius:999px; background:#fff5df; color:#76551c; border:1px solid #f0dfbb; font-size:10px; font-weight:750; white-space:nowrap; }
     .tracker-link { color:var(--forest); font-size:11px; font-weight:750; text-decoration:none; padding:9px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; white-space:nowrap; }
     .tracker-link:hover { border-color:var(--teal); color:var(--teal); }
-    .intro { margin:0 0 23px; max-width:850px; }
-    .options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; align-items:stretch; }
-    .option { overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow); }
-    .option-head { padding:22px 22px 18px; background:linear-gradient(120deg,#e7f4ef,#fff); border-bottom:1px solid var(--line); }
-    .option.existing .option-head { background:linear-gradient(120deg,#f0f2f3,#fff); }
-    .option-title { display:flex; align-items:center; gap:10px; }
-    .option-title h2 { font-size:20px; }
-    .badge { padding:5px 9px; border-radius:999px; background:#dff0ea; color:#236856; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
-    .existing .badge { background:#edf0f1; color:#59666a; }
-    .option-head p { margin:9px 0 0; max-width:510px; color:var(--muted); font-size:12px; line-height:1.55; }
-    .screen-list { display:grid; gap:9px; padding:16px; }
-    .screen-link { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:61px; padding:12px 14px; border:1px solid #e6efeb; border-radius:12px; color:var(--ink); text-decoration:none; background:#fff; transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease; }
-    .screen-link:hover { transform:translateY(-1px); border-color:#8dc5b1; box-shadow:0 6px 16px #0f2e2910; }
-    .existing .screen-link:hover { border-color:#aab6b2; }
-    .screen-name { display:block; font-size:13px; font-weight:750; }
-    .screen-desc { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
-    .arrow { color:var(--teal); font-size:18px; font-weight:700; }
-    .existing .arrow { color:#65736e; }
-    .review-note { margin-top:20px; padding:15px 17px; border-left:4px solid var(--teal); border-radius:9px; background:#eaf5f1; color:#456b60; font-size:11px; line-height:1.55; }
-    .review-note b { color:var(--forest); }
     footer { margin-top:22px; display:flex; justify-content:space-between; gap:15px; color:#879c95; font-size:10px; }
-    @media(max-width:850px) { .options{grid-template-columns:1fr;} }
-    @media(max-width:560px) { .page{padding:18px 13px 36px}.masthead{align-items:flex-start;flex-direction:column}.brand img{width:82px;height:82px}.brandcopy h1{font-size:23px}.option-head{padding:18px}.screen-list{padding:11px}footer{flex-direction:column} }
+    @media(max-width:700px) { .screens{grid-template-columns:1fr;} }
+    @media(max-width:560px) { .page{padding:18px 13px 36px}.masthead{align-items:flex-start;flex-direction:column}.brand{align-items:flex-start}.brand img{width:68px;height:68px}.brandcopy h1{font-size:23px}.section-head{align-items:flex-start;flex-direction:column}.screen-card{min-height:0}footer{flex-direction:column} }
   </style>
 </head>
 <body>
@@ -48,38 +42,22 @@
     <header class="masthead">
       <div class="brand">
         <img src="OptimIQ_Consultus_Logo.png" alt="OptimIQ Consultus logo">
-        <div class="brandcopy"><small>Client design review</small><h1>Wireframe approval</h1><p>Compare the two visual directions and open a screen to review it.</p></div>
+        <div class="brandcopy"><small>Client design review</small><h1>Theme 1 screen review</h1><p>OptimIQ Consultus workspace concept</p></div>
       </div>
-      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><a class="tracker-link" href="OptimIQ_Portal_Screen_Approval_Inventory.xlsx" download>Download feedback tracker</a><div class="review-state">Awaiting client feedback</div></div>
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><a class="tracker-link" href="OptimIQ_Portal_Screen_Approval_Inventory.xlsx" download>Download feedback tracker</a><div class="review-state">Theme 1 approved</div></div>
     </header>
-    <p class="intro">Choose a theme, then select a screen name to open that page. The screens are design concepts; any item marked as illustrative or awaiting clarification should be reviewed as such.</p>
-    <section class="options" aria-label="Theme options">
-      <article class="option">
-        <div class="option-head">
-          <div class="option-title"><h2>Theme 1</h2><span class="badge">Design proposal</span></div>
-          <p>Uses the OptimIQ workspace direction shown here: a deep green role sidebar, mint accents, and a light main workspace. Role-based pages share the same visual system.</p>
-        </div>
-        <div class="screen-list">
-          <a class="screen-link" href="OptimIQ_Client_Workspace_Concept.html" target="_blank" rel="noopener"><span><span class="screen-name">Client workspace</span><span class="screen-desc">Client overview and managed journey</span></span><span class="arrow">↗</span></a>
-          <a class="screen-link" href="OptimIQ_Consultant_Workspace_Concept.html" target="_blank" rel="noopener"><span><span class="screen-name">Consultant workspace</span><span class="screen-desc">Role profiles, CTQ, score, and certification</span></span><span class="arrow">↗</span></a>
-          <a class="screen-link" href="OptimIQ_Consulting_Firm_Workspace_Concept.html" target="_blank" rel="noopener"><span><span class="screen-name">Consulting Firm workspace</span><span class="screen-desc">One firm account with Seller, Buyer, and Win-and-Staff modes</span></span><span class="arrow">↗</span></a>
-          <a class="screen-link" href="OptimIQ_Admin_Workspace_Concept.html" target="_blank" rel="noopener"><span><span class="screen-name">Staff / Admin workspace</span><span class="screen-desc">Role-based administration and Master Admin approvals</span></span><span class="arrow">↗</span></a>
-        </div>
-      </article>
-      <article class="option existing">
-        <div class="option-head">
-          <div class="option-title"><h2>Theme 2</h2><span class="badge">Current demo</span></div>
-          <p>Opens the current “Design 2 (Light Modern)” demo. Select a page below to open the demo directly to that screen.</p>
-        </div>
-        <div class="screen-list">
-          <a class="screen-link" href="existing-theme/OptimIQ_Client_Demo_Design2.html#page-public" target="_blank" rel="noopener"><span><span class="screen-name">Public page</span><span class="screen-desc">Existing public-facing demo screen</span></span><span class="arrow">↗</span></a>
-          <a class="screen-link" href="existing-theme/OptimIQ_Client_Demo_Design2.html#page-expert" target="_blank" rel="noopener"><span><span class="screen-name">Expert dashboard</span><span class="screen-desc">Existing expert dashboard demo</span></span><span class="arrow">↗</span></a>
-          <a class="screen-link" href="existing-theme/OptimIQ_Client_Demo_Design2.html#page-admin" target="_blank" rel="noopener"><span><span class="screen-name">Admin MIS dashboard</span><span class="screen-desc">Existing admin panel demo</span></span><span class="arrow">↗</span></a>
-        </div>
-      </article>
+    <p class="intro">Theme 1 is the approved visual direction. Open each role workspace below to review its screen design. Screen approval is tracked separately from theme approval.</p>
+    <div class="approval-note"><b>Review status:</b> Theme 1 has been approved. The individual workspace screens are awaiting screen-specific feedback and approval.</div>
+    <section aria-labelledby="workspace-screens">
+      <div class="section-head"><div><h2 id="workspace-screens">Workspace screens</h2><p>Select a screen to open its review page.</p></div></div>
+      <div class="screens">
+        <a class="screen-card" href="OptimIQ_Client_Workspace_Concept.html"><span class="screen-card-top"><span><span class="screen-name">Client workspace</span><span class="screen-desc">Client overview, requirements, agreement gate, and project journey</span></span><span class="arrow" aria-hidden="true">↗</span></span><span class="status">Awaiting screen feedback</span></a>
+        <a class="screen-card" href="OptimIQ_Consultant_Workspace_Concept.html"><span class="screen-card-top"><span><span class="screen-name">Consultant workspace</span><span class="screen-desc">Role profiles, CTQ, certification, concurrent assignments, and feedback</span></span><span class="arrow" aria-hidden="true">↗</span></span><span class="status">Awaiting screen feedback</span></a>
+        <a class="screen-card" href="OptimIQ_Consulting_Firm_Workspace_Concept.html"><span class="screen-card-top"><span><span class="screen-name">Consulting firm workspace</span><span class="screen-desc">One firm account with Seller, Buyer, and Win-and-Staff modes</span></span><span class="arrow" aria-hidden="true">↗</span></span><span class="status">Awaiting screen feedback</span></a>
+        <a class="screen-card" href="OptimIQ_Admin_Workspace_Concept.html"><span class="screen-card-top"><span><span class="screen-name">Staff / Admin workspace</span><span class="screen-desc">Role-based administration and Master Admin configuration approvals</span></span><span class="arrow" aria-hidden="true">↗</span></span><span class="status">Awaiting screen feedback</span></a>
+      </div>
     </section>
-    <div class="review-note"><b>How feedback is recorded:</b> download the approval inventory, then enter the client’s decision and requested changes in the matching screen row and the Theme &amp; Review section. No concept is marked approved until the client explicitly approves it.</div>
-    <footer><span>OptimIQ Consultus · Wireframe approval hub</span><span>Static site prepared for GitHub Pages</span></footer>
+    <footer><span>OptimIQ Consultus · Theme 1 screen review</span><span>Feedback is recorded in the approval inventory.</span></footer>
   </main>
 </body>
 </html>
