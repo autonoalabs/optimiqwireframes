@@ -16,7 +16,7 @@
     </aside>
     <main>
       <header class="topbar"><div class="crumb">Staff portal / <b>Administration</b></div><div class="right"><span class="role">Assigned staff role ▾</span><button class="help" aria-label="Help">?</button></div></header>
-      <div class="concept"><b>Client review concept</b><span>New agreement gates and consultant project feedback can be configured and audited. The agreement/LOI sequence and score treatment of feedback remain open for clarification.</span></div>
+      <div class="concept"><b>Client review concept</b><span>Required agreements must be signed before award and introduction. Agreement details and the LOI sequence still need clarification; consultant feedback is recorded per project, with its score treatment still open.</span></div>
       <p class="eyebrow">OptimIQ staff workspace</p>
       <h1>Administration &amp; platform controls</h1>
       <p class="intro">Review member operations and manage business rules through controlled changes. Each staff member sees only sections and actions assigned to their role.</p>
@@ -29,7 +29,7 @@
         <article class="card">
           <div class="cardhead"><div><h2>Master Admin approval queue</h2><div class="muted">Present each proposed change with its reason, impact, and before/after values.</div></div><span class="tag">Final approval</span></div>
           <div class="queue-wrap"><table class="queue"><thead><tr><th>Change area</th><th>Submitted by</th><th>Review status</th></tr></thead><tbody>
-            <tr><td>Agreement and introduction gate <span class="muted">· proposed</span></td><td>Authorised staff</td><td><span class="status">Needs clarification</span></td></tr>
+            <tr><td>Agreement and introduction gate</td><td>Client decision</td><td><span class="status" style="background:#e7f4ed;color:#267360">Approved</span></td></tr>
             <tr><td>Client feedback score treatment <span class="muted">· proposed</span></td><td>Authorised staff</td><td><span class="status">Needs clarification</span></td></tr>
             <tr><td>Scoring rule change <span class="muted">· example</span></td><td>Authorised staff</td><td><span class="status">Illustrative</span></td></tr>
           </tbody></table></div>
@@ -37,10 +37,10 @@
         </article>
         <article class="card">
           <div class="cardhead"><div><h2>Configuration areas</h2><div class="muted">Sections appear only when allowed for the assigned staff role.</div></div></div>
-          <div class="list"><div class="listrow"><b>Scoring &amp; CTQ</b><span>Open</span></div><div class="listrow"><b>Client feedback by project</b><span>Score treatment open</span></div><div class="listrow"><b>Agreements &amp; introduction gate</b><span>Sequence open</span></div><div class="listrow"><b>Fees &amp; milestones</b><span>Open</span></div><div class="listrow"><b>Masking &amp; identity release</b><span>Open</span></div><div class="listrow"><b>Meetings &amp; integrations</b><span>Open</span></div><div class="listrow"><b>Role permissions</b><span>Clarification</span></div></div>
+          <div class="list"><div class="listrow"><b>Scoring &amp; CTQ</b><span>Open</span></div><div class="listrow"><b>Client feedback by project</b><span>Per-project capture approved · score treatment open</span></div><div class="listrow"><b>Required agreements</b><span>Before award and introduction · approved</span></div><div class="listrow"><b>Agreement details &amp; LOI order</b><span>Open for clarification</span></div><div class="listrow"><b>Fees &amp; milestones</b><span>Open</span></div><div class="listrow"><b>Masking &amp; identity release</b><span>Open</span></div><div class="listrow"><b>Meetings &amp; integrations</b><span>Open</span></div><div class="listrow"><b>Role permissions</b><span>Clarification</span></div></div>
         </article>
       </section>
-      <div class="foot">Screen concept · configuration specifics, role access, and resolved agreement/feedback policies remain subject to confirmation.</div>
+      <div class="foot">Screen concept · Required agreements before award/introduction and project-specific feedback capture are confirmed; unresolved document and score details remain open.</div>
     </main>
   </div>
 <script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width: 820px)');const syncMenu=()=>document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open);mobileMenu.open=!menuBreakpoint.matches;mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&(!mobileMenu.contains(event.target)||event.target.closest('.mobile-menu a')))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',()=>{mobileMenu.open=!menuBreakpoint.matches;syncMenu()});syncMenu();</script>
