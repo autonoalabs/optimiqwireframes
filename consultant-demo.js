@@ -77,11 +77,12 @@
     const sections = [...main.querySelectorAll(':scope > section.card, :scope > section.cards, :scope > section.layout')];
     if (sections.length < 4) return;
     sections[0].dataset.dashboardPhase = '1';
-    const phaseOneSummary = document.createElement('section');
-    phaseOneSummary.className = 'card dashboard-phase-summary';
-    phaseOneSummary.dataset.dashboardPhase = '1';
-    phaseOneSummary.innerHTML = '<div class="cardhead"><div><h2>Phase 1 completion</h2><div class="muted">Registration, terms, the complete CTQ form, and role-fit selection are shown here.</div></div><span class="tag">CTQ complete</span></div><div class="list"><div class="listrow"><b>CTQ form</b><span>Submitted</span></div><div class="listrow"><b>Role fit</b><span>Recommendations reviewed</span></div></div>';
-    sections[0].insertAdjacentElement('afterend', phaseOneSummary);
+    const phaseOneSequence = document.createElement('div');
+    phaseOneSequence.className = 'dashboard-sequence';
+    phaseOneSequence.dataset.dashboardPhase = '1';
+    phaseOneSequence.setAttribute('aria-label', 'Your CTQ and role-fit sequence');
+    phaseOneSequence.innerHTML = '<div class="dashboard-sequence__step dashboard-sequence__step--complete"><span class="dashboard-sequence__mark" aria-hidden="true">✓</span><span><small>Step 1</small><strong>CTQ form</strong></span><em>Submitted</em></div><span class="dashboard-sequence__arrow" aria-hidden="true">→</span><div class="dashboard-sequence__step dashboard-sequence__step--current"><span class="dashboard-sequence__mark" aria-hidden="true">2</span><span><small>Step 2</small><strong>Role fit</strong></span><em>Recommendations</em></div>';
+    sections[0].insertAdjacentElement('beforebegin', phaseOneSequence);
     sections.slice(1).forEach(section => { section.dataset.dashboardPhase = '2'; });
     const tabs = document.createElement('div');
     tabs.className = 'dashboard-phase-tabs';
@@ -89,8 +90,9 @@
     tabs.setAttribute('aria-label', 'Dashboard phases');
     tabs.innerHTML = '<button type="button" aria-pressed="true" data-phase="1">Phase 1 · Registration &amp; CTQ</button><button type="button" aria-pressed="false" data-phase="2">Phase 2 · Projects &amp; ongoing journey</button>';
     tabs.querySelectorAll('button').forEach(button => { button.dataset.demoWired = 'true'; });
-    main.querySelector('.concept')?.insertAdjacentElement('afterend', tabs);
-    if (!main.querySelector('.concept')) main.querySelector('.topbar')?.insertAdjacentElement('afterend', tabs);
+    const title = main.querySelector('h1');
+    if (title) title.insertAdjacentElement('afterend', tabs);
+    else main.querySelector('.topbar')?.insertAdjacentElement('afterend', tabs);
     const selectPhase = (phase) => {
       main.querySelectorAll('[data-dashboard-phase]').forEach(section => { section.hidden = section.dataset.dashboardPhase !== phase; });
       tabs.querySelectorAll('[data-phase]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.phase === phase)));

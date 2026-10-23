@@ -123,6 +123,22 @@
 .page .audience-toggle{font-size:10px}
 @media(max-width:680px){.page .screen-card{min-height:0}.page .audience{padding:12px}}
 
+/* Consultant dashboard: show the Phase 1 journey in a short, readable sequence. */
+.dashboard-sequence{display:flex;align-items:center;gap:15px;margin:0 0 15px;padding:12px 15px;border:1px solid var(--ui-line);border-radius:12px;background:#fff}
+.dashboard-sequence__step{display:flex;min-width:0;align-items:center;gap:9px}
+.dashboard-sequence__mark{display:grid;width:30px;height:30px;flex:none;place-items:center;border:1px solid #9bcdb9;border-radius:50%;color:#fff;background:#288e76;font-size:13px;font-weight:850}
+.dashboard-sequence__step>span:nth-child(2){display:grid;gap:1px}
+.dashboard-sequence__step small{color:var(--ui-muted);font-size:10px}
+.dashboard-sequence__step strong{color:var(--ui-ink);font-size:12px}
+.dashboard-sequence__step em{padding:4px 8px;border-radius:999px;color:#21674f;background:#eaf5ef;font-size:10px;font-style:normal;font-weight:750}
+.dashboard-sequence__step--current .dashboard-sequence__mark{border-color:#a65b08;background:#a65b08}
+.dashboard-sequence__step--current em{color:#80500b;background:#fff1d8}
+.dashboard-sequence__arrow{color:#8b9992;font-size:18px}
+.app>main:has(.dashboard-phase-tabs)>.intro{display:none}
+.app>main:has(.dashboard-phase-tabs)>.eyebrow{margin-bottom:4px}
+.app>main:has(.dashboard-phase-tabs)>h1{margin-bottom:18px}
+@media(max-width:600px){.dashboard-sequence{align-items:flex-start;gap:8px;padding:10px}.dashboard-sequence__step{flex-wrap:wrap;gap:6px}.dashboard-sequence__step em{margin-left:36px}.dashboard-sequence__arrow{padding-top:6px}}
+
 /* Theme 1 shared design system: page shells, type, navigation and controls. */
 :root{
   --ui-forest:#07372f;
