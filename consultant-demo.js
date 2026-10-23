@@ -135,7 +135,7 @@
   }
 
   function addPhaseBadge() {
-    if (file === 'index.html') return;
+    if (file === 'index.html' || file === 'OptimIQ_Consultant_Workspace_Concept.html') return;
     const phase = getPhase();
     let strip = document.createElement('div');
     strip.className = 'phase-strip';
