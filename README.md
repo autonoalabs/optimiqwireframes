@@ -35,6 +35,7 @@ Theme 1 is approved. Individual screen concepts are marked **Awaiting screen fee
 
 ## Shared design decisions
 
+- **Locked approved baseline:** The current consistent Theme 1 structure is the base for all future screen changes. Layer requested changes on top of it; do not invent a new style or alter shared layout, navigation, typography, spacing, sizing, or visual language during ordinary updates. Change the base only when the user explicitly asks, and get their approval before applying a base-level change.
 - Keep typography, sidebar/logo sizing, page spacing, controls, and button treatments consistent across every audience screen. The responsive left sidebar becomes a left-edge drawer on mobile.
 - CTQ question priority is shown with accessible color indicators: red for Must Have / Required, green-teal for Good to Have / Recommended, and neutral gray for Optional.
 - CTQ priority colors are an Admin Portal configuration with these accessible defaults. Color changes are presentational only and must not affect question priority, validation, score, or eligibility. Include a preview in the future Admin color settings.
