@@ -1,25 +1,23 @@
 (() => {
   const PAGES = [
-    ['Public registration', 'https://staging.optimiqconsultus.com/for-consultants-form', '1'],
-    ['Portal sign-in', 'OptimIQ_Portal_Login_Concept.html', '2'],
-    ['Terms & declarations', 'OptimIQ_Consultant_Terms_Declarations.html', '3'],
-    ['CTQ form', 'OptimIQ_Consultant_Profile_CTQ_Stepper.html', '4'],
-    ['Role fit', 'OptimIQ_Consultant_Role_Fit_Selection.html', '5'],
-    ['Profile & assessment', 'OptimIQ_Consultant_Profile_Assessment.html', '6'],
-    ['Workspace overview', 'OptimIQ_Consultant_Workspace_Concept.html', '7'],
-    ['Opportunities', 'OptimIQ_Consultant_Opportunities.html', '8'],
-    ['Project agreements', 'OptimIQ_Consultant_Agreement_Gate.html', '9'],
-    ['Engagements', 'OptimIQ_Consultant_Engagements.html', '10'],
-    ['Payments & invoices', 'OptimIQ_Consultant_Payments_Invoices.html', '11'],
-    ['Communications', 'OptimIQ_Consultant_Communications.html', '12'],
-    ['Project calendar', 'OptimIQ_Consultant_Project_Calendar.html', '13'],
-    ['Performance & CPD', 'OptimIQ_Consultant_Performance_CPD.html', '14'],
-    ['Project documents', 'OptimIQ_Consultant_Project_Documents.html', '15'],
+    ['Terms & declarations', 'OptimIQ_Consultant_Terms_Declarations.html', '1'],
+    ['CTQ form', 'OptimIQ_Consultant_Profile_CTQ_Stepper.html', '2'],
+    ['Role fit', 'OptimIQ_Consultant_Role_Fit_Selection.html', '3'],
+    ['Profile & assessment', 'OptimIQ_Consultant_Profile_Assessment.html', '4'],
+    ['Opportunities', 'OptimIQ_Consultant_Opportunities.html', '5'],
+    ['Project agreements', 'OptimIQ_Consultant_Agreement_Gate.html', '6'],
+    ['Engagements', 'OptimIQ_Consultant_Engagements.html', '7'],
+    ['Payments & invoices', 'OptimIQ_Consultant_Payments_Invoices.html', '8'],
+    ['Communications', 'OptimIQ_Consultant_Communications.html', '9'],
+    ['Project calendar', 'OptimIQ_Consultant_Project_Calendar.html', '10'],
+    ['Performance & CPD', 'OptimIQ_Consultant_Performance_CPD.html', '11'],
+    ['Project documents', 'OptimIQ_Consultant_Project_Documents.html', '12'],
   ];
   const file = location.pathname.split('/').pop() || 'index.html';
   const fileToPage = new Map(PAGES.map(([, url]) => [url, true]));
-  const consultantPage = fileToPage.has(file) && file !== 'OptimIQ_Portal_Login_Concept.html';
+  const consultantPage = fileToPage.has(file) || file === 'OptimIQ_Consultant_Workspace_Concept.html';
   const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const roleLabel = (role) => ({'consultant':'Consultant','strategic-advisor':'Strategic Advisor','project-manager':'Project Manager'}[role] || role);
 
   function addNavigation() {
     const rail = document.querySelector('aside.rail, .app > aside');
@@ -40,6 +38,30 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mq.matches) details.open = false; });
     mq.addEventListener('change', sync);
     sync();
+  }
+
+  function addProfileMenu() {
+    if (!consultantPage || file === 'OptimIQ_Portal_Login_Concept.html') return;
+    const right = document.querySelector('header.topbar .right, header.topbar .user, header.topbar .user-chip');
+    if (!right) return;
+    const name = localStorage.getItem('optiq-demo-name') || 'Jordan Davis';
+    const roles = JSON.parse(localStorage.getItem('optiq-demo-roles') || '[]');
+    const activeRole = roleLabel(localStorage.getItem('optiq-demo-active-role') || roles[0] || 'consultant');
+    const initials = name.split(/\s+/).map(part => part[0]).slice(0, 2).join('').toUpperCase();
+    const roleOptions = roles.length ? roles : [];
+    const profile = document.createElement('details');
+    profile.className = 'account-menu';
+    profile.innerHTML = `<summary aria-label="Account menu for ${escapeHtml(name)}"><span class="account-avatar" aria-hidden="true">${escapeHtml(initials)}</span><span class="account-summary"><b>${escapeHtml(name)}</b><small>${escapeHtml(activeRole)} profile</small></span><span class="account-chevron" aria-hidden="true">⌄</span></summary><div class="account-panel"><div class="account-identity"><b>${escapeHtml(name)}</b><span class="account-active-role">${escapeHtml(activeRole)} profile</span></div><a href="OptimIQ_Consultant_Workspace_Concept.html">Dashboard</a><a href="OptimIQ_Consultant_Profile_Assessment.html">Edit profile</a>${roleOptions.length > 1 ? `<div class="account-switch"><span>Switch profile</span>${roleOptions.map(role => `<button type="button" data-profile-role="${escapeHtml(role)}"${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' aria-current="true"' : ''}>${escapeHtml(roleLabel(role))}${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' · Active' : ''}</button>`).join('')}</div>` : ''}<button type="button" class="account-signout">Sign out</button></div>`;
+    right.replaceChildren(profile);
+    profile.querySelectorAll('[data-profile-role]').forEach(button => button.addEventListener('click', () => {
+      localStorage.setItem('optiq-demo-active-role', button.dataset.profileRole);
+      toast(`Switched to ${roleLabel(button.dataset.profileRole)} profile for this demo.`);
+      addProfileMenu();
+    }));
+    profile.querySelector('.account-signout')?.addEventListener('click', () => {
+      ['optiq-demo-email','optiq-demo-roles','optiq-demo-active-role','optiq-demo-name'].forEach(key => localStorage.removeItem(key));
+      go('OptimIQ_Portal_Login_Concept.html');
+    });
   }
 
   function getPhase() {
@@ -83,7 +105,7 @@
     const grouped = fields.reduce((m,f) => ((m[f.categoryCode] ||= []).push(f),m),{});
     const categories = Object.entries(grouped);
     const saved = JSON.parse(localStorage.getItem('optiq-demo-ctq') || '{}');
-    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Complete the client-provided CTQ questions. Your answers can be changed until final submission. This demo keeps draft answers in this browser and does not calculate or display scores.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>Overall progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">STEP 1 OF 8</strong></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([code,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><span class="save-state" aria-live="polite">Draft answers saved on this device</span><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
+    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Complete the client-provided CTQ questions. Your answers can be changed until final submission. This demo keeps draft answers in this browser and does not calculate or display scores.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">CTQ SECTION 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><span class="save-state" aria-live="polite">Draft answers saved on this device</span><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
     const container = form.querySelector('#ctq-step-container');
     categories.forEach(([code, group], index) => {
       const section = document.createElement('section');
@@ -91,14 +113,15 @@
       section.hidden = index !== 0;
       section.dataset.step = index;
       const label = group[0].category;
-      section.innerHTML = `<div class="step-header"><div><span class="step-kicker">Section ${index+1} · CTQ category ${code}</span><h2>${escapeHtml(label)}</h2><p>Answer the questions in this section. Scoring details are handled after submission.</p></div><span class="step-count">${group.length} questions</span></div><div class="fields ctq-field-grid"></div>`;
+      section.innerHTML = `<div class="step-header"><div><span class="step-kicker">CTQ section ${index+1} of ${categories.length}</span><h2>${escapeHtml(label)}</h2><p>Answer the questions in this section. Scoring details are handled after submission.</p></div><span class="step-count">${group.length} questions</span></div><div class="fields ctq-field-grid"></div>`;
       const grid = section.querySelector('.ctq-field-grid');
       group.forEach((field) => {
         const wrap = document.createElement('div');
         wrap.className = 'field';
         const required = field.tier === 'Must Have';
         const options = field.options.map((option) => `<option value="${escapeHtml(option)}"${saved[field.id] === option ? ' selected' : ''}>${escapeHtml(option)}</option>`).join('');
-        wrap.innerHTML = `<div class="field-head"><label class="field-title" for="${field.id}"><span class="field-id">${field.id}</span>${escapeHtml(field.name)}${required ? ' <span aria-hidden="true">*</span>' : ''}</label><span class="badge${required ? '' : ' optional'}">${required ? 'Must have · Required' : field.tier === 'Good to Have' ? 'Good to have' : 'Optional'}</span></div><select id="${field.id}" name="${field.id}" ${required ? 'required' : ''}><option value="">Select an answer</option>${options}</select>`;
+        const marker = required ? 'required' : field.tier === 'Good to Have' ? 'recommended' : 'optional';
+        wrap.innerHTML = `<div class="field-head"><label class="field-title" for="${field.id}">${escapeHtml(field.name)}${required ? ' <span aria-hidden="true">*</span>' : ''}</label><i class="priority-dot ${marker}" role="img" aria-label="${marker === 'required' ? 'Required' : marker === 'recommended' ? 'Recommended' : 'Optional'} question" title="${marker === 'required' ? 'Required' : marker === 'recommended' ? 'Recommended' : 'Optional'}"></i></div><select id="${field.id}" name="${field.id}" ${required ? 'required' : ''}><option value="">Select an answer</option>${options}</select>`;
         grid.append(wrap);
       });
       container.append(section);
@@ -109,7 +132,7 @@
       const pct = ((current + 1) / steps.length) * 100;
       form.querySelector('.ctq-progress-fill').style.width = `${pct}%`;
       form.querySelector('.progress-fill').style.width = `${pct}%`;
-      form.querySelector('.ctq-step-count').textContent = `STEP ${current+1} OF ${steps.length}`;
+      form.querySelector('.ctq-step-count').textContent = `CTQ SECTION ${current+1} OF ${steps.length}`;
       form.querySelector('.ctq-back').disabled = current === 0;
       form.querySelector('.ctq-next').textContent = current === steps.length - 1 ? 'Submit CTQ form' : 'Next section';
       steps.forEach((s,i) => { s.hidden = i !== current; });
@@ -157,6 +180,7 @@
         const selected = [...e.currentTarget.querySelectorAll('input[name=roles]:checked')];
         if (!selected.length) { toast('Choose at least one role to continue.'); return; }
         localStorage.setItem('optiq-demo-roles', JSON.stringify(selected.map((i) => i.value)));
+        localStorage.setItem('optiq-demo-active-role', selected[0].value);
         go('OptimIQ_Consultant_Profile_Assessment.html');
       });
     }
@@ -229,6 +253,7 @@
   }
 
   addNavigation();
+  addProfileMenu();
   addPhaseBadge();
   wireDemo();
 })();

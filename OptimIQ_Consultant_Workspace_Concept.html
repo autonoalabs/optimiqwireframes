@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OptimIQ Consultus — Consultant Workspace Concept</title>
+  <title>OptimIQ Consultus — Consultant Dashboard</title>
   <link rel="stylesheet" href="portal-demo.css">
   <link rel="stylesheet" href="theme1-typography.css">
-<link rel="stylesheet" href="consultant-demo.css?v=3b24695">
+<link rel="stylesheet" href="consultant-demo.css?v=consultant-ux-20261023">
 </head>
 <body>
   <div class="app">
@@ -20,10 +20,10 @@
       <div class="side-note">Profile changes remain editable; updates that may affect scores follow evidence review and authorised OptimIQ approval.</div>
     </aside>
     <main>
-      <header class="topbar"><div class="crumb">Consultant workspace / <b>Overview</b></div><div class="right"><span class="role">Role fit &amp; projects ▾</span><button class="help" aria-label="Help">?</button></div></header>
+      <header class="topbar"><div class="crumb">Consultant workspace / <b>Dashboard</b></div><div class="right"><span class="role">Role fit &amp; projects ▾</span><button class="help" aria-label="Help">?</button></div></header>
       <div class="concept"><b>Client review concept</b><span>A consultant may hold multiple active project assignments. Client feedback is captured separately for each project.</span></div>
       <p class="eyebrow">Consultant lifecycle</p>
-      <h1>Your professional workspace</h1>
+      <h1>Your Consultant dashboard</h1>
       <p class="intro">Complete the shared CTQ form once, review role-fit recommendations, keep your profile current, and follow assessment progress, concurrent engagements, and project feedback from one login.</p>
       <section class="card">
         <div class="cardhead"><div><h2>Your role fit</h2><div class="muted">Fit is shown as a category after CTQ submission; assessment scores and weighting details stay private.</div></div><span class="tag">Assessment complete</span></div>
@@ -55,6 +55,6 @@
     </main>
   </div>
 <script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width: 820px)');const syncMenu=()=>document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open);mobileMenu.open=!menuBreakpoint.matches;mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&(!mobileMenu.contains(event.target)||event.target.closest('.mobile-menu a')))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',()=>{mobileMenu.open=!menuBreakpoint.matches;syncMenu()});syncMenu();</script>
-<script src="consultant-demo.js?v=3b24695" defer></script>
+<script src="consultant-demo.js?v=consultant-ux-20261023" defer></script>
 </body>
 </html>
