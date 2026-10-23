@@ -79,6 +79,7 @@
     const form = document.querySelector('#ctq-form');
     const fields = window.CTQ_DEMO_FIELDS;
     if (!form || !fields?.length) return;
+    document.querySelectorAll('.content > .notice,.content > .progress-row,.content > .step-header').forEach((el) => el.remove());
     const grouped = fields.reduce((m,f) => ((m[f.categoryCode] ||= []).push(f),m),{});
     const categories = Object.entries(grouped);
     const saved = JSON.parse(localStorage.getItem('optiq-demo-ctq') || '{}');
