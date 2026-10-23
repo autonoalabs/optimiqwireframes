@@ -32,3 +32,10 @@ Phase 3 is a planning label for client review; it is not a confirmed delivery co
 - Staff / Admin workspace
 
 Theme 1 is approved. Individual screen concepts are marked **Awaiting screen feedback** until each receives separate approval. Record client feedback in the approval inventory linked from the review hub.
+
+## Shared design decisions
+
+- Keep typography, sidebar/logo sizing, page spacing, controls, and button treatments consistent across every audience screen. The responsive left sidebar becomes a left-edge drawer on mobile.
+- CTQ question priority is shown with accessible color indicators: red for Must Have / Required, green-teal for Good to Have / Recommended, and neutral gray for Optional.
+- CTQ priority colors are an Admin Portal configuration with these accessible defaults. Color changes are presentational only and must not affect question priority, validation, score, or eligibility. Include a preview in the future Admin color settings.
+- The Consultant CTQ form includes an explicit Save draft action. The static review demo stores answers in the browser only.

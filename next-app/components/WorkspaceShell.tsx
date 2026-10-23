@@ -62,7 +62,7 @@ export default function WorkspaceShell({ workspace, section, active, navigation,
 
       <main className="workspace-main">
         <header className="workspace-topbar">
-          <p className="breadcrumb"><Link href={overviewHref}>{workspace}</Link><span aria-hidden="true">/</span><strong>{active}</strong></p>
+          <p className="breadcrumb">{workspace === 'Expert workspace' ? <strong>{active}</strong> : <><Link href={overviewHref}>{workspace}</Link><span aria-hidden="true">/</span><strong>{active}</strong></>}</p>
           <div className="workspace-topbar__actions"><span className="role-chip">{roleLabel}</span><button className="icon-button" type="button" aria-label="Help">?</button></div>
         </header>
         <aside className="concept-banner"><strong>Client review concept</strong><span>{concept}</span></aside>

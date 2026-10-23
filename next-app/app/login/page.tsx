@@ -19,7 +19,7 @@ export default function LoginPage() {
             <label htmlFor="email">Email address</label>
             <input id="email" name="email" type="email" autoComplete="username" placeholder="name@company.com" />
 
-            <div className="login-password-label"><label htmlFor="password">Password</label></div>
+            <div className="login-password-label"><label htmlFor="password">Password</label><a href="#reset-password">Forgot password?</a></div>
             <input id="password" name="password" type="password" autoComplete="current-password" placeholder="Enter your password" />
 
             <button className="login-submit" type="button">Sign in</button>

@@ -28,6 +28,8 @@
     const brand = rail.querySelector('.brand');
     rail.insertBefore(details, brand?.nextElementSibling || null);
     rail.querySelectorAll('nav:not(.journey-nav), .mobile-menu:not(.consultant-journey), .side-flow, .nav, .step-list').forEach((el) => el.classList.add('consultant-journey-oldnav'));
+    rail.querySelectorAll(':scope > .workspace').forEach((el) => el.classList.add('consultant-journey-oldnav'));
+    if (file === 'OptimIQ_Consultant_Profile_CTQ_Stepper.html') rail.querySelectorAll(':scope > .role-label').forEach((el) => el.classList.add('consultant-journey-oldnav'));
     const oldStyle = document.createElement('style');
     oldStyle.textContent = 'aside nav.consultant-journey-oldnav,aside .consultant-journey-oldnav{display:none!important}';
     document.head.append(oldStyle);
@@ -51,7 +53,7 @@
     const roleOptions = roles.length ? roles : [];
     const profile = document.createElement('details');
     profile.className = 'account-menu';
-    profile.innerHTML = `<summary aria-label="Account menu for ${escapeHtml(name)}"><span class="account-avatar" aria-hidden="true">${escapeHtml(initials)}</span><span class="account-summary"><b>${escapeHtml(name)}</b><small>${escapeHtml(activeRole)} profile</small></span><span class="account-chevron" aria-hidden="true">⌄</span></summary><div class="account-panel"><div class="account-identity"><b>${escapeHtml(name)}</b><span class="account-active-role">${escapeHtml(activeRole)} profile</span></div><a href="OptimIQ_Consultant_Workspace_Concept.html">Dashboard</a><a href="OptimIQ_Consultant_Profile_Assessment.html">Edit profile</a>${roleOptions.length > 1 ? `<div class="account-switch"><span>Switch profile</span>${roleOptions.map(role => `<button type="button" data-profile-role="${escapeHtml(role)}"${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' aria-current="true"' : ''}>${escapeHtml(roleLabel(role))}${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' · Active' : ''}</button>`).join('')}</div>` : ''}<button type="button" class="account-signout">Sign out</button></div>`;
+    profile.innerHTML = `<summary aria-label="Account menu for ${escapeHtml(name)}"><span class="account-avatar" aria-hidden="true">${escapeHtml(initials)}</span><span class="account-summary"><b>${escapeHtml(name)}</b><small>${escapeHtml(activeRole)} profile</small></span></summary><div class="account-panel"><div class="account-identity"><b>${escapeHtml(name)}</b><span class="account-active-role">${escapeHtml(activeRole)} profile</span></div><a href="OptimIQ_Consultant_Workspace_Concept.html">Dashboard</a><a href="OptimIQ_Consultant_Profile_Assessment.html">Edit profile</a>${roleOptions.length > 1 ? `<div class="account-switch"><span>Switch profile</span>${roleOptions.map(role => `<button type="button" data-profile-role="${escapeHtml(role)}"${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' aria-current="true"' : ''}>${escapeHtml(roleLabel(role))}${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' · Active' : ''}</button>`).join('')}</div>` : ''}<button type="button" class="account-signout">Sign out</button></div>`;
     right.replaceChildren(profile);
     profile.querySelectorAll('[data-profile-role]').forEach(button => { button.dataset.demoWired = 'true'; button.addEventListener('click', () => {
       localStorage.setItem('optiq-demo-active-role', button.dataset.profileRole);
@@ -90,6 +92,15 @@
     }
   }
 
+  function simplifyConsultantBreadcrumb() {
+    if (!consultantPage) return;
+    document.querySelectorAll('header.topbar .crumb').forEach((crumb) => {
+      const current = crumb.querySelector('strong, b');
+      if (current) crumb.replaceChildren(current.cloneNode(true));
+      else crumb.textContent = crumb.textContent.replace(/^\s*Consultant workspace\s*\/\s*/i, '').trim();
+    });
+  }
+
   const toast = (message) => {
     let el = document.querySelector('.demo-toast');
     if (!el) { el = document.createElement('div'); el.className = 'demo-toast'; el.setAttribute('role','status'); document.body.append(el); }
@@ -107,7 +118,7 @@
     const grouped = fields.reduce((m,f) => ((m[f.categoryCode] ||= []).push(f),m),{});
     const categories = Object.entries(grouped);
     const saved = JSON.parse(localStorage.getItem('optiq-demo-ctq') || '{}');
-    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Complete the client-provided CTQ questions. Your answers can be changed until final submission. This demo keeps draft answers in this browser and does not calculate or display scores.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">CTQ SECTION 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><span class="save-state" aria-live="polite">Draft answers saved on this device</span><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
+    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Complete the client-provided CTQ questions. Your answers can be changed until final submission. This demo keeps draft answers in this browser and does not calculate or display scores.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">CTQ SECTION 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><div class="ctq-save-group"><button type="button" class="ctq-save-draft">Save draft</button><span class="save-state" aria-live="polite">Draft answers are saved in this browser</span></div><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
     const container = form.querySelector('#ctq-step-container');
     categories.forEach(([code, group], index) => {
       const section = document.createElement('section');
@@ -146,6 +157,12 @@
     form.addEventListener('change', (e) => {
       if (e.target.matches('select')) { saved[e.target.name] = e.target.value; localStorage.setItem('optiq-demo-ctq', JSON.stringify(saved)); }
     });
+    form.querySelector('.ctq-save-draft').addEventListener('click', () => {
+      localStorage.setItem('optiq-demo-ctq', JSON.stringify(saved));
+      localStorage.setItem('optiq-demo-ctq-draft-saved', new Date().toISOString());
+      form.querySelector('.save-state').textContent = 'Draft saved just now';
+      toast('Your CTQ draft is saved in this browser.');
+    });
     form.querySelector('.ctq-back').addEventListener('click', () => { if (current > 0) { current--; progress(); window.scrollTo({top:0,behavior:'smooth'}); } });
     form.querySelectorAll('[data-step-target]').forEach((button) => button.addEventListener('click', () => { current = Number(button.dataset.stepTarget); progress(); window.scrollTo({top:0,behavior:'smooth'}); }));
     form.querySelector('.ctq-next').addEventListener('click', () => {
@@ -171,6 +188,11 @@
       const button = form?.querySelector('.sign-in');
       if (button) button.type = 'submit';
       form?.addEventListener('submit', (e) => { e.preventDefault(); localStorage.setItem('optiq-demo-email', email.value); go('OptimIQ_Consultant_Terms_Declarations.html'); });
+      form?.querySelector('[data-reset-password]')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!email?.value.trim()) { email?.focus(); toast('Enter your email address to continue with password recovery.'); return; }
+        toast('In the live portal, password reset instructions would be sent to this email.');
+      });
     }
     if (file === 'OptimIQ_Consultant_Terms_Declarations.html') {
       document.querySelector('#continue')?.addEventListener('click', () => go('OptimIQ_Consultant_Profile_CTQ_Stepper.html'));
@@ -254,6 +276,7 @@
     });
   }
 
+  simplifyConsultantBreadcrumb();
   addNavigation();
   addProfileMenu();
   addPhaseBadge();

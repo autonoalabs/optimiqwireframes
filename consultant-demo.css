@@ -82,3 +82,96 @@
 }
 @media(max-width:480px){.phase-strip{gap:6px;margin-bottom:13px}.phase-badge{font-size:10px}.phase-caption{font-size:10px}.ctq-actions{align-items:stretch;flex-direction:column}.ctq-actions .actions{width:100%}.ctq-actions button{flex:1}}
 @media(max-width:480px){.account-menu>summary{gap:6px;padding-right:6px}.account-summary b{font-size:10px}.account-avatar{width:29px;height:29px}.ctq-priority-legend{gap:8px}.ctq-priority-legend>span:first-child{width:100%;margin:0}}
+
+/* Theme 1 shared design system: page shells, type, navigation and controls. */
+:root{
+  --ui-forest:#07372f;
+  --ui-deep:#062e28;
+  --ui-teal:#16735e;
+  --ui-mint:#dff1e9;
+  --ui-ink:#153a31;
+  --ui-muted:#687c74;
+  --ui-line:#d8e5df;
+  --ui-surface:#fff;
+  --ui-canvas:#f6f8f7;
+  --ui-danger:#bf3944;
+  --ui-danger-soft:#fdebed;
+  --ui-required:var(--ui-danger);
+  --ui-recommended:#398b73;
+  --ui-optional:#899b93;
+  --ui-radius:12px;
+  --ui-control-height:42px;
+}
+html{scroll-behavior:smooth}
+body{min-width:320px;overflow-x:hidden;color:var(--ui-ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.shell,.app{grid-template-columns:272px minmax(0,1fr)!important}
+.shell>.rail,.app>aside,aside.rail{gap:18px;padding:22px 17px}
+.brand{min-height:50px;gap:11px;padding:0 4px}
+.brand img{width:44px;height:44px;flex:none;border-radius:10px;object-fit:contain}
+.brand-wordmark b{font-size:20px;line-height:1.05;letter-spacing:-.035em}
+.brand-wordmark small{font-size:14px;line-height:1.1}
+.workspace{padding:13px 12px;border-radius:12px;font-size:12px;letter-spacing:.07em}
+.navlabel,.side-label,.side-heading{font-size:10px;letter-spacing:.11em}
+aside nav a,.journey-nav a,.step-link,.flow-item{min-height:40px;font-size:12px;line-height:1.4}
+.shell>main,.app>main{min-width:0;padding:24px clamp(20px,3.2vw,46px) 38px}
+.topbar{min-height:42px;margin-bottom:24px!important;gap:14px}
+.crumb{font-size:12px;line-height:1.4}
+.crumb b,.crumb strong{font-size:13px}
+.account-menu{font-size:12px}
+.account-menu>summary{min-height:42px;padding:4px 9px 4px 4px}
+.account-avatar{width:32px;height:32px}
+.account-summary b{font-size:12px}
+.account-summary small{font-size:11px}
+h1{font-size:clamp(1.8rem,2.8vw,2.35rem)!important;line-height:1.14!important;letter-spacing:-.04em!important}
+h2{font-size:1.2rem!important;line-height:1.32!important}
+h3{font-size:1rem!important;line-height:1.4!important}
+.eyebrow{font-size:11px!important;letter-spacing:.11em}
+.lead,.intro,.subtitle{max-width:76ch;color:#687c74;font-size:14px;line-height:1.65}
+.content{width:min(100%,1020px);margin-inline:auto}
+.card,.tile,.document,.field,.step-header{border-color:var(--ui-line);border-radius:var(--ui-radius)}
+input,select,textarea,.field select,.ctq-field-grid input,.ctq-field-grid select,.ctq-field-grid textarea{min-height:var(--ui-control-height);border:1px solid var(--ui-line);border-radius:9px;color:var(--ui-ink);font:inherit;font-size:14px}
+button,.btn,.button,.primary,.secondary-button,.continue,.doc-action,.sign-in,.pill,.ctq-actions button,.demo-controls button{min-height:40px;border-radius:9px;font:inherit;font-size:13px;line-height:1.25}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #35977c55;outline-offset:2px}
+.primary,.btn.primary,.continue,.sign-in,.ctq-actions button.primary{background:#126b57;color:#fff}
+.phase-badge{font-size:11px}
+.consultant-journey-oldnav{display:none!important}
+.priority-dot.required{background:var(--ui-required);box-shadow:0 0 0 2px var(--ui-danger-soft)}
+.priority-dot.recommended{background:var(--ui-recommended);box-shadow:0 0 0 2px #e1f0ea}
+.priority-dot.optional{background:var(--ui-optional);box-shadow:0 0 0 2px #edf1ef}
+.ctq-save-group{display:flex;align-items:center;gap:10px;min-width:0}
+.ctq-actions .ctq-save-draft{border-color:#c9ddd4;background:#f7fbf9;color:#246650}
+.ctq-actions .ctq-save-draft:hover{border-color:#83bba7;background:#edf7f2}
+.ctq-actions .actions{margin:0}
+.ctq-actions .save-state{font-size:12px;color:var(--ui-muted)}
+.document{grid-template-columns:minmax(0,1fr) auto}
+.document .doc-icon{display:none!important}
+.document .detail{grid-column:1/-1}
+.document .doc-action{min-width:76px}
+.progress[aria-label^="Portal setup"]{display:none!important}
+.login-password-label{justify-content:space-between}
+.login-password-label [data-reset-password]{color:var(--ui-teal);font-size:12px;font-weight:700;text-decoration:none}
+.login-password-label [data-reset-password]:hover{text-decoration:underline}
+.login-form{gap:8px}
+.login-form input{min-height:48px;font-size:14px}
+.login-form .sign-in{min-height:48px;cursor:pointer}
+@media(max-width:820px){
+  .shell,.app{grid-template-columns:minmax(0,1fr)!important}
+  .shell>.rail,.app>aside,aside.rail{gap:12px;padding:14px 16px}
+  .brand{min-height:46px}
+  .brand img{width:42px;height:42px}
+  .shell>main,.app>main{padding:20px 22px 30px}
+  .topbar{margin-bottom:20px!important}
+  .ctq-actions{align-items:flex-start}
+}
+@media(max-width:520px){
+  .shell>main,.app>main{padding:16px 14px 26px}
+  .shell>.rail,.app>aside,aside.rail{gap:10px;padding:12px 13px}
+  .brand img{width:40px;height:40px}
+  .topbar{gap:10px;margin-bottom:17px!important}
+  h1{font-size:clamp(1.65rem,7vw,2rem)!important}
+  .lead,.intro,.subtitle{font-size:13px}
+  .ctq-save-group{align-items:flex-start;flex-direction:column;gap:7px}
+  .ctq-actions .actions{flex-wrap:wrap}
+  .ctq-actions .ctq-save-draft{flex:0 0 auto}
+  .document{grid-template-columns:minmax(0,1fr) auto}
+}

@@ -187,6 +187,45 @@ h1, h2, h3, p { margin-block-start: 0; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
 
+/* Shared Theme 1 component scale and CTQ priority-color defaults. */
+:root {
+  --danger: #bf3944;
+  --danger-soft: #fdebed;
+  --question-required: var(--danger);
+  --question-recommended: #398b73;
+  --question-optional: #899b93;
+}
+.workspace-app { grid-template-columns: 272px minmax(0, 1fr); }
+.workspace-sidebar { gap: 18px; padding: 22px 17px; }
+.workspace-brand { min-height: 50px; gap: 11px; }
+.workspace-brand img { width: 44px; border-radius: 10px; object-fit: contain; }
+.workspace-brand strong { font-size: 1.25rem; }
+.workspace-brand small { font-size: .88rem; }
+.workspace-label { display: none; }
+.workspace-menu__link { min-height: 40px; font-size: .8rem; }
+.workspace-menu__label { font-size: .68rem; }
+.workspace-main { padding: 24px clamp(20px, 3.2vw, 46px) 38px; }
+.workspace-topbar { min-height: 42px; margin-block-end: 24px; }
+.breadcrumb { font-size: .78rem; }
+.workspace-title { font-size: clamp(1.8rem, 2.8vw, 2.35rem); line-height: 1.14; }
+.page-intro { font-size: .88rem; }
+.surface { border-radius: 12px; }
+.secondary-button, .icon-button, .mobile-menu-button, .login-submit { min-height: 42px; font-size: .82rem; }
+.login-form input { min-height: 48px; font-size: .88rem; }
+.login-form label, .login-password-label a { font-size: .8rem; }
+.review-status { font-size: .72rem; }
+.workspace-menu__label, .workspace-menu__link, .sidebar-note, .breadcrumb, .role-chip, .metric-note, .panel-heading p, .panel-tag, .journey-step, .journey-step strong, .journey-step > span:last-child, .detail-rows > div, .approval-rows > div, .workspace-footer, .concept-banner, .login-form label, .login-form input, .login-password-label a, .login-submit { font-size: .8rem; }
+@media (max-width: 760px) {
+  .workspace-menu__link { min-height: 44px; }
+  .workspace-sidebar { gap: 11px; padding: 12px 14px; }
+  .workspace-brand { min-height: 44px; }
+  .workspace-brand img { width: 40px; }
+  .workspace-main { padding: 17px 14px 28px; }
+  .workspace-topbar { margin-block-end: 18px; }
+  .workspace-title { font-size: clamp(1.65rem, 7vw, 2rem); }
+  .page-intro { font-size: .82rem; }
+}
+
 /* Shared Theme 1 typography: consistent, readable UI labels across routes. */
 :root { --type-body: 1rem; --type-support: .9rem; --type-label: .82rem; }
 body { font-size: var(--type-body); line-height: 1.55; }
