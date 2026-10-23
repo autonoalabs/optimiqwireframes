@@ -157,7 +157,9 @@
     form.addEventListener('change', (e) => {
       if (e.target.matches('select')) { saved[e.target.name] = e.target.value; localStorage.setItem('optiq-demo-ctq', JSON.stringify(saved)); }
     });
-    form.querySelector('.ctq-save-draft').addEventListener('click', () => {
+    const saveDraftButton = form.querySelector('.ctq-save-draft');
+    saveDraftButton.dataset.demoWired = 'true';
+    saveDraftButton.addEventListener('click', () => {
       localStorage.setItem('optiq-demo-ctq', JSON.stringify(saved));
       localStorage.setItem('optiq-demo-ctq-draft-saved', new Date().toISOString());
       form.querySelector('.save-state').textContent = 'Draft saved just now';
