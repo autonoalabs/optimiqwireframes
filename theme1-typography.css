@@ -1,13 +1,13 @@
 /* Shared Theme 1 responsive type scale */
-:root{--type-display:clamp(2rem,3.4vw,2.8rem);--type-title:1.5rem;--type-section:1.2rem;--type-body:1rem;--type-support:.9rem;--type-label:.82rem;--type-small:.78rem}
+:root{--type-display:clamp(1.85rem,3vw,2.5rem);--type-title:1.4rem;--type-section:1.12rem;--type-body:.96rem;--type-support:.86rem;--type-label:.78rem;--type-small:.74rem}
 body{font-size:var(--type-body);line-height:1.55}
 h1{font-size:var(--type-display)!important;line-height:1.12!important}
 h2{font-size:var(--type-section)!important;line-height:1.3}
 h3{font-size:1rem!important;line-height:1.35}
 p,li{line-height:1.6}
 .eyebrow,.label,.tag,.status,.pill,.role,.navlabel,.workspace,.workspace-label,.crumb,.muted,.concept,.sub,.listrow,.tile p,.tile .arrow,.foot,.step b,.step small,.dot,.screen-desc,.screen-name,.screen-meta,.shared-note,.audience-foot,footer,.role-chip,.metric-note,.metric-card strong,.panel-tag,.workspace-menu__label,.workspace-menu__link,.sidebar-note,.breadcrumb,.journey-step,.journey-step strong,.journey-step>span:last-child,.detail-rows,.approval-rows,.concept-banner,.login-form label,.login-form input,.login-password-label a,.login-submit,.login-subtitle,.review-status,.review-state,.brandcopy p,.brandcopy small{font-size:max(var(--type-small),1em)}
-@media(max-width:760px){:root{--type-body:.98rem;--type-support:.88rem;--type-label:.82rem;--type-small:.78rem;--type-section:1.12rem}.workspace-main{padding-inline:15px}.screen-card__description{font-size:var(--type-support)}.screen-card__title{font-size:var(--type-body)}}
-@media(max-width:420px){:root{--type-body:.96rem;--type-small:.76rem}}
+@media(max-width:760px){:root{--type-body:.94rem;--type-support:.84rem;--type-label:.78rem;--type-small:.73rem;--type-section:1.08rem}.workspace-main{padding-inline:15px}.screen-card__description{font-size:var(--type-support)}.screen-card__title{font-size:var(--type-body)}}
+@media(max-width:420px){:root{--type-body:.92rem;--type-small:.72rem}}
 
 /* Component-level text in the earlier Consultant pages uses page-specific selectors. */
 .role-label small,.role-label strong,.role-tag,.side-heading,.step-link,.step-number,.step-state,.rail-note,.crumb,.user-chip,.eyebrow,.profile-status,.lead,.notice,.progress-row,.progress-row strong,.step-kicker,.step-header p,.step-count,.field-title,.field-id,.badge,.prefill,.field select,.field-help,.save-state,.footer-note,.workspace-label,.nav-label,.person,.person small,.role-select,.concept,.subheading,.tag,.step-title,.step-note,.activity-row b,.activity-row span,.shortcut p,.nav-heading,.nav a,.nav-number,.fit-label,.fit-rank,.fit-desc,.choose,.choose-note,.selection-copy strong,.selection-copy span,.selection-count,.primary,.privacy-note,.foot,.side-label,.flow-item,.flow-dot,.progress,.progress strong,.section-title span,.doc-copy strong,.doc-copy small,.doc-action,.detail,.confirm,.save,.continue,.next-hint,.subtitle,.password-label a,.sign-in,.summary-top,.summary-note,.activity-row,.person,.avatar,.field select,.button,.secondary-button,td,th,small{font-size:max(var(--type-small),.82em)!important;line-height:1.45}
