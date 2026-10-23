@@ -17,7 +17,7 @@ Clients open the root `index.html` on GitHub Pages and select a screen preview. 
 
 - Shared portal sign-in
 - Client workspace
-- Consultant workspace
+- Consultant journey: terms/declarations, CTQ, role fit, profile and assessment progress, agreement gate, engagements, payments, communications/notifications, project calendar, performance/CPD, and Phase 2 project documents
 - Consulting firm workspace
 - Staff / Admin workspace
 
