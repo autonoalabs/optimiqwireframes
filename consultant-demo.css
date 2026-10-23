@@ -29,6 +29,8 @@
 .account-switch{display:grid;gap:2px;padding:7px 0 2px;border-top:1px solid #e9efec}
 .account-switch>span{padding:2px 8px;color:#7a8982;font-size:10px}
 .account-panel .account-signout{margin-top:3px;border-top:1px solid #e9efec;color:#8b4137}
+.account-summary{min-width:0;max-width:180px}
+.account-summary b,.account-summary small,.account-identity b,.account-active-role{min-width:0;overflow-wrap:anywhere;white-space:normal}
 .ctq-priority-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 12px;padding:9px 11px;border:1px solid #e3ece7;border-radius:9px;background:#f8fbf9;color:#60736b;font-size:10px}
 .ctq-priority-legend>span{display:inline-flex;align-items:center;gap:6px}
 .ctq-priority-legend>span:first-child{margin-right:auto;color:#435d52;font-weight:730}
@@ -41,6 +43,17 @@
 .phase-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #cfe4da;border-radius:999px;background:#eaf5ef;color:#21674f;font-size:11px;font-weight:780;line-height:1.25;white-space:nowrap}
 .phase-badge.phase-2{border-color:#d9dfef;background:#f0f2fa;color:#485b8a}
 .phase-badge.phase-3{border-color:#efdcb3;background:#fff7e6;color:#806021}
+.phase-badge{padding:8px 12px;border:0;border-radius:9px;background:#a65b08;color:#fff;font-size:12px;font-weight:850;box-shadow:0 2px 0 #713d08;white-space:normal}
+.phase-badge.phase-2{background:#285b91;color:#fff;box-shadow:0 2px 0 #173c65}
+.phase-badge.phase-3{background:#72528e;color:#fff;box-shadow:0 2px 0 #4e3565}
+.phase-strip{padding:10px 12px;border:1px solid #e2c28d;border-left:5px solid #a65b08;border-radius:12px;background:#fff4df}
+.phase-caption{font-weight:750}
+.dashboard-phase-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;padding:6px;border:1px solid #d8e5df;border-radius:12px;background:#f1f6f3}
+.dashboard-phase-tabs button{min-height:42px;padding:9px 14px;border:1px solid transparent;border-radius:9px;background:transparent;color:#516c60;font:inherit;font-size:12px;font-weight:750;cursor:pointer}
+.dashboard-phase-tabs button[aria-pressed=true]{border-color:#a65b08;background:#a65b08;color:#fff;box-shadow:0 2px 0 #713d08}
+.dashboard-phase-summary .list{margin-top:14px}
+.dashboard-phase-summary .listrow span{color:#21674f;font-weight:750}
+[data-dashboard-phase][hidden]{display:none!important}
 .phase-caption{color:#73847c;font-size:11px}
 .demo-toast{position:fixed;right:18px;bottom:18px;z-index:2000;max-width:min(420px,calc(100vw - 36px));padding:12px 15px;border:1px solid #cfe4da;border-radius:12px;background:#fff;color:#224c3d;box-shadow:0 12px 35px #09241c22;font-size:13px;line-height:1.45}
 .demo-dialog{width:min(520px,calc(100vw - 28px));padding:0;border:1px solid #d6e5dd;border-radius:16px;color:#173a31;box-shadow:0 24px 80px #001b1638}
@@ -79,9 +92,36 @@
   .consultant-journey[open]{padding:8px;border:1px solid #ffffff26;border-radius:12px;background:#052a25}
   .ctq-field-grid{grid-template-columns:1fr}
   .ctq-section-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .account-panel{position:fixed;top:auto;right:12px;bottom:max(12px,env(safe-area-inset-bottom));width:min(300px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain}
+  .account-summary{max-width:min(42vw,180px)}
+  .dashboard-phase-tabs{display:grid;grid-template-columns:1fr}
 }
 @media(max-width:480px){.phase-strip{gap:6px;margin-bottom:13px}.phase-badge{font-size:10px}.phase-caption{font-size:10px}.ctq-actions{align-items:stretch;flex-direction:column}.ctq-actions .actions{width:100%}.ctq-actions button{flex:1}}
 @media(max-width:480px){.account-menu>summary{gap:6px;padding-right:6px}.account-summary b{font-size:10px}.account-avatar{width:29px;height:29px}.ctq-priority-legend{gap:8px}.ctq-priority-legend>span:first-child{width:100%;margin:0}}
+
+/* Compact, expandable audience groups keep the review hub easy to scan. */
+.audience-toggle{flex:none;min-height:34px;padding:6px 10px;border:1px solid #d8e5df;border-radius:9px;background:#fff;color:#21674f;font:inherit;font-size:11px;font-weight:750;cursor:pointer}
+.audience.is-collapsed .journey,.audience.is-collapsed .audience-foot{display:none}
+.audience.is-collapsed{padding-block:14px}
+.audience-head{align-items:center}
+@media(max-width:680px){.audience-head{align-items:flex-start}}
+
+/* The review hub stays compact as audience journeys grow. */
+.page .brandcopy h1{font-size:24px}
+.page .intro{font-size:12px;line-height:1.55;margin-bottom:15px}
+.page .shared-note{font-size:11px;padding:11px 13px;margin-bottom:17px}
+.page .audiences{gap:11px}
+.page .audience{padding:15px}
+.page .audience-title h2{font-size:16px!important}
+.page .audience-title p{font-size:10px}
+.page .screen-card{min-height:88px;padding:11px;gap:9px}
+.page .screen-name{font-size:12px}
+.page .screen-desc{font-size:10px;line-height:1.4}
+.page .screen-meta .status{font-size:9px}
+.page .audience-foot,.page footer{font-size:9px}
+.page .audience.is-collapsed .audience-head{margin-bottom:0}
+.page .audience-toggle{font-size:10px}
+@media(max-width:680px){.page .screen-card{min-height:0}.page .audience{padding:12px}}
 
 /* Theme 1 shared design system: page shells, type, navigation and controls. */
 :root{

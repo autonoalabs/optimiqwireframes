@@ -37,6 +37,7 @@
     const sync = () => { details.open = !mq.matches; document.body.classList.toggle('navigation-open', mq.matches && details.open); };
     details.addEventListener('toggle', () => document.body.classList.toggle('navigation-open', mq.matches && details.open));
     details.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { if (mq.matches) details.open = false; }));
+    document.addEventListener('click', (event) => { if (mq.matches && details.open && !details.contains(event.target)) details.open = false; });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mq.matches) details.open = false; });
     mq.addEventListener('change', sync);
     sync();
@@ -55,6 +56,7 @@
     profile.className = 'account-menu';
     profile.innerHTML = `<summary aria-label="Account menu for ${escapeHtml(name)}"><span class="account-avatar" aria-hidden="true">${escapeHtml(initials)}</span><span class="account-summary"><b>${escapeHtml(name)}</b><small>${escapeHtml(activeRole)} profile</small></span></summary><div class="account-panel"><div class="account-identity"><b>${escapeHtml(name)}</b><span class="account-active-role">${escapeHtml(activeRole)} profile</span></div><a href="OptimIQ_Consultant_Workspace_Concept.html">Dashboard</a><a href="OptimIQ_Consultant_Profile_Assessment.html">Edit profile</a>${roleOptions.length > 1 ? `<div class="account-switch"><span>Switch profile</span>${roleOptions.map(role => `<button type="button" data-profile-role="${escapeHtml(role)}"${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' aria-current="true"' : ''}>${escapeHtml(roleLabel(role))}${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' · Active' : ''}</button>`).join('')}</div>` : ''}<button type="button" class="account-signout">Sign out</button></div>`;
     right.replaceChildren(profile);
+    document.addEventListener('click', (event) => { if (profile.open && !profile.contains(event.target)) profile.open = false; });
     profile.querySelectorAll('[data-profile-role]').forEach(button => { button.dataset.demoWired = 'true'; button.addEventListener('click', () => {
       localStorage.setItem('optiq-demo-active-role', button.dataset.profileRole);
       toast(`Switched to ${roleLabel(button.dataset.profileRole)} profile for this demo.`);
@@ -65,6 +67,63 @@
     signOut?.addEventListener('click', () => {
       ['optiq-demo-email','optiq-demo-roles','optiq-demo-active-role','optiq-demo-name'].forEach(key => localStorage.removeItem(key));
       go('OptimIQ_Portal_Login_Concept.html');
+    });
+  }
+
+  function setupDashboardPhases() {
+    if (file !== 'OptimIQ_Consultant_Workspace_Concept.html') return;
+    const main = document.querySelector('.app > main');
+    if (!main || main.querySelector('.dashboard-phase-tabs')) return;
+    const sections = [...main.querySelectorAll(':scope > section.card, :scope > section.cards, :scope > section.layout')];
+    if (sections.length < 4) return;
+    sections[0].dataset.dashboardPhase = '1';
+    const phaseOneSummary = document.createElement('section');
+    phaseOneSummary.className = 'card dashboard-phase-summary';
+    phaseOneSummary.dataset.dashboardPhase = '1';
+    phaseOneSummary.innerHTML = '<div class="cardhead"><div><h2>Phase 1 completion</h2><div class="muted">Registration, terms, the complete CTQ form, and role-fit selection are shown here.</div></div><span class="tag">CTQ complete</span></div><div class="list"><div class="listrow"><b>CTQ form</b><span>Submitted</span></div><div class="listrow"><b>Role fit</b><span>Recommendations reviewed</span></div></div>';
+    sections[0].insertAdjacentElement('afterend', phaseOneSummary);
+    sections.slice(1).forEach(section => { section.dataset.dashboardPhase = '2'; });
+    const tabs = document.createElement('div');
+    tabs.className = 'dashboard-phase-tabs';
+    tabs.setAttribute('role', 'group');
+    tabs.setAttribute('aria-label', 'Dashboard phases');
+    tabs.innerHTML = '<button type="button" aria-pressed="true" data-phase="1">Phase 1 · Registration &amp; CTQ</button><button type="button" aria-pressed="false" data-phase="2">Phase 2 · Projects &amp; ongoing journey</button>';
+    tabs.querySelectorAll('button').forEach(button => { button.dataset.demoWired = 'true'; });
+    main.querySelector('.concept')?.insertAdjacentElement('afterend', tabs);
+    if (!main.querySelector('.concept')) main.querySelector('.topbar')?.insertAdjacentElement('afterend', tabs);
+    const selectPhase = (phase) => {
+      main.querySelectorAll('[data-dashboard-phase]').forEach(section => { section.hidden = section.dataset.dashboardPhase !== phase; });
+      tabs.querySelectorAll('[data-phase]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.phase === phase)));
+    };
+    tabs.querySelectorAll('[data-phase]').forEach(button => button.addEventListener('click', () => selectPhase(button.dataset.phase)));
+    selectPhase('1');
+  }
+
+  function compactReviewIndex() {
+    if (file !== 'index.html') return;
+    document.querySelectorAll('.audience').forEach((audience, index) => {
+      const heading = audience.querySelector('.audience-head');
+      if (!heading) return;
+      const journey = audience.querySelector('.journey');
+      if (journey) journey.id = `review-journey-${index + 1}`;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'audience-toggle';
+      button.dataset.demoWired = 'true';
+      button.setAttribute('aria-expanded', String(index === 0));
+      if (journey) button.setAttribute('aria-controls', journey.id);
+      button.textContent = index === 0 ? 'Hide screens' : 'Show screens';
+      heading.append(button);
+      audience.classList.toggle('is-collapsed', index !== 0);
+      button.addEventListener('click', () => {
+        const collapsed = audience.classList.toggle('is-collapsed');
+        button.setAttribute('aria-expanded', String(!collapsed));
+        button.textContent = collapsed ? 'Show screens' : 'Hide screens';
+      });
+    });
+    document.querySelectorAll('.page .phase-badge').forEach((badge) => {
+      if (/^Phase 2/i.test(badge.textContent.trim())) badge.classList.add('phase-2');
+      if (/^Phase 3/i.test(badge.textContent.trim())) badge.classList.add('phase-3');
     });
   }
 
@@ -141,6 +200,11 @@
     });
     let current = 0;
     const steps = [...container.querySelectorAll('.ctq-step')];
+    const focusSectionQuestion = () => {
+      const firstQuestion = steps[current].querySelector('select, input, textarea');
+      firstQuestion?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (firstQuestion) window.setTimeout(() => firstQuestion.focus({ preventScroll: true }), 350);
+    };
     const progress = () => {
       const pct = ((current + 1) / steps.length) * 100;
       form.querySelector('.ctq-progress-fill').style.width = `${pct}%`;
@@ -165,13 +229,13 @@
       form.querySelector('.save-state').textContent = 'Draft saved just now';
       toast('Your CTQ draft is saved in this browser.');
     });
-    form.querySelector('.ctq-back').addEventListener('click', () => { if (current > 0) { current--; progress(); window.scrollTo({top:0,behavior:'smooth'}); } });
-    form.querySelectorAll('[data-step-target]').forEach((button) => button.addEventListener('click', () => { current = Number(button.dataset.stepTarget); progress(); window.scrollTo({top:0,behavior:'smooth'}); }));
+    form.querySelector('.ctq-back').addEventListener('click', () => { if (current > 0) { current--; progress(); focusSectionQuestion(); } });
+    form.querySelectorAll('[data-step-target]').forEach((button) => button.addEventListener('click', () => { current = Number(button.dataset.stepTarget); progress(); focusSectionQuestion(); }));
     form.querySelector('.ctq-next').addEventListener('click', () => {
       const visibleRequired = [...steps[current].querySelectorAll('[required]')];
       const firstMissing = visibleRequired.find((el) => !el.value);
       if (firstMissing) { firstMissing.focus(); firstMissing.reportValidity(); return; }
-      if (current < steps.length - 1) { current++; progress(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+      if (current < steps.length - 1) { current++; progress(); focusSectionQuestion(); return; }
       const missing = [...form.querySelectorAll('[required]')].find((field) => !field.value);
       if (missing) { const section = missing.closest('.ctq-step'); current = Number(section.dataset.step); progress(); missing.focus(); missing.reportValidity(); return; }
       localStorage.setItem('optiq-demo-ctq-complete','true');
@@ -207,7 +271,7 @@
         if (!selected.length) { toast('Choose at least one role to continue.'); return; }
         localStorage.setItem('optiq-demo-roles', JSON.stringify(selected.map((i) => i.value)));
         localStorage.setItem('optiq-demo-active-role', selected[0].value);
-        go('OptimIQ_Consultant_Profile_Assessment.html');
+        go('OptimIQ_Consultant_Workspace_Concept.html');
       });
     }
     if (file === 'OptimIQ_Consultant_Agreement_Gate.html') {
@@ -279,6 +343,8 @@
   }
 
   simplifyConsultantBreadcrumb();
+  compactReviewIndex();
+  setupDashboardPhases();
   addNavigation();
   addProfileMenu();
   addPhaseBadge();
