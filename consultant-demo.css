@@ -179,4 +179,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .ctq-actions .actions{flex-wrap:wrap}
   .ctq-actions .ctq-save-draft{flex:0 0 auto}
   .document{grid-template-columns:minmax(0,1fr) auto}
+  .page .audiences .screen-meta{align-items:flex-start}
+  .page .audiences .status{max-width:100%;white-space:normal}
 }
