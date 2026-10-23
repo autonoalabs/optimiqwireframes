@@ -149,6 +149,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .document .doc-action{min-width:76px}
 .progress[aria-label^="Portal setup"]{display:none!important}
 .login-password-label{justify-content:space-between}
+.login-page{min-height:100dvh;padding:0!important}
 .login-password-label [data-reset-password]{color:var(--ui-teal);font-size:12px;font-weight:700;text-decoration:none}
 .login-password-label [data-reset-password]:hover{text-decoration:underline}
 .login-form{gap:8px}

@@ -87,7 +87,7 @@
     const topbar = main?.querySelector('.topbar');
     if (topbar) topbar.insertAdjacentElement('afterend', strip);
     else {
-      const target = document.querySelector('.form-wrap, .form-panel');
+      const target = document.querySelector('.form-wrap') || document.querySelector('.form-panel');
       target?.prepend(strip);
     }
   }
