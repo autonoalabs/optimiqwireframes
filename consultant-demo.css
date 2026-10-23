@@ -128,7 +128,7 @@ h3{font-size:1rem!important;line-height:1.4!important}
 .eyebrow{font-size:11px!important;letter-spacing:.11em}
 .lead,.intro,.subtitle{max-width:76ch;color:#687c74;font-size:14px;line-height:1.65}
 .content{width:min(100%,1020px);margin-inline:auto}
-.card,.tile,.document,.field,.step-header{border-color:var(--ui-line);border-radius:var(--ui-radius)}
+.card,.tile,.document,.field,.step-header{min-width:0;max-width:100%;border-color:var(--ui-line);border-radius:var(--ui-radius)}
 input,select,textarea,.field select,.ctq-field-grid input,.ctq-field-grid select,.ctq-field-grid textarea{min-height:var(--ui-control-height);border:1px solid var(--ui-line);border-radius:9px;color:var(--ui-ink);font:inherit;font-size:14px}
 button,.btn,.button,.primary,.secondary-button,.continue,.doc-action,.sign-in,.pill,.ctq-actions button,.demo-controls button{min-height:40px;border-radius:9px;font:inherit;font-size:13px;line-height:1.25}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #35977c55;outline-offset:2px}
@@ -147,6 +147,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .document .doc-icon{display:none!important}
 .document .detail{grid-column:1/-1}
 .document .doc-action{min-width:76px}
+.queue-wrap{min-width:0;max-width:100%;overflow-x:auto}
 .progress[aria-label^="Portal setup"]{display:none!important}
 .login-password-label{justify-content:space-between}
 .login-page{min-height:100dvh;padding:0!important}
@@ -163,6 +164,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .shell>main,.app>main{padding:20px 22px 30px}
   .topbar{margin-bottom:20px!important}
   .ctq-actions{align-items:flex-start}
+  .page .audiences .audience,.page .audiences .journey,.page .audiences .screen-card{min-width:0;max-width:100%}
+  .page .audiences .audience{width:100%}
+  .page .audiences .journey{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:520px){
   .shell>main,.app>main{padding:16px 14px 26px}
