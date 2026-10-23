@@ -113,7 +113,7 @@
       section.hidden = index !== 0;
       section.dataset.step = index;
       const label = group[0].category;
-      section.innerHTML = `<div class="step-header"><div><span class="step-kicker">CTQ section ${index+1} of ${categories.length}</span><h2>${escapeHtml(label)}</h2><p>Answer the questions in this section. Scoring details are handled after submission.</p></div><span class="step-count">${group.length} questions</span></div><div class="fields ctq-field-grid"></div>`;
+      section.innerHTML = `<div class="step-header"><div><span class="step-kicker">Section ${index+1}</span><h2>${escapeHtml(label)}</h2><p>Answer the questions in this section. Scoring details are handled after submission.</p></div><span class="step-count">${group.length} questions</span></div><div class="fields ctq-field-grid"></div>`;
       const grid = section.querySelector('.ctq-field-grid');
       group.forEach((field) => {
         const wrap = document.createElement('div');
