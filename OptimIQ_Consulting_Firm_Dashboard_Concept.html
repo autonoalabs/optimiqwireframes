@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consulting firm Phase 1 dashboard concept for OptimIQ Consultus.">
+  <title>Consulting Firm Dashboard — OptimIQ Consultus</title>
+  <link rel="stylesheet" href="portal-demo.css">
+  <link rel="stylesheet" href="theme1-typography.css">
+  <link rel="stylesheet" href="consultant-demo.css?v=consultant-ux-20261024d">
+</head>
+<body>
+  <div class="app">
+    <aside aria-label="Consulting firm workspace navigation">
+      <div class="brand"><img src="OptimIQ_Short_logo.png" alt="OptimIQ mark"><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
+      <div class="workspace">Firm workspace</div>
+      <details class="mobile-menu" open><summary>☰ <span>Workspace menu</span></summary><div class="mobile-menu-panel"><div class="navlabel">Organisation</div><nav><a class="active" href="OptimIQ_Consulting_Firm_Dashboard_Concept.html">Overview</a><a href="OptimIQ_Consulting_Firm_CTQ_Stepper.html">Firm profile &amp; CTQ</a><a href="OptimIQ_Consulting_Firm_Workspace_Concept.html">Projects · Phase 2</a><a href="OptimIQ_Consulting_Firm_Terms_Declarations.html">Terms &amp; declarations</a></nav></div></details>
+      <div class="side-note">One firm account. Manage onboarding here, then open project workspaces in Phase 2.</div>
+    </aside>
+    <main>
+      <header class="topbar"><div class="crumb">Firm workspace / <b>Dashboard</b></div><div class="right"><span class="role">Consulting Firm</span></div></header>
+      <p class="eyebrow">Consulting firm</p>
+      <h1>Your firm dashboard</h1>
+      <div class="dashboard-phase-tabs" role="group" aria-label="Dashboard phases"><button type="button" aria-pressed="true" data-phase="1">Phase 1 · Onboarding &amp; assessment</button><button type="button" aria-pressed="false" data-phase="2">Phase 2 · Firm projects</button></div>
+      <section data-firm-phase="1">
+        <section class="cards">
+          <article class="card"><div class="label">Firm profile</div><div class="value">CTQ submitted</div><div class="sub">Your required profile answers are complete.</div></article>
+          <article class="card"><div class="label">Assessment</div><div class="value">Under review</div><div class="sub">OptimIQ reviews firm evidence and assessment inputs.</div></article>
+          <article class="card"><div class="label">Qualification tier</div><div class="value">Pending review</div><div class="sub">A confirmed tier will appear after assessment.</div></article>
+        </section>
+        <section class="card">
+          <div class="cardhead"><div><h2>Firm qualification progress</h2><div class="muted">Track the steps from profile submission to qualification.</div></div><span class="tag">Phase 1</span></div>
+          <div class="steps"><div class="step"><div class="dot">✓</div><b>Firm CTQ</b><small>Submitted</small></div><div class="step"><div class="dot">2</div><b>Assessment</b><small>OptimIQ review</small></div><div class="step"><div class="dot">3</div><b>Qualification</b><small>Tier confirmation</small></div></div>
+        </section>
+        <section class="layout">
+          <article class="card"><div class="cardhead"><div><h2>Next steps</h2><div class="muted">Your firm profile stays available to review.</div></div></div><div class="list"><div class="listrow"><b>Profile answers</b><a href="OptimIQ_Consulting_Firm_CTQ_Stepper.html">Review firm CTQ</a></div><div class="listrow"><b>Assessment status</b><span>Updates will appear here</span></div></div></article>
+          <article class="card"><div class="cardhead"><div><h2>Qualification result display</h2></div><span class="tag">Needs clarification</span></div><p class="muted">Assumption for this screen: show a confirmed tier after OptimIQ review. Whether a preliminary qualifying tier appears earlier needs client clarification.</p></article>
+        </section>
+      </section>
+      <section data-firm-phase="2" hidden>
+        <section class="card"><div class="cardhead"><div><h2>Firm project workspace</h2><div class="muted">Seller, Buyer, and Win-and-Staff modes are organised by project.</div></div><span class="tag">Phase 2</span></div><p class="muted">Open the Phase 2 workspace to review opportunities, requests, awarded projects, and firm operations.</p><a class="button" href="OptimIQ_Consulting_Firm_Workspace_Concept.html">Open firm project workspace →</a></section>
+      </section>
+      <div class="foot">Phase 1 covers firm registration through CTQ assessment and qualification. Project operations are shown in Phase 2.</div>
+    </main>
+  </div>
+  <script>(()=>{const tabs=[...document.querySelectorAll('[data-phase]')],panels=[...document.querySelectorAll('[data-firm-phase]')];const select=phase=>{tabs.forEach(button=>{button.dataset.demoWired='true';button.setAttribute('aria-pressed',String(button.dataset.phase===phase))});panels.forEach(panel=>{panel.hidden=panel.dataset.firmPhase!==phase})};tabs.forEach(button=>button.addEventListener('click',()=>select(button.dataset.phase)));select('1')})();</script>
+  <script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width: 820px)');const syncMenu=()=>document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open);mobileMenu.open=!menuBreakpoint.matches;mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&(!mobileMenu.contains(event.target)||event.target.closest('.mobile-menu a')))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',()=>{mobileMenu.open=!menuBreakpoint.matches;syncMenu()});syncMenu();</script>
+  <script src="consultant-demo.js?v=consultant-ux-20261024d" defer></script>
+</body>
+</html>

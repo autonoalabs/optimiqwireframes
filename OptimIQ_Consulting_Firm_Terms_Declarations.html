@@ -32,25 +32,24 @@
     @media(max-width:700px){body.navigation-open{overflow:hidden}body.navigation-open::before{content:"";position:fixed;inset:0;z-index:999;background:rgb(3 24 20 / 58%)}body.navigation-open .shell>.rail{position:fixed;inset:0 auto 0 0;z-index:1000;width:min(86vw,320px);height:100dvh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;padding:calc(14px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));box-shadow:14px 0 40px rgb(0 0 0 / 20%)}.mobile-menu>summary{display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 12px;border:1px solid #ffffff30;border-radius:11px;background:#ffffff0a;color:#fff;font-size:12px;font-weight:750;list-style:none;cursor:pointer}.mobile-menu>summary::-webkit-details-marker{display:none}.mobile-menu>summary:after{content:"▾";margin-left:auto;color:#91c5b2}.mobile-menu[open]>summary:after{content:"▴"}.mobile-menu-panel{display:none}.mobile-menu[open] .mobile-menu-panel{display:block;max-height:none;overflow:visible;margin-top:8px;padding:9px;border:1px solid #ffffff22;border-radius:12px;background:#052a25}.mobile-menu-panel .side-label{display:block;padding:2px 8px 8px}.side-flow{display:grid;overflow:visible;gap:4px;margin:0;padding:0}.flow-item{padding:10px 9px;font-size:10px}.rail-note{display:none}}
   </style>
   <link rel="stylesheet" href="theme1-typography.css">
-<link rel="stylesheet" href="consultant-demo.css?v=consultant-ux-20261024b">
+<link rel="stylesheet" href="consultant-demo.css?v=consultant-ux-20261024d">
 </head>
 <body>
   <div class="shell">
     <aside class="rail" aria-label="Consulting firm onboarding progress">
       <div class="brand"><img src="OptimIQ_Short_logo.png" alt=""><span class="brand-wordmark"><b>OptimIQ</b><small>Consultus</small></span></div>
       <details class="mobile-menu terms-menu">
-        <summary>☰ <span>Firm onboarding</span></summary>
+        <summary>☰ <span>Consulting firm onboarding</span></summary>
         <div class="mobile-menu-panel">
-      <div class="side-label">Firm onboarding</div>
+      <div class="side-label">Consulting firm onboarding</div>
       <nav class="side-flow" aria-label="Onboarding steps">
         <div class="flow-item done"><span class="flow-dot">✓</span><span>Firm CTA registration</span></div>
-        <div class="flow-item done"><span class="flow-dot">✓</span><span>Shared portal sign-in</span></div>
-        <div class="flow-item active" aria-current="step"><span class="flow-dot">3</span><span>Terms &amp; declarations</span></div>
-        <div class="flow-item"><span class="flow-dot">4</span><span>Firm CTQ form · six steps</span></div>
+        <div class="flow-item active" aria-current="step"><span class="flow-dot">2</span><span>Terms &amp; declarations</span></div>
+        <div class="flow-item"><span class="flow-dot">3</span><span>Firm CTQ form · six steps</span></div>
       </nav>
         </div>
       </details>
-      <div class="rail-note">Firm registration and email/phone verification are completed through the existing CTA. This step appears after shared portal sign-in if the required terms were not accepted during registration.</div>
+      <div class="rail-note">Firm registration is completed through the existing CTA. Review and accept the terms before completing the six-step firm profile.</div>
     </aside>
     <main>
       <header class="topbar"><div class="crumb">Consulting firm workspace <span aria-hidden="true">/</span> <strong>Terms &amp; declarations</strong></div><div class="user-chip"><span class="avatar" aria-hidden="true">FR</span> Firm representative</div></header>
@@ -70,8 +69,8 @@
           <div class="confirmations">
             <label class="confirm"><input type="checkbox" name="accept-all"><span><b>I confirm that I have reviewed and accept the required terms and declarations listed above.</b></span></label>
           </div>
-          <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><span>The existing CTA does not detail these terms. This review step follows the first shared portal sign-in when acceptance was not captured during registration. Final legal wording and the affiliate declaration format need client clarification.</span></div>
-          <div class="bottom"><div class="save">Your acceptance date and the version of each document will be saved to your account.</div><button class="continue" id="continue" type="button" disabled>Continue to Firm CTQ</button></div>
+          <div class="notice"><span class="notice-icon" aria-hidden="true">i</span><span>The existing firm CTA does not detail these terms. This review step follows the first shared portal sign-in when acceptance was not captured during registration. Final legal wording and the affiliate declaration format need client clarification.</span></div>
+          <div class="bottom"><div class="save">Your acceptance date and the version of each document will be saved to your firm account.</div><button class="continue" id="continue" type="button" disabled>Continue to Firm CTQ</button></div>
           <p class="next-hint">Next: Complete the six-step Consulting Firm CTQ form</p>
         </form>
       </section>
@@ -89,9 +88,8 @@
       button.textContent = open ? 'Close' : 'Review';
     }));
     acceptance.addEventListener('change', () => { continueButton.disabled = !acceptance.checked; });
-    continueButton.addEventListener('click', () => { const note=document.createElement('p'); note.className='next-hint'; note.setAttribute('role','status'); note.textContent='Your acceptance is recorded in this wireframe demo. The six-step Firm CTQ form is next in the review sequence.'; continueButton.insertAdjacentElement('afterend',note); continueButton.disabled=true; });
   </script>
 <script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width:700px)');const syncMenu=()=>{if(!menuBreakpoint.matches)mobileMenu.open=true;document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open)};mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&!mobileMenu.contains(event.target))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',syncMenu);syncMenu();</script>
-<script src="consultant-demo.js?v=consultant-ux-20261024b" defer></script>
+<script src="consultant-demo.js?v=consultant-ux-20261024d" defer></script>
 </body>
 </html>
