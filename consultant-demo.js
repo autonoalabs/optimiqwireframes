@@ -100,7 +100,7 @@
     const roles = JSON.parse(localStorage.getItem('optiq-demo-roles') || '[]');
     const activeRole = firmPage ? 'Consulting firm' : clientPage ? 'Client' : roleLabel(localStorage.getItem('optiq-demo-active-role') || roles[0] || 'consultant');
     const initials = name.split(/\s+/).map(part => part[0]).slice(0, 2).join('').toUpperCase();
-    const roleOptions = !firmPage && roles.length ? roles : [];
+    const roleOptions = consultantPage && roles.length ? roles : [];
     const dashboard = firmPage ? 'OptimIQ_Consulting_Firm_Dashboard_Concept.html' : clientPage ? 'OptimIQ_Client_Dashboard_Concept.html' : 'OptimIQ_Consultant_Workspace_Concept.html';
     const profileHref = firmPage ? 'OptimIQ_Consulting_Firm_CTQ_Stepper.html' : clientPage ? 'OptimIQ_Client_Workspace_Concept.html#profile' : 'OptimIQ_Consultant_Profile_Assessment.html';
     const audience = firmPage ? 'consulting-firm' : clientPage ? 'client' : 'consultant';
