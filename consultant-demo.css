@@ -35,7 +35,7 @@
 .ctq-priority-legend>span{display:inline-flex;align-items:center;gap:6px}
 .ctq-priority-legend>span:first-child{margin-right:auto;color:#435d52;font-weight:730}
 .priority-dot{display:inline-block;width:9px;height:9px;flex:none;border-radius:50%;vertical-align:middle}
-.priority-dot.required{background:#21876c;box-shadow:0 0 0 2px #d8f0e7}
+.priority-dot.required{background:#c9474f;box-shadow:0 0 0 2px #fdebed}
 .priority-dot.recommended{background:#75bda6;box-shadow:0 0 0 2px #e6f4ee}
 .priority-dot.optional{background:#aab7b1;box-shadow:0 0 0 2px #edf1ef}
 .field-head>.priority-dot{margin:5px 3px 0 8px}
