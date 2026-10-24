@@ -14,14 +14,19 @@
     ['Project documents', 'OptimIQ_Consultant_Project_Documents.html', '12'],
   ];
   const FIRM_PAGES = [
-    ['Terms & declarations', 'OptimIQ_Consulting_Firm_Terms_Declarations.html', '1'],
-    ['CTQ form', 'OptimIQ_Consulting_Firm_CTQ_Stepper.html', '2'],
-    ['Dashboard', 'OptimIQ_Consulting_Firm_Dashboard_Concept.html', '3'],
-    ['Firm workspace', 'OptimIQ_Consulting_Firm_Workspace_Concept.html', '4'],
+    ['Dashboard', 'OptimIQ_Consulting_Firm_Dashboard_Concept.html', '1'],
+    ['Terms & declarations', 'OptimIQ_Consulting_Firm_Terms_Declarations.html', '2'],
+    ['Firm profile & CTQ', 'OptimIQ_Consulting_Firm_CTQ_Stepper.html', '3'],
+    ['Seller opportunities', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#seller', '4'],
+    ['Buyer Expert requests', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#buyer', '5'],
+    ['Won projects to staff', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#win-and-staff', '6'],
+    ['Agreements & award', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#agreements', '7'],
+    ['Engagements', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#engagements', '8'],
+    ['Payments & feedback', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#payments', '9'],
   ];
   const file = location.pathname.split('/').pop() || 'index.html';
   const fileToPage = new Map(PAGES.map(([, url]) => [url, true]));
-  const fileToFirmPage = new Map(FIRM_PAGES.map(([, url]) => [url, true]));
+  const fileToFirmPage = new Map(FIRM_PAGES.map(([, url]) => [url.split('#')[0], true]));
   const consultantPage = fileToPage.has(file) || file === 'OptimIQ_Consultant_Workspace_Concept.html';
   const firmPage = fileToFirmPage.has(file);
   const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -35,7 +40,7 @@
     let details = rail.querySelector('.firm-journey');
     if (!details) details = document.createElement('details');
     details.className = `consultant-journey${firmPage ? ' firm-journey' : ''}`;
-    details.innerHTML = `<summary>☰ <span>${journeyName}</span></summary><nav class="journey-nav" aria-label="${journeyName}">${pages.map(([label,url,n]) => `<a href="${url}"${url === file ? ' aria-current="page"' : ''}><span class="journey-number">${n}</span><span>${escapeHtml(label)}</span></a>`).join('')}</nav>`;
+    details.innerHTML = `<summary>☰ <span>${journeyName}</span></summary><nav class="journey-nav" aria-label="${journeyName}">${pages.map(([label,url,n]) => `<a href="${url}"${url.split('#')[0] === file && (!url.includes('#') || url.endsWith(location.hash)) ? ' aria-current="page"' : ''}><span class="journey-number">${n}</span><span>${escapeHtml(label)}</span></a>`).join('')}</nav>`;
     const brand = rail.querySelector('.brand');
     if (!details.parentElement) rail.insertBefore(details, brand?.nextElementSibling || null);
     rail.querySelectorAll('nav:not(.journey-nav), .mobile-menu:not(.consultant-journey), .side-flow, .nav, .step-list').forEach((el) => el.classList.add('consultant-journey-oldnav'));

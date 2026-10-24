@@ -6,7 +6,7 @@
   <title>OptimIQ Consultus — Consulting Firm Workspace Concept</title>
   <link rel="stylesheet" href="portal-demo.css">
   <link rel="stylesheet" href="theme1-typography.css">
-<link rel="stylesheet" href="consultant-demo.css?v=consultant-ux-20261024d">
+<link rel="stylesheet" href="consultant-demo.css?v=consultant-ux-20261024e">
 </head>
 <body>
   <div class="app">
@@ -17,10 +17,10 @@
       <div class="side-note">One login for the firm. Seller, Buyer, and Win-and-Staff modes are selected by project.</div>
     </aside>
     <main>
-      <header class="topbar"><div class="crumb">Firm workspace / <b>Overview</b></div><div class="right"><span class="role">Consulting Firm ▾</span><button class="help" aria-label="Help">?</button></div></header>
+      <header class="topbar"><div class="crumb">Consulting firm workspace / <b>Projects &amp; operations</b></div><div class="right"><span class="role">Consulting Firm ▾</span><button class="help" aria-label="Help">?</button></div></header>
       <div class="concept"><b>Client review concept</b><span>Required agreements must be signed before award and introduction. Agreement types, signatories, and their exact order relative to the LOI remain open for clarification.</span></div>
       <p class="eyebrow">One firm account · project-scoped modes</p>
-      <h1>Manage your firm's OptimIQ work</h1>
+      <h1>Projects and firm operations</h1>
       <p class="intro">Use one organisation login to work as a Seller, Buyer, or Win-and-Staff firm. A firm may act as seller and buyer in the same project, subject to OptimIQ's fairness controls.</p>
       <section class="cards">
         <article class="card"><div class="label">Seller opportunities</div><div class="value">—</div><div class="sub">Review mandates and manage firm bids.</div></article>
@@ -30,25 +30,28 @@
       <section class="card">
         <div class="cardhead"><div><h2>Choose a project mode</h2><div class="muted">Switch modes within the same firm account; the selected project controls the actions shown.</div></div><span class="tag">Single firm login</span></div>
         <div class="tile-grid">
-          <article class="tile"><h3>Seller</h3><p>Respond to opportunities and submit bids for your firm's services.</p><div class="arrow">Open Seller workspace →</div></article>
-          <article class="tile"><h3>Buyer</h3><p>Request OptimIQ Experts for mandates your firm needs to deliver.</p><div class="arrow">Open Buyer workspace →</div></article>
-          <article class="tile"><h3>Win-and-Staff</h3><p>For an OptimIQ mandate, source Experts after the firm wins.</p><div class="arrow">Open awarded mandates →</div></article>
+          <article class="tile" id="seller"><h3>Seller</h3><p>Respond to opportunities and submit bids for your firm's services.</p><div class="arrow">Open Seller opportunities →</div></article>
+          <article class="tile" id="buyer"><h3>Buyer</h3><p>Request OptimIQ Experts for mandates your firm needs to deliver.</p><div class="arrow">Open Buyer Expert requests →</div></article>
+          <article class="tile" id="win-and-staff"><h3>Win-and-Staff</h3><p>For an OptimIQ mandate, source Experts after the firm wins.</p><div class="arrow">Open awarded projects to staff →</div></article>
         </div>
       </section>
       <section class="layout">
-        <article class="card">
+        <article class="card" id="agreements">
           <div class="cardhead"><div><h2>Project agreement and award gates</h2><div class="muted">Show required agreement status before award or controlled introduction.</div></div><span class="tag">Gate approved · details open</span></div>
           <div class="list"><div class="listrow"><b>Required agreements</b><span>Signature must precede award and introduction</span></div><div class="listrow"><b>Agreement details</b><span>Document types and signatories to confirm</span></div><div class="listrow"><b>LOI and award sequence</b><span>Needs alignment with BRD</span></div></div>
         </article>
-        <article class="card">
-          <div class="cardhead"><div><h2>Win-and-Staff control</h2><div class="muted">Separate bidding from staffing so Experts are not deployed before the firm wins.</div></div><span class="tag">Project-scoped</span></div>
+        <article class="card" id="engagements">
+          <div class="cardhead"><div><h2>Engagements &amp; staffing</h2><div class="muted">Separate bidding from staffing so Experts are not deployed before the firm wins.</div></div><span class="tag">Project-scoped</span></div>
           <div class="list"><div class="listrow"><b>Before award</b><span>Bid and track award decision</span></div><div class="listrow"><b>After award</b><span>Start OptimIQ Expert sourcing</span></div><div class="listrow"><b>Firm employees</b><span>Internal deployment stays with the firm</span></div></div>
         </article>
+      </section>
+      <section class="cards" id="payments">
+        <article class="card"><div class="cardhead"><div><h2>Payments &amp; feedback</h2><div class="muted">Review the financial and delivery information available to the firm.</div></div><span class="tag">Needs clarification</span></div><p class="muted">Payment steps, invoice ownership and what project feedback is visible to the firm remain subject to client clarification.</p></article>
       </section>
       <div class="foot">Screen concept · agreement order, commercial amounts, and detailed request fields remain subject to clarification.</div>
     </main>
   </div>
 <script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width: 820px)');const syncMenu=()=>document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open);mobileMenu.open=!menuBreakpoint.matches;mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&(!mobileMenu.contains(event.target)||event.target.closest('.mobile-menu a')))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',()=>{mobileMenu.open=!menuBreakpoint.matches;syncMenu()});syncMenu();</script>
-<script src="consultant-demo.js?v=consultant-ux-20261024d" defer></script>
+<script src="consultant-demo.js?v=consultant-ux-20261024e" defer></script>
 </body>
 </html>
