@@ -36,22 +36,43 @@
     ['Grievances & change requests', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#support', '20'],
     ['Exit & final settlement', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#exit', '21'],
   ];
+  const CLIENT_PAGES = [
+    ['Dashboard', 'OptimIQ_Client_Dashboard_Concept.html', '1'],
+    ['Terms & declarations', 'OptimIQ_Client_Terms_Declarations.html', '2'],
+    ['Client profile', 'OptimIQ_Client_Workspace_Concept.html#profile', '3'],
+    ['Requirements', 'OptimIQ_Client_Workspace_Concept.html#requirements', '4'],
+    ['Track A shortlist', 'OptimIQ_Client_Workspace_Concept.html#track-a', '5'],
+    ['Masked profile detail', 'OptimIQ_Client_Workspace_Concept.html#masked-profile', '6'],
+    ['Request more profiles', 'OptimIQ_Client_Workspace_Concept.html#request-more', '7'],
+    ['Track B tender & evaluation', 'OptimIQ_Client_Workspace_Concept.html#track-b', '8'],
+    ['Agreements & award', 'OptimIQ_Client_Workspace_Concept.html#agreements', '9'],
+    ['Meetings & introduction', 'OptimIQ_Client_Workspace_Concept.html#meetings', '10'],
+    ['Engagements & milestones', 'OptimIQ_Client_Workspace_Concept.html#engagements', '11'],
+    ['Invoices & payments', 'OptimIQ_Client_Workspace_Concept.html#payments', '12'],
+    ['Feedback & re-engagement', 'OptimIQ_Client_Workspace_Concept.html#feedback', '13'],
+    ['Communications', 'OptimIQ_Client_Workspace_Concept.html#communications', '14'],
+    ['Project calendar', 'OptimIQ_Client_Workspace_Concept.html#calendar', '15'],
+    ['Project documents', 'OptimIQ_Client_Workspace_Concept.html#documents', '16'],
+    ['Support & account', 'OptimIQ_Client_Workspace_Concept.html#support', '17'],
+  ];
   const file = location.pathname.split('/').pop() || 'index.html';
   const fileToPage = new Map(PAGES.map(([, url]) => [url, true]));
   const fileToFirmPage = new Map(FIRM_PAGES.map(([, url]) => [url.split('#')[0], true]));
+  const fileToClientPage = new Map(CLIENT_PAGES.map(([, url]) => [url.split('#')[0], true]));
   const consultantPage = fileToPage.has(file) || file === 'OptimIQ_Consultant_Workspace_Concept.html';
   const firmPage = fileToFirmPage.has(file);
+  const clientPage = fileToClientPage.has(file);
   const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const roleLabel = (role) => ({'consultant':'Consultant','strategic-advisor':'Strategic Advisor','project-manager':'Project Manager'}[role] || role);
 
   function addNavigation() {
     const rail = document.querySelector('aside.rail, .app > aside');
-    if (!rail || (!consultantPage && !firmPage)) return;
-    const pages = firmPage ? FIRM_PAGES : PAGES;
-    const journeyName = firmPage ? 'Consulting firm journey' : 'Consultant journey';
+    if (!rail || (!consultantPage && !firmPage && !clientPage)) return;
+    const pages = firmPage ? FIRM_PAGES : clientPage ? CLIENT_PAGES : PAGES;
+    const journeyName = firmPage ? 'Consulting firm journey' : clientPage ? 'Client journey' : 'Consultant journey';
     let details = rail.querySelector('.firm-journey');
     if (!details) details = document.createElement('details');
-    details.className = `consultant-journey${firmPage ? ' firm-journey' : ''}`;
+    details.className = `consultant-journey${firmPage ? ' firm-journey' : ''}${clientPage ? ' client-journey' : ''}`;
     details.innerHTML = `<summary>☰ <span>${journeyName}</span></summary><nav class="journey-nav" aria-label="${journeyName}">${pages.map(([label,url,n]) => `<a href="${url}"${url.split('#')[0] === file && (!url.includes('#') || url.endsWith(location.hash)) ? ' aria-current="page"' : ''}><span class="journey-number">${n}</span><span>${escapeHtml(label)}</span></a>`).join('')}</nav>`;
     const brand = rail.querySelector('.brand');
     if (!details.parentElement) rail.insertBefore(details, brand?.nextElementSibling || null);
@@ -72,20 +93,20 @@
   }
 
   function addProfileMenu() {
-    if ((!consultantPage && !firmPage) || file === 'OptimIQ_Portal_Login_Concept.html') return;
+    if ((!consultantPage && !firmPage && !clientPage) || file === 'OptimIQ_Portal_Login_Concept.html') return;
     const right = document.querySelector('header.topbar .right, header.topbar .user, header.topbar .user-chip');
     if (!right) return;
-    const name = localStorage.getItem('optiq-demo-name') || (firmPage ? 'Firm representative' : 'Jordan Davis');
+    const name = localStorage.getItem('optiq-demo-name') || (firmPage ? 'Firm representative' : clientPage ? 'Client representative' : 'Jordan Davis');
     const roles = JSON.parse(localStorage.getItem('optiq-demo-roles') || '[]');
-    const activeRole = firmPage ? 'Consulting firm' : roleLabel(localStorage.getItem('optiq-demo-active-role') || roles[0] || 'consultant');
+    const activeRole = firmPage ? 'Consulting firm' : clientPage ? 'Client' : roleLabel(localStorage.getItem('optiq-demo-active-role') || roles[0] || 'consultant');
     const initials = name.split(/\s+/).map(part => part[0]).slice(0, 2).join('').toUpperCase();
     const roleOptions = !firmPage && roles.length ? roles : [];
-    const dashboard = firmPage ? 'OptimIQ_Consulting_Firm_Dashboard_Concept.html' : 'OptimIQ_Consultant_Workspace_Concept.html';
-    const profileHref = firmPage ? 'OptimIQ_Consulting_Firm_CTQ_Stepper.html' : 'OptimIQ_Consultant_Profile_Assessment.html';
-    const audience = firmPage ? 'consulting-firm' : 'consultant';
+    const dashboard = firmPage ? 'OptimIQ_Consulting_Firm_Dashboard_Concept.html' : clientPage ? 'OptimIQ_Client_Dashboard_Concept.html' : 'OptimIQ_Consultant_Workspace_Concept.html';
+    const profileHref = firmPage ? 'OptimIQ_Consulting_Firm_CTQ_Stepper.html' : clientPage ? 'OptimIQ_Client_Workspace_Concept.html#profile' : 'OptimIQ_Consultant_Profile_Assessment.html';
+    const audience = firmPage ? 'consulting-firm' : clientPage ? 'client' : 'consultant';
     const profile = document.createElement('details');
     profile.className = 'account-menu';
-    profile.innerHTML = `<summary aria-label="Account menu for ${escapeHtml(name)}"><span class="account-avatar" aria-hidden="true">${escapeHtml(initials)}</span><span class="account-summary"><b>${escapeHtml(name)}</b><small>${escapeHtml(activeRole)} profile</small></span></summary><div class="account-panel"><div class="account-identity"><b>${escapeHtml(name)}</b><span class="account-active-role">${escapeHtml(activeRole)} profile</span></div><a href="${dashboard}">Dashboard</a><a href="${profileHref}">${firmPage ? 'Firm CTQ profile' : 'Edit profile'}</a>${roleOptions.length > 1 ? `<div class="account-switch"><span>Switch profile</span>${roleOptions.map(role => `<button type="button" data-profile-role="${escapeHtml(role)}"${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' aria-current="true"' : ''}>${escapeHtml(roleLabel(role))}${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' · Active' : ''}</button>`).join('')}</div>` : ''}<button type="button" class="account-signout">Sign out</button></div>`;
+    profile.innerHTML = `<summary aria-label="Account menu for ${escapeHtml(name)}"><span class="account-avatar" aria-hidden="true">${escapeHtml(initials)}</span><span class="account-summary"><b>${escapeHtml(name)}</b><small>${escapeHtml(activeRole)} profile</small></span></summary><div class="account-panel"><div class="account-identity"><b>${escapeHtml(name)}</b><span class="account-active-role">${escapeHtml(activeRole)} profile</span></div><a href="${dashboard}">Dashboard</a><a href="${profileHref}">${firmPage ? 'Firm CTQ profile' : clientPage ? 'Organisation profile' : 'Edit profile'}</a>${roleOptions.length > 1 ? `<div class="account-switch"><span>Switch profile</span>${roleOptions.map(role => `<button type="button" data-profile-role="${escapeHtml(role)}"${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' aria-current="true"' : ''}>${escapeHtml(roleLabel(role))}${role === (localStorage.getItem('optiq-demo-active-role') || roles[0]) ? ' · Active' : ''}</button>`).join('')}</div>` : ''}<button type="button" class="account-signout">Sign out</button></div>`;
     right.replaceChildren(profile);
     document.addEventListener('click', (event) => { if (profile.open && !profile.contains(event.target)) profile.open = false; });
     profile.querySelectorAll('[data-profile-role]').forEach(button => { button.dataset.demoWired = 'true'; button.addEventListener('click', () => {
@@ -177,7 +198,7 @@
   }
 
   function addPhaseBadge() {
-    if (file === 'index.html' || ['OptimIQ_Consultant_Workspace_Concept.html','OptimIQ_Consulting_Firm_Dashboard_Concept.html'].includes(file)) return;
+    if (file === 'index.html' || ['OptimIQ_Consultant_Workspace_Concept.html','OptimIQ_Consulting_Firm_Dashboard_Concept.html','OptimIQ_Client_Dashboard_Concept.html','OptimIQ_Client_Terms_Declarations.html','OptimIQ_Client_Categorization_Enrichment.html'].includes(file)) return;
     const phase = getPhase();
     let strip = document.createElement('div');
     strip.className = 'phase-strip';
@@ -194,11 +215,11 @@
   }
 
   function simplifyConsultantBreadcrumb() {
-    if (!consultantPage && !firmPage) return;
+    if (!consultantPage && !firmPage && !clientPage) return;
     document.querySelectorAll('header.topbar .crumb').forEach((crumb) => {
       const current = crumb.querySelector('strong, b');
       if (current) crumb.replaceChildren(current.cloneNode(true));
-      else crumb.textContent = crumb.textContent.replace(/^\s*(Consultant|Consulting firm) workspace\s*\/\s*/i, '').trim();
+      else crumb.textContent = crumb.textContent.replace(/^\s*(Consultant|Consulting firm|Client) workspace\s*\/\s*/i, '').trim();
     });
   }
 
@@ -298,7 +319,7 @@
       form?.addEventListener('submit', (e) => {
         e.preventDefault();
         const audience = new URLSearchParams(location.search).get('audience') || localStorage.getItem('optiq-demo-audience');
-        const destinations = { consultant:'OptimIQ_Consultant_Terms_Declarations.html', 'consulting-firm':'OptimIQ_Consulting_Firm_Terms_Declarations.html', client:'OptimIQ_Client_Workspace_Concept.html', staff:'OptimIQ_Admin_Workspace_Concept.html' };
+        const destinations = { consultant:'OptimIQ_Consultant_Terms_Declarations.html', 'consulting-firm':'OptimIQ_Consulting_Firm_Terms_Declarations.html', client:'OptimIQ_Client_Terms_Declarations.html', staff:'OptimIQ_Admin_Workspace_Concept.html' };
         if (!destinations[audience]) { toast('For this screen demo, open sign-in from the audience section on the review page.'); return; }
         localStorage.setItem('optiq-demo-email', email.value);
         localStorage.setItem('optiq-demo-audience', audience);
@@ -315,6 +336,23 @@
     }
     if (file === 'OptimIQ_Consulting_Firm_Terms_Declarations.html') {
       document.querySelector('#continue')?.addEventListener('click', () => go('OptimIQ_Consulting_Firm_CTQ_Stepper.html'));
+    }
+    if (file === 'OptimIQ_Client_Terms_Declarations.html') {
+      document.querySelector('#continue')?.addEventListener('click', () => {
+        const accepted = document.querySelector('input[type="checkbox"]');
+        if (accepted && !accepted.checked) { accepted.focus(); toast('Accept the required terms before continuing.'); return; }
+        go('OptimIQ_Client_Dashboard_Concept.html');
+      });
+    }
+    if (file === 'OptimIQ_Client_Categorization_Enrichment.html') {
+      const form = document.querySelector('#enrichment-form');
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const values = Object.fromEntries(new FormData(form).entries());
+        localStorage.setItem('optiq-demo-client-enrichment', JSON.stringify(values));
+        go('OptimIQ_Portal_Login_Concept.html?audience=client');
+      });
+      document.querySelector('[data-enrichment-skip]')?.addEventListener('click', () => go('OptimIQ_Portal_Login_Concept.html?audience=client'));
     }
     if (file === 'OptimIQ_Consultant_Profile_CTQ_Stepper.html') renderCtq();
     if (file === 'OptimIQ_Consultant_Role_Fit_Selection.html') {

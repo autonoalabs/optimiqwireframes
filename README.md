@@ -13,7 +13,7 @@ The client approved Theme 1. The client-facing review site is a simple HTML/CSS 
 
 Clients open the root `index.html` on GitHub Pages and select a screen preview. Developers can clone the repository and use the Next.js source after the client approves the screens.
 
-The static Consultant screens also provide a connected browser-only demo. Sign-in, CTQ draft answers, role selection, and page actions are simulated in the browser; they do not call a backend. The CTQ demo uses the approved 36-field, eight-category question set and hides scoring and weights.
+The static Consultant, Consulting Firm, and Client screens provide connected browser-only demos. Sign-in routes by audience, CTQ answers and optional client enrichment are kept in the browser, and page actions are simulated; they do not call a backend. Consultant and firm scoring details remain hidden. Client categorisation is automatic and internal; client scores and CL1–CL4 routing labels are never shown to client users.
 
 ## Delivery phases shown in the review
 
@@ -30,6 +30,7 @@ Phase 3 is a planning label for client review; it is not a confirmed delivery co
 - Consultant journey: terms/declarations, CTQ, role fit, profile and assessment progress, agreement gate, engagements, payments, communications/notifications, project calendar, performance/CPD, and Phase 2 project documents
 - Consulting firm workspace
 - Staff / Admin workspace
+- Client journey: existing CTA, optional enrichment, shared sign-in, terms, client dashboard, and requirements through post-delivery support
 
 Theme 1 is approved. Individual screen concepts are marked **Awaiting screen feedback** until each receives separate approval. Record client feedback in the approval inventory linked from the review hub.
 
