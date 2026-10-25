@@ -17,6 +17,8 @@ The static Consultant, Consulting Firm, and Client screens provide connected bro
 
 ## Delivery phases shown in the review
 
+The client-facing [enterprise phase plan](OptimIQ_Enterprise_Phase_Plan.html) shows the approved release boundary, a proposed Phase 2 delivery sequence, linked screen placeholders, and the decisions needed before detailed design. Its Phase 2A–2D groups are planning increments, not approved dates or separate applications. The source mind map's numbered phases are business process stages and do not replace the approved release boundary.
+
 - **Phase 1:** the shared member sign-in and Consultant, Consulting Firm, and Client journeys through CTQ. Consultant role-fit selection follows CTQ in Phase 1. The existing CTA forms precede portal sign-in.
 - **Phase 2:** dashboards, remaining assessments, profile updates, qualification, and all project and support journeys. Their screen concepts remain available in the review site for later refinement.
 
