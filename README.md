@@ -13,15 +13,14 @@ The client approved Theme 1. The client-facing review site is a simple HTML/CSS 
 
 Clients open the root `index.html` on GitHub Pages and select a screen preview. Developers can clone the repository and use the Next.js source after the client approves the screens.
 
-The static Consultant, Consulting Firm, and Client screens provide connected browser-only demos. Sign-in routes by audience, CTQ answers and optional client enrichment are kept in the browser, and page actions are simulated; they do not call a backend. Consultant and firm scoring details remain hidden. Client categorisation is automatic and internal; client scores and CL1–CL4 routing labels are never shown to client users.
+The static Consultant, Consulting Firm, and Client screens provide connected browser-only demos. Sign-in routes by audience, CTQ answers are kept in the browser, and page actions are simulated; they do not call a backend. Consultant and firm scoring details remain hidden. Client categorisation is automatic and internal; client scores and CL1–CL4 routing labels are never shown to client users.
 
 ## Delivery phases shown in the review
 
-- **Phase 1:** registration and portal onboarding through CTQ submission and role-fit results, which completes the CTQ score stage.
-- **Phase 2:** remaining composite assessments, profile updates, qualification, and the project lifecycle after CTQ.
-- **Phase 3 (proposed):** future reusable knowledge resources and publishable success stories. Project folders and controlled project-file access remain shown in Phase 2, as previously requested.
+- **Phase 1:** the shared member sign-in and Consultant, Consulting Firm, and Client journeys through CTQ. Consultant role-fit selection follows CTQ in Phase 1. The existing CTA forms precede portal sign-in.
+- **Phase 2:** dashboards, remaining assessments, profile updates, qualification, and all project and support journeys. Their screen concepts remain available in the review site for later refinement.
 
-Phase 3 is a planning label for client review; it is not a confirmed delivery commitment.
+The client confirms that the optional three-question Client enrichment page is the Client CTQ. The source workbook places that page immediately after the public CTA without login. The review app places it after sign-in and terms to match the common portal journey; this placement awaits client confirmation. No client score or segment appears on member pages.
 
 ## Review screens
 
@@ -30,7 +29,7 @@ Phase 3 is a planning label for client review; it is not a confirmed delivery co
 - Consultant journey: terms/declarations, CTQ, role fit, profile and assessment progress, agreement gate, engagements, payments, communications/notifications, project calendar, performance/CPD, and Phase 2 project documents
 - Consulting firm workspace
 - Staff / Admin workspace
-- Client journey: existing CTA, optional enrichment, shared sign-in, terms, client dashboard, and requirements through post-delivery support
+- Client journey: existing CTA, shared sign-in, terms, optional Client CTQ, Phase 2 dashboard, and requirements through post-delivery support
 
 Theme 1 is approved. Individual screen concepts are marked **Awaiting screen feedback** until each receives separate approval. Record client feedback in the approval inventory linked from the review hub.
 

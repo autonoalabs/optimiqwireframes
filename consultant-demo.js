@@ -14,9 +14,9 @@
     ['Project documents', 'OptimIQ_Consultant_Project_Documents.html', '12'],
   ];
   const FIRM_PAGES = [
-    ['Dashboard', 'OptimIQ_Consulting_Firm_Dashboard_Concept.html', '1'],
-    ['Terms & declarations', 'OptimIQ_Consulting_Firm_Terms_Declarations.html', '2'],
-    ['Firm profile & CTQ', 'OptimIQ_Consulting_Firm_CTQ_Stepper.html', '3'],
+    ['Terms & declarations', 'OptimIQ_Consulting_Firm_Terms_Declarations.html', '1'],
+    ['CTQ form', 'OptimIQ_Consulting_Firm_CTQ_Stepper.html', '2'],
+    ['Dashboard', 'OptimIQ_Consulting_Firm_Dashboard_Concept.html', '3'],
     ['Qualification & empanelment', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#qualification', '4'],
     ['Corporate membership', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#membership', '5'],
     ['Seller opportunities', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#seller', '6'],
@@ -37,23 +37,24 @@
     ['Exit & final settlement', 'OptimIQ_Consulting_Firm_Workspace_Concept.html#exit', '21'],
   ];
   const CLIENT_PAGES = [
-    ['Dashboard', 'OptimIQ_Client_Dashboard_Concept.html', '1'],
-    ['Terms & declarations', 'OptimIQ_Client_Terms_Declarations.html', '2'],
-    ['Client profile', 'OptimIQ_Client_Workspace_Concept.html#profile', '3'],
-    ['Requirements', 'OptimIQ_Client_Workspace_Concept.html#requirements', '4'],
-    ['Track A shortlist', 'OptimIQ_Client_Workspace_Concept.html#track-a', '5'],
-    ['Masked profile detail', 'OptimIQ_Client_Workspace_Concept.html#masked-profile', '6'],
-    ['Request more profiles', 'OptimIQ_Client_Workspace_Concept.html#request-more', '7'],
-    ['Track B tender & evaluation', 'OptimIQ_Client_Workspace_Concept.html#track-b', '8'],
-    ['Agreements & award', 'OptimIQ_Client_Workspace_Concept.html#agreements', '9'],
-    ['Meetings & introduction', 'OptimIQ_Client_Workspace_Concept.html#meetings', '10'],
-    ['Engagements & milestones', 'OptimIQ_Client_Workspace_Concept.html#engagements', '11'],
-    ['Invoices & payments', 'OptimIQ_Client_Workspace_Concept.html#payments', '12'],
-    ['Feedback & re-engagement', 'OptimIQ_Client_Workspace_Concept.html#feedback', '13'],
-    ['Communications', 'OptimIQ_Client_Workspace_Concept.html#communications', '14'],
-    ['Project calendar', 'OptimIQ_Client_Workspace_Concept.html#calendar', '15'],
-    ['Project documents', 'OptimIQ_Client_Workspace_Concept.html#documents', '16'],
-    ['Support & account', 'OptimIQ_Client_Workspace_Concept.html#support', '17'],
+    ['Terms & declarations', 'OptimIQ_Client_Terms_Declarations.html', '1'],
+    ['CTQ form', 'OptimIQ_Client_Categorization_Enrichment.html', '2'],
+    ['Dashboard', 'OptimIQ_Client_Dashboard_Concept.html', '3'],
+    ['Client profile', 'OptimIQ_Client_Workspace_Concept.html#profile', '4'],
+    ['Requirements', 'OptimIQ_Client_Workspace_Concept.html#requirements', '5'],
+    ['Track A shortlist', 'OptimIQ_Client_Workspace_Concept.html#track-a', '6'],
+    ['Masked profile detail', 'OptimIQ_Client_Workspace_Concept.html#masked-profile', '7'],
+    ['Request more profiles', 'OptimIQ_Client_Workspace_Concept.html#request-more', '8'],
+    ['Track B tender & evaluation', 'OptimIQ_Client_Workspace_Concept.html#track-b', '9'],
+    ['Agreements & award', 'OptimIQ_Client_Workspace_Concept.html#agreements', '10'],
+    ['Meetings & introduction', 'OptimIQ_Client_Workspace_Concept.html#meetings', '11'],
+    ['Engagements & milestones', 'OptimIQ_Client_Workspace_Concept.html#engagements', '12'],
+    ['Invoices & payments', 'OptimIQ_Client_Workspace_Concept.html#payments', '13'],
+    ['Feedback & re-engagement', 'OptimIQ_Client_Workspace_Concept.html#feedback', '14'],
+    ['Communications', 'OptimIQ_Client_Workspace_Concept.html#communications', '15'],
+    ['Project calendar', 'OptimIQ_Client_Workspace_Concept.html#calendar', '16'],
+    ['Project documents', 'OptimIQ_Client_Workspace_Concept.html#documents', '17'],
+    ['Support & account', 'OptimIQ_Client_Workspace_Concept.html#support', '18'],
   ];
   const file = location.pathname.split('/').pop() || 'index.html';
   const fileToPage = new Map(PAGES.map(([, url]) => [url, true]));
@@ -62,6 +63,7 @@
   const consultantPage = fileToPage.has(file) || file === 'OptimIQ_Consultant_Workspace_Concept.html';
   const firmPage = fileToFirmPage.has(file);
   const clientPage = fileToClientPage.has(file);
+  const phaseOneCount = firmPage || clientPage ? 2 : 3;
   const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const roleLabel = (role) => ({'consultant':'Consultant','strategic-advisor':'Strategic Advisor','project-manager':'Project Manager'}[role] || role);
 
@@ -73,7 +75,7 @@
     let details = rail.querySelector('.firm-journey');
     if (!details) details = document.createElement('details');
     details.className = `consultant-journey${firmPage ? ' firm-journey' : ''}${clientPage ? ' client-journey' : ''}`;
-    details.innerHTML = `<summary>☰ <span>${journeyName}</span></summary><nav class="journey-nav" aria-label="${journeyName}">${pages.map(([label,url,n]) => `<a href="${url}"${url.split('#')[0] === file && (!url.includes('#') || url.endsWith(location.hash)) ? ' aria-current="page"' : ''}><span class="journey-number">${n}</span><span>${escapeHtml(label)}</span></a>`).join('')}</nav>`;
+    details.innerHTML = `<summary>☰ <span>${journeyName}</span></summary><nav class="journey-nav" aria-label="${journeyName}"><div class="navlabel journey-nav-label">Phase 1 · CTQ</div>${pages.map(([label,url,n], i) => `${i === phaseOneCount ? '<div class="navlabel journey-nav-label journey-nav-label--later">Phase 2 · Later journey</div>' : ''}<a href="${url}"${url.split('#')[0] === file && (!url.includes('#') || url.endsWith(location.hash)) ? ' aria-current="page"' : ''}><span class="journey-number">${n}</span><span>${escapeHtml(label)}</span></a>`).join('')}</nav>`;
     const brand = rail.querySelector('.brand');
     if (!details.parentElement) rail.insertBefore(details, brand?.nextElementSibling || null);
     rail.querySelectorAll('nav:not(.journey-nav), .mobile-menu:not(.consultant-journey), .side-flow, .nav, .step-list').forEach((el) => el.classList.add('consultant-journey-oldnav'));
@@ -191,20 +193,17 @@
   }
 
   function getPhase() {
-    if (['OptimIQ_Portal_Login_Concept.html','OptimIQ_Consultant_Terms_Declarations.html','OptimIQ_Consultant_Profile_CTQ_Stepper.html','OptimIQ_Consultant_Role_Fit_Selection.html','OptimIQ_Consulting_Firm_Terms_Declarations.html','OptimIQ_Consulting_Firm_CTQ_Stepper.html','OptimIQ_Consulting_Firm_Dashboard_Concept.html'].includes(file)) return 1;
-    if (file === 'OptimIQ_Consultant_Project_Documents.html') return 2;
-    if (file === 'OptimIQ_Admin_Workspace_Concept.html') return 1;
+    if (['OptimIQ_Portal_Login_Concept.html','OptimIQ_Consultant_Terms_Declarations.html','OptimIQ_Consultant_Profile_CTQ_Stepper.html','OptimIQ_Consultant_Role_Fit_Selection.html','OptimIQ_Consulting_Firm_Terms_Declarations.html','OptimIQ_Consulting_Firm_CTQ_Stepper.html','OptimIQ_Client_Terms_Declarations.html','OptimIQ_Client_Categorization_Enrichment.html'].includes(file)) return 1;
     return 2;
   }
 
   function addPhaseBadge() {
-    if (file === 'index.html' || ['OptimIQ_Consultant_Workspace_Concept.html','OptimIQ_Consulting_Firm_Dashboard_Concept.html','OptimIQ_Client_Dashboard_Concept.html','OptimIQ_Client_Terms_Declarations.html','OptimIQ_Client_Categorization_Enrichment.html'].includes(file)) return;
+    if (file === 'index.html' || ['OptimIQ_Consultant_Workspace_Concept.html','OptimIQ_Consulting_Firm_Dashboard_Concept.html','OptimIQ_Client_Dashboard_Concept.html'].includes(file)) return;
     const phase = getPhase();
     let strip = document.createElement('div');
     strip.className = 'phase-strip';
     const text = phase === 1 ? 'Phase 1 · Registration through CTQ score completion' : 'Phase 2 · Post-CTQ assessment and project journey';
     strip.innerHTML = `<span class="phase-badge phase-${phase}">${text}</span>`;
-    if (file === 'OptimIQ_Consultant_Project_Documents.html') strip.innerHTML += '<span class="phase-badge phase-3">Phase 3 · Knowledge library proposed</span>';
     const main = document.querySelector('main');
     const topbar = main?.querySelector('.topbar');
     if (topbar) topbar.insertAdjacentElement('afterend', strip);
@@ -240,7 +239,7 @@
     const grouped = fields.reduce((m,f) => ((m[f.categoryCode] ||= []).push(f),m),{});
     const categories = Object.entries(grouped);
     const saved = JSON.parse(localStorage.getItem('optiq-demo-ctq') || '{}');
-    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Complete the client-provided CTQ questions. Your answers can be changed until final submission. This demo keeps draft answers in this browser and does not calculate or display scores.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">CTQ SECTION 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><div class="ctq-save-group"><button type="button" class="ctq-save-draft">Save draft</button><span class="save-state" aria-live="polite">Draft answers are saved in this browser</span></div><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
+    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Your answers can be changed until final submission. Save a draft whenever you need to pause.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">CTQ SECTION 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><div class="ctq-save-group"><button type="button" class="ctq-save-draft">Save draft</button><span class="save-state" aria-live="polite">Draft saved on this device</span></div><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
     const container = form.querySelector('#ctq-step-container');
     categories.forEach(([code, group], index) => {
       const section = document.createElement('section');
@@ -290,7 +289,7 @@
       localStorage.setItem('optiq-demo-ctq', JSON.stringify(saved));
       localStorage.setItem('optiq-demo-ctq-draft-saved', new Date().toISOString());
       form.querySelector('.save-state').textContent = 'Draft saved just now';
-      toast('Your CTQ draft is saved in this browser.');
+      toast('Your CTQ draft is saved.');
     });
     form.querySelector('.ctq-back').addEventListener('click', () => { if (current > 0) { current--; progress(); focusSectionQuestion(); } });
     form.querySelectorAll('[data-step-target]').forEach((button) => button.addEventListener('click', () => { current = Number(button.dataset.stepTarget); progress(); focusSectionQuestion(); }));
@@ -341,7 +340,7 @@
       document.querySelector('#continue')?.addEventListener('click', () => {
         const accepted = document.querySelector('input[type="checkbox"]');
         if (accepted && !accepted.checked) { accepted.focus(); toast('Accept the required terms before continuing.'); return; }
-        go('OptimIQ_Client_Dashboard_Concept.html');
+        go('OptimIQ_Client_Categorization_Enrichment.html');
       });
     }
     if (file === 'OptimIQ_Client_Categorization_Enrichment.html') {
@@ -350,9 +349,13 @@
         e.preventDefault();
         const values = Object.fromEntries(new FormData(form).entries());
         localStorage.setItem('optiq-demo-client-enrichment', JSON.stringify(values));
-        go('OptimIQ_Portal_Login_Concept.html?audience=client');
+        localStorage.setItem('optiq-demo-client-ctq-complete', 'true');
+        go('OptimIQ_Client_Dashboard_Concept.html');
       });
-      document.querySelector('[data-enrichment-skip]')?.addEventListener('click', () => go('OptimIQ_Portal_Login_Concept.html?audience=client'));
+      document.querySelector('[data-enrichment-skip]')?.addEventListener('click', () => {
+        localStorage.setItem('optiq-demo-client-ctq-complete', 'skipped');
+        go('OptimIQ_Client_Dashboard_Concept.html');
+      });
     }
     if (file === 'OptimIQ_Consultant_Profile_CTQ_Stepper.html') renderCtq();
     if (file === 'OptimIQ_Consultant_Role_Fit_Selection.html') {
