@@ -76,6 +76,6 @@
   </div>
 <script>const mobileMenu=document.querySelector('.mobile-menu');const menuBreakpoint=window.matchMedia('(max-width:700px)');const syncMenu=()=>{if(!menuBreakpoint.matches)mobileMenu.open=true;document.body.classList.toggle('navigation-open',menuBreakpoint.matches&&mobileMenu.open)};mobileMenu.addEventListener('toggle',syncMenu);document.addEventListener('click',event=>{if(menuBreakpoint.matches&&mobileMenu.open&&!mobileMenu.contains(event.target))mobileMenu.open=false});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open)mobileMenu.open=false});menuBreakpoint.addEventListener('change',syncMenu);syncMenu();</script>
 <script src="ctq-demo-data.js?v=consultant-ux-20261024e" defer></script>
-<script src="consultant-demo.js?v=ctq-steps-20261026" defer></script>
+<script src="consultant-demo.js?v=ctq-steps-20261026b" defer></script>
 </body>
 </html>
