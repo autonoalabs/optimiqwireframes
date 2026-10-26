@@ -239,15 +239,14 @@
     const grouped = fields.reduce((m,f) => ((m[f.categoryCode] ||= []).push(f),m),{});
     const categories = Object.entries(grouped);
     const saved = JSON.parse(localStorage.getItem('optiq-demo-ctq') || '{}');
-    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Your answers can be changed until final submission. Save a draft whenever you need to pause.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">CTQ SECTION 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ sections">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span>${i+1}</span>${escapeHtml(group[0].category)}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><div class="ctq-save-group"><button type="button" class="ctq-save-draft">Save draft</button><span class="save-state" aria-live="polite">Draft saved on this device</span></div><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next section</button></div></div>`;
+    form.innerHTML = `<p class="notice"><span class="notice-icon">i</span><span>Your answers can be changed until final submission. Save a draft whenever you need to pause.</span></p><div class="ctq-progress-track"><div class="ctq-progress-fill" style="width:12.5%"></div></div><div class="progress-row"><span>CTQ form progress</span><span class="progress-track"><span class="progress-fill" style="width:12.5%"></span></span><strong class="ctq-step-count">STEP 1 OF ${categories.length}</strong></div><div class="ctq-priority-legend" aria-label="Question indicators"><span>Question indicators</span><span><i class="priority-dot required" aria-hidden="true"></i>Required</span><span><i class="priority-dot recommended" aria-hidden="true"></i>Recommended</span><span><i class="priority-dot optional" aria-hidden="true"></i>Optional</span></div><nav class="ctq-section-list" aria-label="CTQ steps">${categories.map(([,group],i) => `<button type="button" data-step-target="${i}"><span aria-hidden="true">${i+1}</span>Step ${i+1}</button>`).join('')}</nav><div id="ctq-step-container"></div><div class="ctq-actions"><div class="ctq-save-group"><button type="button" class="ctq-save-draft">Save draft</button><span class="save-state" aria-live="polite">Draft saved on this device</span></div><div class="actions"><button type="button" class="ctq-back" disabled>Back</button><button type="button" class="primary ctq-next">Next step</button></div></div>`;
     const container = form.querySelector('#ctq-step-container');
     categories.forEach(([code, group], index) => {
       const section = document.createElement('section');
       section.className = 'ctq-step';
       section.hidden = index !== 0;
       section.dataset.step = index;
-      const label = group[0].category;
-      section.innerHTML = `<div class="step-header"><div><span class="step-kicker">Section ${index+1}</span><h2>${escapeHtml(label)}</h2><p>Answer the questions in this section. Scoring details are handled after submission.</p></div><span class="step-count">${group.length} questions</span></div><div class="fields ctq-field-grid"></div>`;
+      section.innerHTML = `<div class="step-header"><div><span class="step-kicker">CTQ form</span><h2>Step ${index+1}</h2></div><span class="step-count">${group.length} questions</span></div><div class="fields ctq-field-grid"></div>`;
       const grid = section.querySelector('.ctq-field-grid');
       group.forEach((field) => {
         const wrap = document.createElement('div');
@@ -271,9 +270,9 @@
       const pct = ((current + 1) / steps.length) * 100;
       form.querySelector('.ctq-progress-fill').style.width = `${pct}%`;
       form.querySelector('.progress-fill').style.width = `${pct}%`;
-      form.querySelector('.ctq-step-count').textContent = `CTQ SECTION ${current+1} OF ${steps.length}`;
+      form.querySelector('.ctq-step-count').textContent = `STEP ${current+1} OF ${steps.length}`;
       form.querySelector('.ctq-back').disabled = current === 0;
-      form.querySelector('.ctq-next').textContent = current === steps.length - 1 ? 'Submit CTQ form' : 'Next section';
+      form.querySelector('.ctq-next').textContent = current === steps.length - 1 ? 'Submit CTQ form' : 'Next step';
       steps.forEach((s,i) => { s.hidden = i !== current; });
       form.querySelectorAll('[data-step-target]').forEach((button) => { if (Number(button.dataset.stepTarget) === current) button.setAttribute('aria-current','step'); else button.removeAttribute('aria-current'); });
       const stepLinks = document.querySelectorAll('.journey-nav a');
