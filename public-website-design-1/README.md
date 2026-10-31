@@ -1,11 +1,36 @@
-# OptimIQ Proposed Design 1
+# Proposed Design 1 — consolidated feedback, 31 October 2026
 
-Status: proposed, awaiting design feedback. Source: OptimIQ_Homepage_Wireframe_Documentation_v1_0.docx (designer brief v1.0). Built with the user's requested green brand palette and locally hosted Manrope font; the source navy/gold palette is intentionally replaced. Proposed Design 2 remains at public-website/index.html, unchanged.
+Client preview: https://autonoalabs.github.io/optimiqwireframes/public-website-design-1/index.html
 
-Includes three inline tools with the exact source formulas/ranges, independent input confirmations, optional scenario attachment, source registration-field previews, a required video section with missing-film fallback and transcript overview, three trust points, direct registration routes and general enquiry preview. The approved professional label Consultant is used rather than the source's Strategy Consultant. Existing CTA links remain available. Drawer fields are a design proposal, not an approved replacement for deployed registration.
+The consolidated feedback replaces Design 1's former Manrope/forest visual direction. The visual tokens are green #0D5C3A, hover #0B4D30, mint #10B981 on slate #0F172A, white/light-grey surfaces, Plus Jakarta Sans headings and Inter body/figures. Fonts are hosted locally with OFL licences. Arabic font tokens and logical layout properties prepare for IBM Plex Sans Arabic; Arabic translation, font asset and full RTL review remain future work. Existing supplied logo mark is kept legible on its mint tile with a white wordmark on dark surfaces. No new logo artwork is invented.
 
-Forms validate locally but send, log and persist nothing. There is no API, analytics or browser storage. Submission messages state that no message was sent; they never claim durable receipt or queued email. Expert commercial values enter the transient allowlisted preview payload only if all inputs are confirmed and attachment is selected. Direct registration defaults to no attachment. Policy copy and video film are missing launch assets, represented honestly in the preview. Final operational routing, privacy wording, email verification and range masters require implementation confirmation.
+The locked member portal and Proposed Design 2 are unchanged. Approval of visual specifications is not approval of the completed homepage; Design 1 remains awaiting review.
 
-Uses shared assets in ../public-website/assets/: Manrope (OFL license), supplied logo, illustrative stock photo by Christina Morillo from https://www.pexels.com/photo/group-of-people-on-conference-room-1181396/ . The photo is not represented as OptimIQ staff or clients.
+## Included
 
-Suggested future components: SiteHeader, AudienceHookCards, InlineTool, ConfirmedNumericInput, ClientFeeComparison, ExpertBillingsExample, FirmMissedValue, RegistrationDrawer, ExplainerVideo, TrustPoints, GeneralEnquiryForm. Static HTML/CSS/JS remains the client review deliverable. Backend submission is intentionally not connected.
+- Compact desktop hero; three audience hooks and independent direct short registration flows.
+- Original numeric ranges and visitor-defined arithmetic. Confirm days and both client rates separately; confirm consultant days, rate and growth choice. Changes clear the affected confirmation. Partial scenarios cannot be attached.
+- Client reduction/increase/zero handling, firm zero-project state, optional consultant earnings attachment.
+- Slate result cards, explicit example/visitor figure labels, custom range tracks and numeric entry.
+- Content-height-aware 360 ms expansion with reduced-motion handling. No permanent maximum-height clipping.
+- Mobile calculator registration action with safe-area/content clearance; removed when registration opens. Input focus and visual viewport resize handling support keyboard clearance.
+- Field-specific errors; valid personal email domains are accepted. Values remain in memory while changing panels or correcting validation. General enquiry processing acknowledgement starts unchecked.
+- Video frame/poster, honest missing-asset fallback, overview and registration routes. Native player/caption hookup is prepared in site.js but intentionally has null asset paths.
+
+## Pending client assets and production integration
+
+1. WEB-VIDEO-01: approved explainer video, captions and final overview/transcript. Client confirmed on 31 October 2026 that the video is not yet supplied and must be recorded as a requirement. Do not substitute an unrelated video. Playback/caption synchronisation cannot be signed off yet.
+2. WEB-LEGAL-01: final Privacy Notice and approved processing wording.
+3. WEB-API-01: backend durable submission, authoritative input validation, server recomputation, optional scenario allowlist, idempotent retries, audience routing and verification-email integration. Only acknowledge receipt after durable storage; acknowledge routing/dispatch only after those operations succeed. Keep entered values on validation/connection/server failures; do not reset before durable success. Do not add public scoring, internal margins, risk parameters or allocation rules.
+4. WEB-QA-01: physical iOS/Android keyboard and safe-area testing before launch. Desktop browser responsive checks do not substitute for a physical keyboard test.
+
+All current forms are static design previews. They send, log and persist nothing, and do not claim successful receipt, routing or email dispatch. No analytics, cookies, local/session storage, tracking IDs or commercial URL parameters are used. Commercial inputs are outside the short forms. preview-core.js builds an allowlisted application; consultant earnings are excluded unless a fully confirmed scenario is explicitly selected. No downstream commercial linkage exists in this preview. Preserve this separation when the production backend and analytics are built.
+
+## Assets and developer handoff
+
+Fonts: https://github.com/google/fonts/tree/main/ofl/plusjakartasans and https://github.com/google/fonts/tree/main/ofl/inter (licences in assets/).
+Shared logo and illustrative photograph: ../public-website/assets/. Photo by Christina Morillo: https://www.pexels.com/photo/group-of-people-on-conference-room-1181396/ . The image is not presented as OptimIQ employees or clients.
+
+Plain semantic HTML, layered CSS tokens and small isolated JavaScript modules preserve the GitHub Pages review workflow and can be mapped to React/Next components later. The short public enquiry is followed by detailed discovery/onboarding: consultant CVs/evidence in Stage 2, client scope/RFPs collected by BD. Neither is requested on the homepage.
+
+Run public arithmetic/payload/contrast checks with `node core.test.cjs`. See REVIEW-TESTS.md for browser results and untestable integration requirements.
