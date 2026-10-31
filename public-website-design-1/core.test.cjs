@@ -1,14 +1,42 @@
 const assert=require('node:assert/strict');
-const {clientDifference,buildApplication}=require('./preview-core.js');
-assert.deepEqual(clientDifference(240,2000,1300),{label:'Estimated fee reduction',amount:168000});
-assert.deepEqual(clientDifference(240,2000,2500),{label:'Estimated fee increase',amount:120000});
-assert.deepEqual(clientDifference(240,2000,2000),{label:'No fee difference ($0)',amount:0});
-const fields={fullName:' Example Reviewer ',email:'reviewer@gmail.com',experience:'10–14 years',rate:1000,earnings:135000,score:90,internalMargin:10};
-const scenario={days:90,rate:1000,growthPercent:50,targetBillings:135000};
-assert.deepEqual(buildApplication('expert',fields,scenario,false),{fullName:'Example Reviewer',email:'reviewer@gmail.com',experience:'10–14 years',phone:'',linkedin:''});
-assert.equal(buildApplication('expert',fields,null,true).scenario,undefined);
-assert.deepEqual(buildApplication('expert',fields,scenario,true).scenario,scenario);
-assert.equal(buildApplication('firm',{firmName:'Example',interests:['capacity','secret']},null,false).interests.join(','),'capacity');
-function luminance(hex){const rgb=hex.match(/[a-f0-9]{2}/gi).map(v=>parseInt(v,16)/255).map(c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;}
-for(const [fg,bg,min] of [['ffffff','0D5C3A',4.5],['ffffff','0B4D30',4.5],['64748B','ffffff',4.5],['64748B','F8F9FA',4.5],['10B981','0F172A',4.5],['B42318','ffffff',4.5],['0D5C3A','CBD5E1',3]]){const l=[luminance(fg),luminance(bg)].sort((a,b)=>b-a);const contrast=(l[0]+.05)/(l[1]+.05);assert.ok(contrast>=min,`${fg}/${bg}: ${contrast}`);console.log(`${fg}/${bg}: ${contrast.toFixed(2)}:1`);}
-console.log('Public calculation, attachment allowlist and colour contrast checks passed.');
+const config=require('./site-config.json');
+const core=require('./public-core.js');
+const {createSubmissionService}=require('./submission-service.js');
+const defaults=a=>Object.fromEntries(config.audiences[a].inputs.map(f=>[f.name,f.default]));
+const source={page:'/',component:'homepage-drawer'};
+async function main(){
+ assert.equal(core.calculate('client',defaults('client')).total,168000);
+ assert.equal(core.calculate('client',{days:240,current_rate:2000,target_rate:2500}).label,'Estimated fee increase');
+ assert.equal(core.calculate('client',{days:240,current_rate:2000,target_rate:2500}).signedVariance,-120000);
+ assert.equal(core.calculate('client',{days:240,current_rate:2000,target_rate:2000}).label,'No fee difference ($0)');
+ const earnings=core.calculate('expert',defaults('expert'));assert.equal(earnings.total,135000);assert.equal(earnings.details[1][1],1500);
+ assert.equal(core.calculate('firm',{missed_projects:0,average_project_value:250000}).total,0);
+ for(const a of ['client','expert','firm']){assert.equal(config.audiences[a].fields.filter(f=>f.required).length,3);assert.ok(core.validScenario(config,a,defaults(a)));assert.ok(!core.validScenario(config,a,{}));}
+ assert.equal(config.audiences.firm.fields.find(f=>f.name==='practice_area').required,undefined);
+ assert.ok(!core.validScenario(config,'client',{days:21,current_rate:2000,target_rate:1300}));
+ assert.ok(!core.validScenario(config,'firm',{missed_projects:0,average_project_value:27000}));
+ assert.ok(core.validScenario(config,'firm',{missed_projects:0,average_project_value:25000}));
+ const form={full_name:"  O’Connor Example  ",email:'reviewer@gmail.com',experience_band:'10–14 years',role:'Project Manager',daily_rate:1000,target_annual_billings:135000,internal_margin:50};
+ const declined=core.buildPayload(config,'expert',form,defaults('expert'),false,source);
+ assert.equal(declined.full_name,'O’Connor Example');assert.equal(declined.role,'Project Manager');assert.equal(declined.attach_earnings_calculation,false);for(const key of ['daily_rate','target_annual_billings','internal_margin','scenario'])assert.ok(!(key in declined));
+ const attached=core.buildPayload(config,'expert',form,{...defaults('expert'),target_annual_billings:135000},true,source);assert.deepEqual(attached.scenario,defaults('expert'));assert.equal(attached.attach_earnings_calculation,true);
+ assert.equal(core.buildPayload(config,'expert',form,{days:90},true,source).attach_earnings_calculation,false);
+ const firm=core.buildPayload(config,'firm',{firm_name:'Example',contact_name_role:'Example, Partner',email:'partner@example.com'},null,false,source);assert.ok(!('practice_area' in firm));assert.equal(firm.new_project_opportunities,false);assert.ok(!firm.scenario);
+ assert.equal(core.nextStep('expert',{receipt:false,reference:'x'}),null);
+ assert.ok(!core.nextStep('expert',{receipt:true,reference:'x',verification:'failed'}).text.includes('Check your email'));
+ assert.ok(core.nextStep('expert',{receipt:true,reference:'x',verification:'queued'}).text.includes('Check your email'));
+ const preview=createSubmissionService();assert.equal((await preview.submit(declined)).status,'preview');
+ let calls=[],attempt=0,ids=0;
+ const retry=createSubmissionService({createId:()=>`request-${++ids}`,transport:async payload=>{calls.push(payload);if(attempt++===0)throw new Error('ambiguous timeout');return {status:'accepted',receipt:true,reference:'opaque-test-reference',verification:'failed'};}});
+ assert.equal((await retry.submit(declined)).status,'retry');assert.equal((await retry.submit(declined)).status,'accepted');assert.equal(calls[0].request_id,calls[1].request_id);assert.ok(!calls[1].scenario);await retry.submit(declined);assert.equal(calls.length,2);
+ retry.invalidate();await retry.submit({...declined,full_name:'Changed Enquiry'});assert.notEqual(calls[1].request_id,calls[2].request_id);
+ let release,duplicateCalls=0;const duplicate=createSubmissionService({createId:()=> 'one-request',transport:()=>{duplicateCalls++;return new Promise(resolve=>{release=resolve;});}});const pending=duplicate.submit(declined),same=duplicate.submit(declined);assert.equal(pending,same);await Promise.resolve();release({status:'accepted',receipt:true,reference:'one-record'});await pending;assert.equal(duplicateCalls,1);
+ const falseReceipt=createSubmissionService({transport:async()=>({status:'accepted',receipt:false,reference:'not-durable'})});assert.equal((await falseReceipt.submit(declined)).status,'retry');
+ const syncFailure=createSubmissionService({transport:()=>{throw new Error('failed');}});assert.equal((await syncFailure.submit(declined)).status,'retry');assert.equal((await syncFailure.submit(declined)).status,'retry');
+ const validation=createSubmissionService({transport:async()=>({status:'validation',fields:{email:'Please enter a valid email address.'}})});assert.equal((await validation.submit(declined)).fields.email,'Please enter a valid email address.');
+ const throttled=createSubmissionService({transport:async()=>({status:'throttled'})});assert.equal((await throttled.submit(declined)).status,'throttled');
+ for(const a of ['client','expert','firm'])assert.equal(config.guides[a],null);
+ assert.ok(Object.values(config.integrations.endpoints).every(v=>v===null));
+ console.log('Passed arithmetic, range boundaries, three-field forms, firm optional practice, role/earnings separation, opt-in/out, raw-input allowlists, durable receipt, retries, duplicate prevention and failure-state tests.');
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});

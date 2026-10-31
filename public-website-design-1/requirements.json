@@ -1,0 +1,118 @@
+{
+  "version": "1.2",
+  "date": "2026-10-31",
+  "items": [
+    {
+      "id": "WEB-VIDEO-01",
+      "item": "Homepage film",
+      "status": "Awaiting client asset",
+      "owner": "Client production team",
+      "question": "Required ~60-second approved film, final poster, accurate transcript and caption languages. User confirmed film not supplied."
+    },
+    {
+      "id": "WEB-VIDEO-02",
+      "item": "Client film",
+      "status": "Awaiting client asset",
+      "owner": "Client production team",
+      "question": "Required ~75-second film, approved poster and transcript, English and Arabic captions."
+    },
+    {
+      "id": "WEB-VIDEO-03",
+      "item": "Consultant film",
+      "status": "Awaiting client asset",
+      "owner": "Client production team",
+      "question": "Required ~75-second film, approved poster and transcript, English and Arabic captions."
+    },
+    {
+      "id": "WEB-VIDEO-04",
+      "item": "Consulting firm film",
+      "status": "Awaiting client asset",
+      "owner": "Client production team",
+      "question": "Required ~75-second film, approved poster and transcript, English and Arabic captions."
+    },
+    {
+      "id": "WEB-GUIDES-01",
+      "item": "Three supporting guides",
+      "status": "Awaiting approved assets",
+      "owner": "Client content owners",
+      "question": "Client Overview, Professional Guide and Firm Partnership Guide. Components stay hidden until approved assets and destinations are configured."
+    },
+    {
+      "id": "WEB-LEGAL-01",
+      "item": "Privacy Notice and acknowledgement policy",
+      "status": "Needs clarification",
+      "owner": "Client legal/privacy owner",
+      "question": "Supply final wording, URL, processing/retention purposes and consent requirements. Preview uses notices and an unchecked general-enquiry acknowledgement; no personal data is sent."
+    },
+    {
+      "id": "WEB-PRACTICE-01",
+      "item": "Practice master",
+      "status": "Needs confirmation",
+      "owner": "Client business owner",
+      "question": "Confirm the nine proposed public labels and stable backend identifiers. All practice fields are optional and start empty; preview labels follow the designer list."
+    },
+    {
+      "id": "WEB-ROLE-01",
+      "item": "Consultant role label",
+      "status": "Needs clarification",
+      "owner": "Client business owner",
+      "question": "Designer uses Strategy Consultant on the expert page and Management Consultant on the client page; portal approval says Consultant. Preview retains Consultant consistently. Confirm the final public labels and mapping before production."
+    },
+    {
+      "id": "WEB-ELIGIBILITY-01",
+      "item": "Below five years of experience",
+      "status": "Needs clarification",
+      "owner": "Client Talent owner",
+      "question": "Confirm an alternate route or approved eligibility statement. Preview retains four specified bands without preselection or false classification."
+    },
+    {
+      "id": "WEB-API-01",
+      "item": "Submissions, CRM routing and follow-up",
+      "status": "Integration pending",
+      "owner": "Backend and Operations",
+      "question": "Confirm real endpoints, durable receipt schema, queue owners, server validation/recomputation, idempotent retry and safe response contracts. Static preview never claims receipt."
+    },
+    {
+      "id": "WEB-IDENTITY-01",
+      "item": "Portal continuation and verification",
+      "status": "Needs integration decision",
+      "owner": "Portal and Talent teams",
+      "question": "Confirm existing CTA/account provisioning relationship to the new short enquiries/applications, approved portal URL, verification token lifetime and controlled resend. Member portal is unchanged."
+    },
+    {
+      "id": "WEB-INTRO-01",
+      "item": "Identity release and commercial statements",
+      "status": "Needs business/legal approval",
+      "owner": "Client business/legal owners",
+      "question": "Confirm exact introduction gates, non-circumvention terms and affected fee/non-exclusivity claims. Preview uses private matching and approved-process wording, no promises about fees or guaranteed work."
+    },
+    {
+      "id": "WEB-CONTACT-01",
+      "item": "Corporate contact channels and regional presence",
+      "status": "Awaiting verified details",
+      "owner": "Client Operations",
+      "question": "Verify corporate emails, telephone numbers, locations and monitored owners. Unverified channels and speculative offices are hidden."
+    },
+    {
+      "id": "WEB-HOST-01",
+      "item": "Production host and legacy redirects",
+      "status": "Integration pending",
+      "owner": "Technical owner",
+      "question": "Supply production hostname/canonicals, configure real HTTP 301 GET redirects after cutover and separately inventory existing POST routes. Preview uses subfolder routes and illustrative legacy navigation pages only."
+    },
+    {
+      "id": "WEB-MEASURE-01",
+      "item": "Analytics and attribution",
+      "status": "Approval pending",
+      "owner": "Privacy and technical owners",
+      "question": "No analytics, session replay, attribution capture or browser storage is enabled. Approve vendors, consent and a tightly controlled event/attribution allowlist before enabling."
+    },
+    {
+      "id": "WEB-QA-01",
+      "item": "Production end-to-end and physical device QA",
+      "status": "Pre-launch testing",
+      "owner": "QA and integration owners",
+      "question": "Real video/caption playback, backend logs/CRM opt-out checks, verification/resend, physical iOS/Android keyboard/safe-area tests and Arabic/RTL remain integration release checks."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+(function(root){
+ 'use strict';
+ function keys(config,a){return config.audiences[a].inputs.map(f=>f.name);}
+ function validScenario(config,a,values){return config.audiences[a].inputs.every(f=>{const v=values[f.name];if(typeof v!=='number'||!Number.isFinite(v))return false;if(f.choices)return f.choices.includes(v);if(f.discrete)return config.projectValues.includes(v);return Number.isInteger(v)&&v>=f.min&&v<=f.max&&(v-f.min)%f.step===0;});}
+ function calculate(a,v){if(a==='client'){const current=v.days*v.current_rate,target=v.days*v.target_rate,variance=current-target;return {label:variance>0?'Estimated fee reduction':variance<0?'Estimated fee increase':'No fee difference ($0)',total:Math.abs(variance),signedVariance:variance,details:[['Current estimated fees',current],['Target estimated fees',target]],neutral:variance<0};}if(a==='expert'){const current=v.days*v.daily_rate,targetRate=v.daily_rate*(1+v.growth_percent/100),target=v.days*targetRate;return {label:'Target gross annual billings',total:target,details:[['Current gross annual billings',current],['Target daily rate',targetRate],['Scenario increase',target-current]]};}return {label:'Past missed project value',total:v.missed_projects*v.average_project_value,details:[['Projects lost or declined',v.missed_projects],['Average project value',v.average_project_value]],zero:v.missed_projects===0};}
+ function snapshot(config,a,values){if(!validScenario(config,a,values))throw new Error('Invalid public scenario');return Object.fromEntries(keys(config,a).map(k=>[k,values[k]]));}
+ function buildPayload(config,a,values,scenario,attach,source){
+  const definition=config.audiences[a];const payload={audience:a,form_version:config.version,source_page:source.page,source_component:source.component};
+  for(const f of definition.fields){const value=String(values[f.name]||'').trim();if(value)payload[f.name]=value;}
+  if(a==='expert'&&payload.role&&!config.roles.includes(payload.role))delete payload.role;
+  if(a==='firm'){payload.new_project_opportunities=values.new_project_opportunities===true;payload.additional_consultant_capacity=values.additional_consultant_capacity===true;}
+  payload[definition.attachmentFlag]=Boolean(attach&&scenario&&validScenario(config,a,scenario));
+  if(payload[definition.attachmentFlag])payload.scenario=snapshot(config,a,scenario);
+  return payload;
+ }
+ function nextStep(a,result){if(!result||!result.receipt||!result.reference)return null;const headings={guide:'Your guide is ready.',client:'Thank you. We have received your project enquiry.',expert:'Thank you. We have received your application.',firm:'Thank you. We have received your partnership enquiry.',general:'Thank you. We have received your message.'};let text={guide:'Download your copy below. This guide request is separate from an application or enquiry.',client:'Our client team will review your information and contact you to discuss your project requirements and pricing.',expert:'Your application has been received for review.',firm:'Our partnerships team will review your information and contact you to discuss partnership terms.',general:'Our team will review your enquiry and reply to your email address.'}[a];if(a==='expert'&&result.verification==='queued')text='Check your email to verify your address and continue your profile.';if(a==='expert'&&result.verification==='failed')text='Your application has been received, but the verification email could not be sent. Please use the approved resend service when available.';return {heading:headings[a],text};}
+ const api={keys,validScenario,calculate,snapshot,buildPayload,nextStep};if(typeof module==='object'&&module.exports)module.exports=api;else root.OptimIQPublic=Object.freeze(api);
+})(typeof globalThis!=='undefined'?globalThis:this);
