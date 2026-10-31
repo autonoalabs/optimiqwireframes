@@ -9,6 +9,7 @@ on:
       - '*.js'
       - '*.png'
       - '*.xlsx'
+      - 'public-website/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -31,6 +32,7 @@ jobs:
         run: |
           mkdir _site
           cp *.html *.css *.js *.png *.xlsx _site/
+          cp -R public-website _site/
           touch _site/.nojekyll
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
