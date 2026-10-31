@@ -24,3 +24,4 @@ input[type=number],input[type=text],input:not([type]),input[type=email],input[ty
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
 }
 @layer components{.brand{min-height:48px}.hero-bottom>a{display:inline-flex;align-items:center;min-height:48px}.policy-link{min-height:48px;display:inline-flex;align-items:center}}
+@layer components{input[type=number],input[type=text],input:not([type]),input[type=email],input[type=tel],input[type=url],select,textarea{box-shadow:inset 0 -1px 0 #64748B}input[aria-invalid=true],select[aria-invalid=true],textarea[aria-invalid=true]{box-shadow:inset 0 -1px 0 var(--error)}}

@@ -11,7 +11,7 @@ The locked member portal and Proposed Design 2 are unchanged. Approval of visual
 - Compact desktop hero; three audience hooks and independent direct short registration flows.
 - Original numeric ranges and visitor-defined arithmetic. Confirm days and both client rates separately; confirm consultant days, rate and growth choice. Changes clear the affected confirmation. Partial scenarios cannot be attached.
 - Client reduction/increase/zero handling, firm zero-project state, optional consultant earnings attachment.
-- Slate result cards, explicit example/visitor figure labels, custom range tracks and numeric entry.
+- Slate result cards, explicit example/visitor figure labels, custom range tracks and numeric entry. Requested #CBD5E1 input borders retain a contrasting slate inset keyline so control boundaries remain visible.
 - Content-height-aware 360 ms expansion with reduced-motion handling. No permanent maximum-height clipping.
 - Mobile calculator registration action with safe-area/content clearance; removed when registration opens. Input focus and visual viewport resize handling support keyboard clearance.
 - Field-specific errors; valid personal email domains are accepted. Values remain in memory while changing panels or correcting validation. General enquiry processing acknowledgement starts unchecked.
