@@ -6,6 +6,35 @@ const reducedMotion=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
 const publicHeader=document.querySelector('.header');
 function measureHeader(){document.documentElement.style.setProperty('--public-header-height',publicHeader.getBoundingClientRect().height+'px');}
 measureHeader();new ResizeObserver(measureHeader).observe(publicHeader);
+// Mobile disclosure navigation shares one implementation across visitor pages.
+const navToggle=document.querySelector('#nav-toggle');
+const publicNavigation=document.querySelector('#public-navigation');
+const compactNavigation=matchMedia('(max-width:820px)');
+document.documentElement.classList.add('nav-ready');
+function closeNavigation(returnFocus=false){
+ publicHeader.classList.remove('navigation-open');
+ navToggle.setAttribute('aria-expanded','false');
+ navToggle.setAttribute('aria-label','Open menu');
+ if(returnFocus)navToggle.focus();
+}
+navToggle.addEventListener('click',()=>{
+ const open=navToggle.getAttribute('aria-expanded')!=='true';
+ closeMenu();
+ publicHeader.classList.toggle('navigation-open',open);
+ navToggle.setAttribute('aria-expanded',String(open));
+ navToggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+});
+publicNavigation.addEventListener('click',event=>{if(event.target.closest('a'))closeNavigation();});
+document.addEventListener('click',event=>{
+ if(navToggle.getAttribute('aria-expanded')==='true'&&!publicNavigation.contains(event.target)&&!navToggle.contains(event.target))closeNavigation();
+});
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape'&&navToggle.getAttribute('aria-expanded')==='true'){event.preventDefault();closeNavigation(true);}
+});
+publicHeader.addEventListener('focusout',event=>{if(event.relatedTarget&&!publicHeader.contains(event.relatedTarget))closeNavigation();});
+document.querySelector('#register-toggle').addEventListener('click',()=>closeNavigation());
+compactNavigation.addEventListener('change',()=>{closeNavigation();closeMenu();if(!compactNavigation.matches&&document.activeElement===navToggle)publicNavigation.querySelector('a').focus();});
+
 let activeTool=null,formIntent=false,lastFormOpener=null,lastToolOpener=null;
 function reveal(node,show){if(!node)return;node.getAnimations().forEach(a=>a.cancel());node.hidden=!show;if(show&&!reducedMotion()){node.animate([{height:'0px',opacity:0,overflow:'hidden'},{height:node.offsetHeight+'px',opacity:1,overflow:'hidden'}],{duration:360,easing:'cubic-bezier(.2,.8,.2,1)'}).finished.catch(()=>{});}}
 function focusHeading(node){node.focus({preventScroll:true});node.scrollIntoView({block:'start',behavior:reducedMotion()?'instant':'smooth'});}

@@ -93,3 +93,8 @@ The homepage now covers all three audiences across six concise benefits using th
 ## Member sign-in and contacts — 1 November 2026
 
 See [contact/login update and outstanding source details](contact-login.md). Shared visitor header, footer and registration forms now provide member sign-in. Source phone/emails/presence are restored. Exact addresses and working social profile URLs remain client requirements.
+
+
+## Mobile navigation refinement
+
+The user-requested collapsible mobile menu supersedes the earlier always-visible mobile links. See [behaviour and accessibility notes](mobile-navigation.md). Contact is removed from navigation and remains in the footer.

@@ -82,3 +82,17 @@ html{scroll-padding-top:calc(var(--public-header-height,90px) + 16px)}.tool-head
 
 @media(max-width:820px){.header-inner{flex-wrap:wrap;gap:8px 12px;padding-block:10px;min-height:0}.header .brand{order:0}.header .register-menu{order:1;margin-left:auto}.header nav{order:2;flex-basis:100%;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:0 8px;padding-top:6px;border-top:1px solid #ffffff26;margin-left:0}.header nav a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;font-size:.75rem;line-height:1.35;padding:7px 8px}}
 @media(max-width:359px){body{min-width:0}}
+
+/* User-approved compact mobile header: menu button precedes the logo. */
+.nav-toggle{display:none}.menu-close{display:none}.navigation-open .menu-lines{display:none}.navigation-open .menu-close{display:block}
+@media(max-width:820px){
+ .header-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding-block:10px;min-height:64px}
+ .nav-ready .header-inner{grid-template-columns:40px minmax(0,1fr) auto}
+ .nav-ready .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;min-height:44px;padding:0;border:1px solid #475569;border-radius:6px;background:transparent;color:#fff;order:0}
+ .nav-toggle:hover{background:#ffffff0d}.header .brand{order:1;gap:7px;min-width:0}.header .brand img{width:32px;height:32px}.header .brand b{font-size:18px}.header .brand small{font-size:10px;margin-top:3px}
+ .header .register-menu{order:2;margin-left:0}.register-menu>button{gap:9px;padding:8px 10px;min-height:44px;font-size:.73rem}.register-menu>button span{font-size:17px}
+ .header nav{grid-column:1/-1;order:3;display:grid;grid-template-columns:1fr;gap:0;margin:0;width:100%;padding:8px 0;border-top:1px solid #334155}
+ .header nav a{justify-content:flex-start;text-align:left;padding:12px 16px;min-height:48px;font-size:.82rem;line-height:1.5;border-radius:4px}.header nav a:hover{background:#ffffff0d}
+ .nav-ready .header nav{display:none;position:absolute;inset-inline:0;top:100%;z-index:2;max-height:calc(100dvh - var(--public-header-height,64px) - 16px);overflow-y:auto;overscroll-behavior:contain;background:var(--slate);border:1px solid #334155;border-radius:0 0 8px 8px;box-shadow:0 12px 24px #0f172a26}
+ .nav-ready .header.navigation-open nav{display:grid}
+}

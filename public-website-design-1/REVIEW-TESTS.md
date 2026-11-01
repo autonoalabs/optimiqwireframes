@@ -108,3 +108,10 @@ See [contact/login update and outstanding source details](contact-login.md). Sha
 
 Focused verification: eight-page static HTML audit passes. All four visitor pages have header/footer Member login links; all audience registration forms use the matching audience context. Browser navigation reaches the unchanged shared portal screen. Desktop, 900px tablet, 800px wrapped navigation and 320px mobile header/footer layouts were inspected; the 320px document has no horizontal overflow. New telephone/email links match their displayed source details. Socials with missing URLs are non-interactive and labelled coming soon. No email/call was sent and no login credentials were submitted.
 
+
+
+## Mobile navigation refinement
+
+The user-requested collapsible mobile menu supersedes the earlier always-visible mobile links. See [behaviour and accessibility notes](mobile-navigation.md). Contact is removed from navigation and remains in the footer.
+
+Verified for this update: eight-page static audit and JavaScript syntax pass; 390px and 320px headers inspected with no horizontal overflow; closed/open states, outside-click close, Escape with focus return, mutual exclusion with Register, navigation to firm page and initial collapsed state all pass. Desktop reset restores visible links and hides the toggle. No Contact link remains in the shared navbar.
