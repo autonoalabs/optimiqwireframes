@@ -5,17 +5,26 @@ const {createSubmissionService}=require('./submission-service.js');
 const defaults=a=>Object.fromEntries(config.audiences[a].inputs.map(f=>[f.name,f.default]));
 const source={page:'/',component:'homepage-drawer'};
 async function main(){
- assert.equal(core.calculate('client',defaults('client')).total,168000);
- assert.equal(core.calculate('client',{days:240,current_rate:2000,target_rate:2500}).label,'Estimated fee increase');
- assert.equal(core.calculate('client',{days:240,current_rate:2000,target_rate:2500}).signedVariance,-120000);
- assert.equal(core.calculate('client',{days:240,current_rate:2000,target_rate:2000}).label,'No fee difference ($0)');
- const earnings=core.calculate('expert',defaults('expert'));assert.equal(earnings.total,135000);assert.equal(earnings.details[1][1],1500);
- assert.equal(core.calculate('firm',{missed_projects:0,average_project_value:250000}).total,0);
+ const clients=core.calculate('client',defaults('client'));assert.equal(clients.headline,'$180K – $240K');assert.deepEqual(clients.overhead,[120000,160000]);assert.deepEqual(clients.risk,[60000,80000]);
+ const expert=core.calculate('expert',defaults('expert'));assert.equal(expert.headline,'+$30K – $40K');assert.equal(expert.level,'Senior Consultant');assert.deepEqual(expert.days,[30,40]);
+ const firmDefault=core.calculate('firm',defaults('firm'));assert.equal(firmDefault.headline,'$700K – $1M');assert.deepEqual(firmDefault.mandates,[2,4]);assert.equal(firmDefault.left,2000000);
  for(const a of ['client','expert','firm']){assert.equal(config.audiences[a].fields.filter(f=>f.required).length,3);assert.ok(core.validScenario(config,a,defaults(a)));assert.ok(!core.validScenario(config,a,{}));}
  assert.equal(config.audiences.firm.fields.find(f=>f.name==='practice_area').required,undefined);
- assert.ok(!core.validScenario(config,'client',{days:21,current_rate:2000,target_rate:1300}));
- assert.ok(!core.validScenario(config,'firm',{missed_projects:0,average_project_value:27000}));
- assert.ok(core.validScenario(config,'firm',{missed_projects:0,average_project_value:25000}));
+ for(const a of ['client','expert','firm'])for(const f of config.audiences[a].inputs){
+  const allowed=f.choices?f.choices.map(o=>o.value):f.discrete?f.values:[f.min,f.max];
+  for(const value of allowed){const v={...defaults(a),[f.name]:value};assert.ok(core.validScenario(config,a,v));const r=core.calculate(a,v);assert.ok(!JSON.stringify(r).includes('null'));assert.ok(!r.headline.includes('NaN'));assert.ok(r.total[0]<=r.total[1]);}
+  for(const value of [null,undefined,NaN,Infinity,{},'not-an-option'])assert.ok(!core.validScenario(config,a,{...defaults(a),[f.name]:value}));
+ }
+ assert.ok(!core.validScenario(config,'client',{...defaults('client'),budget:27000}));
+ assert.ok(!core.validScenario(config,'expert',{...defaults('expert'),days:91}));
+ for(const [years,level] of [[3,'Associate'],[4,'Associate'],[5,'Consultant'],[9,'Consultant'],[10,'Senior Consultant'],[14,'Senior Consultant'],[15,'Principal'],[19,'Principal'],[20,'Expert Partner'],[30,'Expert Partner']])assert.equal(core.calculate('expert',{...defaults('expert'),years}).level,level);
+ const booked=core.calculate('expert',{...defaults('expert'),days:220});assert.deepEqual(booked.days,[0,0]);assert.match(booked.verdict,/already well booked/);assert.notEqual(booked.headline,'Better projects');
+ assert.equal(core.calculate('expert',{...defaults('expert'),years:3,days:220}).headline,'Better projects');
+ assert.deepEqual(core.calculate('expert',{...defaults('expert'),professional_role:'advisor'}).days,[15,15]);
+ assert.deepEqual(core.calculate('expert',{...defaults('expert'),professional_role:'pm'}).days,[40,50]);
+ const zero=core.calculate('firm',{...defaults('firm'),missed_projects:0});assert.equal(zero.headline,'+2–4 mandates');assert.deepEqual(zero.total,[0,0]);assert.match(zero.label,/could bid on/);assert.ok(!zero.label.includes('win back'));
+ assert.ok(core.calculate('firm',{...defaults('firm'),reason:'bench'}).total[0]>core.calculate('firm',{...defaults('firm'),reason:'brand'}).total[0]);
+ assert.ok(core.calculate('client',{...defaults('client'),provider:'global'}).total[0]>core.calculate('client',{...defaults('client'),provider:'boutique'}).total[0]);
  const form={full_name:"  O’Connor Example  ",email:'reviewer@gmail.com',experience_band:'10–14 years',role:'Project Manager',daily_rate:1000,target_annual_billings:135000,internal_margin:50};
  const declined=core.buildPayload(config,'expert',form,defaults('expert'),false,source);
  assert.equal(declined.full_name,'O’Connor Example');assert.equal(declined.role,'Project Manager');assert.equal(declined.attach_earnings_calculation,false);for(const key of ['daily_rate','target_annual_billings','internal_margin','scenario'])assert.ok(!(key in declined));
@@ -37,6 +46,6 @@ async function main(){
  const throttled=createSubmissionService({transport:async()=>({status:'throttled'})});assert.equal((await throttled.submit(declined)).status,'throttled');
  for(const a of ['client','expert','firm'])assert.equal(config.guides[a],null);
  assert.ok(Object.values(config.integrations.endpoints).every(v=>v===null));
- console.log('Passed arithmetic, range boundaries, three-field forms, firm optional practice, role/earnings separation, opt-in/out, raw-input allowlists, durable receipt, retries, duplicate prevention and failure-state tests.');
+ console.log('Passed client-reference defaults, all discrete values and enums, year-level boundaries, capacity/zero-loss branches, range boundaries, three-field forms, firm optional practice, role/earnings separation, opt-in/out, raw-input allowlists, durable receipt, retries, duplicate prevention and failure-state tests.');
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

@@ -4,13 +4,21 @@
   "public_website": {
     "design": "Design 1",
     "status": "Approved with feedback and changes",
-    "feedback_status": "Awaiting individual feedback items",
+    "feedback_status": "Feedback 1 implemented for review; further feedback supplied one by one",
     "changes_implemented": false,
     "pages": [
       "public-website-design-1/index.html",
       "public-website-design-1/for-clients/",
       "public-website-design-1/for-consultants/",
       "public-website-design-1/for-consulting-firms/"
+    ],
+    "feedback_items": [
+      {
+        "id": "FEEDBACK-01",
+        "source": "https://claude.ai/artifact/E61LmBv78Qr3ojQNSRuDfh",
+        "status": "Implemented; awaiting client review of changes",
+        "scope": "All three audience calculators and related copy"
+      }
     ]
   },
   "portal": {

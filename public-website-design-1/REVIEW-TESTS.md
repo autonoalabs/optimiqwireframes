@@ -1,8 +1,24 @@
+# Feedback 1 verification — 1 November 2026
+
+The following checks apply to the new client-supplied calculators. The older report below is retained as history; its arithmetic and zero-loss output are superseded.
+
+- Exact default client-reference outputs: client $180K–$240K ($120K–$160K overhead; $60K–$80K risk), consultant +$30K–$40K / 30–40 additional days / Senior Consultant, firm $700K–$1M / 2–4 bid opportunities / $0 additional fixed payroll.
+- Automated checks: every enum and discrete amount, numeric min/max and step validation, invalid/unknown inputs, all experience-level thresholds, each consultant role, fully booked cases with/without uplift, firm zero-loss switch, provider/loss-reason effects, opt-out payload exclusion and raw-input allowlists. Existing submission retry, duplicate prevention and durable receipt tests retained and passing.
+- Browser: homepage tools open the correct calculator; changed provider/role updates results; role intentionally selected as Strategic advisor maps to optional application role Strategic Advisor. Default calculator Consultant remains an example and does not silently select the application role.
+- Browser: source default results match on home and all three dedicated pages; firm zero loss shows new potential bid opportunities; fully booked Associate shows Better projects and no extra days.
+- Browser: client confirmation attaches a removable summary. Consultant confirmation leaves attachment unchecked; opt-in shows the rounded summary; editing years clears opt-in and disables attachment until reconfirmed. Completing the three required application fields with no calculation attached displays an honest no-information-sent preview message.
+- Responsive browser: homepage and all three audience pages at 320, 390, 768 and 1366 CSS-pixel widths, no horizontal document overflow. Desktop homepage, client calculator and mobile client calculator screenshots inspected. No page JavaScript errors observed.
+- Shared static HTML audit and JavaScript syntax checks run before publication. No new external submission, tracking or storage destination introduced. Portal/CTQ pages and Design 2 remain untouched.
+
+Static preview limitation: model coefficients are public prototype placeholders from the client artifact and remain inspectable in browser/repository code. No formula is shown in the visitor interface. Production benchmark calculation/configuration must be server-side. Production end-to-end services, physical-device keyboard QA, media and missing assets retain the release dependencies below.
+
+---
+
 # Connected public website verification
 
 31 October 2026. Client approval update 1 November 2026: Design 1 approved with feedback and changes pending. The checks below remain the 31 October verification record; release dependencies remain separate. This report distinguishes browser preview checks, mocked service checks and production checks that cannot yet run.
 
-## Browser and layout results
+## Previous verification — 31 October 2026 (calculator models superseded by Feedback 1)
 
 | Check | Result |
 |---|---|

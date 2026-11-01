@@ -1,6 +1,6 @@
 {
   "version": "1.2",
-  "date": "2026-10-31",
+  "date": "2026-11-01",
   "items": [
     {
       "id": "WEB-VIDEO-01",
@@ -63,7 +63,7 @@
       "item": "Below five years of experience",
       "status": "Needs clarification",
       "owner": "Client Talent owner",
-      "question": "Confirm an alternate route or approved eligibility statement. Preview retains four specified bands without preselection or false classification."
+      "question": "The Feedback 1 calculator includes 3–4 years and an illustrative Associate starting level, as supplied by the client. Confirm the corresponding application route/eligibility policy: approved short-application bands still begin at five years. Do not change private CTQ or falsely classify candidates."
     },
     {
       "id": "WEB-API-01",
@@ -113,6 +113,13 @@
       "status": "Pre-launch testing",
       "owner": "QA and integration owners",
       "question": "Real video/caption playback, backend logs/CRM opt-out checks, verification/resend, physical iOS/Android keyboard/safe-area tests and Arabic/RTL remain integration release checks."
+    },
+    {
+      "id": "WEB-CALC-PROD-01",
+      "item": "Server-side benchmark calculator",
+      "status": "Production implementation pending",
+      "owner": "Backend and business owners",
+      "question": "Feedback 1 public prototype implemented as requested, with source placeholder benchmarks and no visible formulas. Move authoritative calculation/configuration to the backend before public production; confirm the production benchmark dataset and starting-level mapping. A static preview cannot conceal browser code."
     }
   ]
 }

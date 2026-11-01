@@ -45,3 +45,14 @@ input[type=number],input[type=text],input:not([type]),input[type=email],input[ty
 @layer components{input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(to right,var(--green) 0 var(--progress),#E2E8F0 var(--progress) 100%)}input[type=range]::-moz-range-track{background:#E2E8F0}}
 @layer components{.form-grid>*{min-width:0}.tool-layout>*{min-width:0}.tool-inputs{min-width:0}}
 @layer components{.journey-steps{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}.attachment-choice:has(input:disabled){cursor:not-allowed}}
+
+/* Feedback 1: client calculator content in the approved shared layout. */
+.calculator-intro{max-width:780px;font-size:.9rem;line-height:1.7;margin-top:16px}
+.result-verdict{font-size:.86rem;line-height:1.65;color:#fff;margin-top:20px}
+.tool-result h3{font-family:var(--font-body);font-size:1rem;line-height:1.6;font-weight:400;margin-top:8px;letter-spacing:0}
+.result-details{padding-block:20px;border-block:1px solid #64748b;margin-top:22px;gap:18px}
+.result-details>div{align-items:start;flex-wrap:wrap}.result-details>div>span{flex:1;min-width:130px}
+.result-details strong{display:block;font-weight:500}.result-details small{display:block;font-size:.75rem;line-height:1.6;margin-top:5px;color:#e2e8f0}.result-details b{font-size:.9rem}
+.tool-result .confirm-calculation{color:#fff;min-height:48px;width:100%;font-size:.75rem;text-align:left;white-space:normal;padding-block:10px;margin-top:6px}
+.tool-field .field-note{margin-top:6px}.growth-choice input{flex-shrink:0}.growth-choice label{line-height:1.5}.slider-input select{margin-top:0}
+@media(max-width:767px){.calculator-intro{font-size:.85rem}.tool-result .result-total{font-size:clamp(1.7rem,7vw,2.5rem);overflow-wrap:normal}.result-details b{white-space:normal}.tool-result .button{white-space:normal;text-align:left}.tool-heading>div{min-width:0}}
