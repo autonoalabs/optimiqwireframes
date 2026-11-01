@@ -1,3 +1,7 @@
+# Feedback 3 — certification assurance, 1 November 2026
+
+Why OptimIQ now summarises OptimIQ Certified in three concise assurance principles, using the existing approved component. See feedback-03.md for source interpretation, precise copy and claim boundaries. No registration, calculator or portal workflow is changed. Earlier missing source option lists remain explicit clarification items.
+
 # Current website handover — Feedback 2, 1 November 2026
 
 Feedback 2 supersedes the former short three-required-field registration proposal: all audience CTA forms now use the existing live fields, including the three consultant role variants. Mobile displays the same four desktop navigation links. See feedback-02.md and legacy-form-reference.json for exact fields, source gaps, role behavior, file transport and backend mapping. Concept-note email-only download simulator and calculator models remain available.

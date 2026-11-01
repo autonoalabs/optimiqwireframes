@@ -1,3 +1,11 @@
+# Feedback 3 verification — 1 November 2026
+
+Certified source page inspected directly. Why OptimIQ condenses its assurance into 39 displayed words and three principles, retaining the existing layout and typography. Desktop and 320/390 mobile views inspected; the existing Why anchor remains visible below the responsive header. Navigation from the client page reaches the current homepage assurance section. No JavaScript errors observed. Existing static page/link/label/asset audit passes. Registration, calculator, download and portal behavior is unchanged by this copy-only update.
+
+The copy does not claim present external accreditation, guaranteed results or automatic certification. Detailed methods/weights and tier/stage rules remain outside this short summary. See feedback-03.md for source interpretation.
+
+---
+
 # Feedback 2 verification — 1 November 2026
 
 Restored source fields: client 11; Consultant 16; Strategic Advisor 14; Project Manager 14; firm 8. Tests cover active-role field allowlists, grouped choices, separate concern/project descriptions, safe file metadata, exact missing-options list, and existing calculator/submission regressions. Static page/link/label/PDF audit passes.

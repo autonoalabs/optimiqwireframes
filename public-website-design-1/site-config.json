@@ -1726,5 +1726,23 @@
       "pages": 2
     }
   },
-  "reviewVersion": "feedback-02.2"
+  "reviewVersion": "feedback-03",
+  "assurance": {
+    "eyebrow": "WHY OPTIMIQ",
+    "heading": "OptimIQ Certified. Confidence backed by evidence.",
+    "points": [
+      {
+        "title": "Proven experience",
+        "text": "Real projects and delivered outcomes inform assessment."
+      },
+      {
+        "title": "Rigorous evaluation",
+        "text": "Capability is assessed beyond a polished profile."
+      },
+      {
+        "title": "Ongoing assurance",
+        "text": "Standing is reviewed through feedback, delivery and development."
+      }
+    ]
+  }
 }

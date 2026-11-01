@@ -4,7 +4,7 @@
   "public_website": {
     "design": "Design 1",
     "status": "Approved with feedback and changes",
-    "feedback_status": "Feedback 2 implemented for review; legacy option gaps explicitly tracked",
+    "feedback_status": "Feedback 3 certification assurance implemented for review; earlier source-option clarifications retained",
     "changes_implemented": false,
     "pages": [
       "public-website-design-1/index.html",
@@ -30,6 +30,12 @@
         "status": "Implemented; source option choices need clarification",
         "scope": "Restore all existing CTA fields and visible desktop-equivalent mobile navigation",
         "notes": "Two required option lists and one optional list are absent from the existing source. Work Email remains required by the approved verification flow."
+      },
+      {
+        "id": "FEEDBACK-03",
+        "source": "https://staging.optimiqconsultus.com/certified",
+        "status": "Implemented; awaiting client review",
+        "scope": "Concise OptimIQ Certified assurance within the existing Why section"
       }
     ]
   },
