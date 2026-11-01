@@ -3,6 +3,9 @@ const config=window.OptimIQConfig,core=window.OptimIQPublic,page=document.body.d
 const calculators={},forms={};
 const money=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
 const reducedMotion=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+const publicHeader=document.querySelector('.header');
+function measureHeader(){document.documentElement.style.setProperty('--public-header-height',publicHeader.getBoundingClientRect().height+'px');}
+measureHeader();new ResizeObserver(measureHeader).observe(publicHeader);
 let activeTool=null,formIntent=false,lastFormOpener=null,lastToolOpener=null;
 function reveal(node,show){if(!node)return;node.getAnimations().forEach(a=>a.cancel());node.hidden=!show;if(show&&!reducedMotion()){node.animate([{height:'0px',opacity:0,overflow:'hidden'},{height:node.offsetHeight+'px',opacity:1,overflow:'hidden'}],{duration:360,easing:'cubic-bezier(.2,.8,.2,1)'}).finished.catch(()=>{});}}
 function focusHeading(node){node.focus({preventScroll:true});node.scrollIntoView({block:'start',behavior:reducedMotion()?'instant':'smooth'});}
@@ -37,24 +40,80 @@ class Calculator{
  reset(){this.values=Object.fromEntries(this.definition.inputs.map(f=>[f.name,f.default]));this.confirmed={};this.prepared=null;this.attached=false;forms[this.a]?.clearAttachment();this.render();}
 }
 
-function setRole(role){if(!config.roles.includes(role))role='';document.querySelectorAll('[data-role-card]').forEach(button=>{const selected=button.dataset.roleCard===role;button.setAttribute('aria-pressed',String(selected));button.closest('.role-card').classList.toggle('selected',selected);button.firstChild.textContent=selected?'Selected ':'Choose role ';});document.querySelectorAll('[data-role-choice]').forEach(input=>input.checked=input.value===role);const roleValue={'Consultant':'consultant','Strategic Advisor':'advisor','Project Manager':'pm'}[role];const calc=calculators.expert;if(roleValue&&calc&&calc.values.professional_role!==roleValue)calc.edit('professional_role',roleValue);const select=document.querySelector('[name="role"]');if(select)select.value=role;forms.expert?.service.invalidate();}
+function setRole(role){if(!config.roles.includes(role))role='';document.querySelectorAll('[data-role-card]').forEach(button=>{const selected=button.dataset.roleCard===role;button.setAttribute('aria-pressed',String(selected));button.closest('.role-card').classList.toggle('selected',selected);button.firstChild.textContent=selected?'Selected ':'Choose role ';});document.querySelectorAll('[data-role-choice]').forEach(input=>input.checked=input.value===role);const roleValue={'Consultant':'consultant','Strategic Advisor':'advisor','Project Manager':'pm'}[role];const calc=calculators.expert;if(roleValue&&calc&&calc.values.professional_role!==roleValue)calc.edit('professional_role',roleValue);const select=document.querySelector('[name="role"]');if(select&&role){select.value=role;showCtaRole(role);}forms.expert?.service.invalidate();}
 
-function errorMessage(input){const value=input.value.trim();if(input.type==='checkbox'&&input.required&&!input.checked)return 'Please acknowledge the Privacy Notice.';if(input.required&&!value)return 'Please complete this field.';if(!value)return '';if(input.type==='email'&&input.validity.typeMismatch)return 'Please enter a valid email address.';if(input.type==='url'){try{const url=new URL(value);if(!/^https?:$/.test(url.protocol)||!/(^|\.)linkedin\.com$/i.test(url.hostname))return 'Please enter a valid LinkedIn profile link.';}catch{return 'Please enter a valid LinkedIn profile link, including https://.';}}const minimum=input.name==='message'?10:Number(input.minLength);if(minimum>0&&value.length<minimum)return `Please enter at least ${minimum} characters.`;if(input.maxLength>0&&value.length>input.maxLength)return `Please use no more than ${input.maxLength} characters.`;if(input.validity.badInput||input.validity.typeMismatch)return 'Please check this value.';return '';}
+function showCtaRole(role){
+ document.querySelectorAll('[data-cta-role-panel]').forEach(panel=>{const active=panel.dataset.ctaRolePanel===role;panel.hidden=!active;panel.disabled=!active;});
+ document.querySelectorAll('[data-cta-role]').forEach(button=>{const active=button.dataset.ctaRole===role;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
+ const form=forms.expert;if(form){form.node.querySelector('.error-summary').hidden=true;form.node.querySelector('.submit-status').textContent='';form.node.querySelector('.draft-status').textContent='';}
+}
+document.querySelectorAll('[data-cta-role]').forEach(button=>{
+ button.addEventListener('click',()=>setRole(button.dataset.ctaRole));
+ button.addEventListener('keydown',event=>{const tabs=[...document.querySelectorAll('[data-cta-role]')],i=tabs.indexOf(button);let next;if(event.key==='ArrowRight')next=(i+1)%tabs.length;else if(event.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;event.preventDefault();tabs[next].click();tabs[next].focus();});
+});
+
+function errorMessage(input){
+ if(input.type==='file'){
+  const files=[...input.files],max=Number(input.dataset.maxFiles||1),bytes=Number(input.dataset.maxBytes||0);
+  if(input.required&&!files.length)return 'Please choose a file.';
+  if(files.length>max)return `Choose a maximum of ${max} files.`;
+  if(bytes&&files.some(f=>f.size>bytes))return 'Each CV must be 5 MB or smaller.';
+  if(input.accept.startsWith('.pdf')&&files.some(f=>!/(\.pdf|\.doc|\.docx)$/i.test(f.name)))return 'Please choose PDF, DOC or DOCX files.';
+  if(input.accept==='video/*'&&files.some(f=>!f.type.startsWith('video/')))return 'Please choose a video file.';
+  return '';
+ }
+ const value=input.value.trim();if(input.type==='checkbox'&&input.required&&!input.checked)return 'Please acknowledge the Privacy Notice.';
+ if(input.required&&!value)return 'Please complete this field.';if(!value)return '';
+ if(input.type==='email'&&input.validity.typeMismatch)return 'Please enter a valid email address.';
+ if(input.type==='url'){try{const url=new URL(value);if(!/^https?:$/.test(url.protocol))return 'Please enter a complete website link, including https://.';}catch{return 'Please enter a complete website link, including https://.';}}
+ const minimum=input.name==='message'?10:Number(input.minLength);if(minimum>0&&value.length<minimum)return `Please enter at least ${minimum} characters.`;
+ if(input.maxLength>0&&value.length>input.maxLength)return `Please use no more than ${input.maxLength} characters.`;
+ if(input.validity.badInput||input.validity.typeMismatch)return 'Please check this value.';return '';
+}
 
 class ContactForm{
  constructor(node){this.node=node;this.a=node.dataset.contactForm;this.definition=config.audiences[this.a];this.submitButton=node.querySelector('[type="submit"]');this.originalButton=this.submitButton.innerHTML;this.submitButton.disabled=false;this.service=OptimIQSubmission.createSubmissionService({transport:this.transport()});
   node.addEventListener('submit',e=>{e.preventDefault();this.submit();});node.addEventListener('input',e=>{this.service.invalidate();this.node.querySelector('.submit-status').textContent='';if(e.target.getAttribute('aria-invalid')==='true')this.showFieldError(e.target,errorMessage(e.target));});node.addEventListener('change',e=>{this.service.invalidate();if(e.target.name==='role')setRole(e.target.value);if(e.target.name==='attach_earnings_calculation')this.updateAttachment();});node.addEventListener('focusin',()=>{formIntent=true;syncMobileAction();});
+  node.querySelector('[data-save-draft]')?.addEventListener('click',()=>{this.draft=this.registrationValues();node.querySelector('.draft-status').textContent='Draft kept in this review tab. Refreshing clears it; no information has been sent.';});
+  node.querySelectorAll('input[type="file"]').forEach(input=>input.addEventListener('change',()=>{
+   const list=input.parentElement.querySelector('[data-file-selection]');list.replaceChildren();
+   [...input.files].forEach((file,index)=>{const row=document.createElement('div'),label=document.createElement('span'),remove=document.createElement('button');label.textContent=file.name;remove.type='button';remove.className='text-link';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+file.name);remove.addEventListener('click',()=>{const data=new DataTransfer();[...input.files].filter((_,i)=>i!==index).forEach(f=>data.items.add(f));input.files=data.files;input.dispatchEvent(new Event('change',{bubbles:true}));});row.append(label,remove);list.append(row);});
+   this.showFieldError(input,errorMessage(input));
+  }));
   node.querySelector('[data-remove-scenario]')?.addEventListener('click',()=>{const calc=calculators[this.a];calc.attached=false;if(this.a==='expert')node.elements.attach_earnings_calculation.checked=false;this.service.invalidate();this.node.querySelector('.submit-status').textContent='';this.updateAttachment();});this.updateAttachment();
  }
- transport(){const endpoint=config.integrations.endpoints[this.a];if(!endpoint)return null;return async payload=>{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':payload.request_id},body:JSON.stringify(payload),credentials:'same-origin'});if(response.status===429)return {status:'throttled'};if(response.status===422){const body=await response.json();return {status:'validation',fields:body.fields};}if(!response.ok)throw new Error('Submission unavailable');return response.json();};}
+ transport(){const endpoint=config.integrations.endpoints[this.a];if(!endpoint)return null;return async payload=>{const response=await fetch(endpoint,{method:'POST',headers:this.uploads?.length?{'Idempotency-Key':payload.request_id}:{'Content-Type':'application/json','Idempotency-Key':payload.request_id},body:this.uploads?.length?this.multipart(payload):JSON.stringify(payload),credentials:'same-origin'});if(response.status===429)return {status:'throttled'};if(response.status===422){const body=await response.json();return {status:'validation',fields:body.fields};}if(!response.ok)throw new Error('Submission unavailable');return response.json();};}
+ multipart(payload){const body=new FormData();body.append('registration',JSON.stringify(payload));for(const upload of this.uploads)for(const file of upload.files)body.append(upload.name,file,file.name);return body;}
+ registrationValues(){
+  const data=new FormData(this.node),values=Object.fromEntries(data);if(!this.definition)return values;
+  for(const f of core.fields(config,this.a,this.a==='expert'?values.role:null)){
+   if(f.type==='checkboxes')values[f.name]=data.getAll(f.name+'[]');
+   if(f.type==='file')values[f.name]=data.getAll(f.name).filter(f=>f instanceof File&&f.name).map(f=>({name:f.name,size:f.size,type:f.type}));
+  }
+  return values;
+ }
  clearAttachment(){if(this.a==='expert')this.node.elements.attach_earnings_calculation.checked=false;this.service.invalidate();this.node.querySelector('.submit-status').textContent='';this.updateAttachment();}
  updateAttachment(){if(!this.definition)return;const calc=calculators[this.a],prepared=calc?.prepared;const checkbox=this.node.elements.attach_earnings_calculation;if(checkbox){checkbox.disabled=!prepared;if(!prepared)checkbox.checked=false;this.node.querySelector('.attachment-help').textContent=prepared?'Your confirmed example is ready. Choose whether to include it with your application.':'You can apply without an earnings example. Confirm the calculation to enable this option.';}
   const attached=Boolean(prepared&&(this.a==='expert'?checkbox.checked:calc.attached)),summary=this.node.querySelector('.scenario-summary');summary.hidden=!attached;if(attached){const result=core.calculate(this.a,prepared);summary.querySelector('p').textContent=result.headline+' '+result.label;}
  }
  showFieldError(input,message){input.setAttribute('aria-invalid',String(Boolean(message)));const id=input.getAttribute('aria-describedby')?.split(' ').find(id=>id.endsWith('-error'));const error=id&&document.getElementById(id);if(error){error.hidden=!message;error.textContent=message?'! '+message:'';}}
- validate(){const inputs=[...this.node.querySelectorAll('input:not([name="website"]),select,textarea')].filter(i=>i.name!=='attach_earnings_calculation');let first=null,count=0;for(const input of inputs){const message=errorMessage(input);this.showFieldError(input,message);if(message){first=first||input;count++;}}const summary=this.node.querySelector('.error-summary');summary.hidden=!count;summary.textContent=count?`Please check ${count} ${count===1?'field':'fields'} below.`:'';if(first){first.focus({preventScroll:true});first.scrollIntoView({block:'center',behavior:reducedMotion()?'instant':'smooth'});}return !count;}
- payload(){const values=Object.fromEntries(new FormData(this.node));if(this.a==='general')return {audience:'general',source_page:'/',source_component:'general-enquiry',form_version:config.version,...Object.fromEntries(['full_name','email','organisation','phone','category','message'].map(k=>[k,String(values[k]||'').trim()])),privacy_acknowledgement:this.node.elements.privacy_acknowledgement.checked};if(this.a==='firm'){values.new_project_opportunities=this.node.elements.new_project_opportunities.checked;values.additional_consultant_capacity=this.node.elements.additional_consultant_capacity.checked;}const calc=calculators[this.a],attach=this.a==='expert'?this.node.elements.attach_earnings_calculation.checked:Boolean(calc?.attached);return core.buildPayload(config,this.a,values,calc?.prepared,attach,{page:page==='home'?'/':'/'+config.audiences[page].route,component:page==='home'?'homepage-drawer':'audience-form'});}
- async submit(){if(this.busy||!this.validate())return;if(this.node.elements.website.value)return;const payload=this.payload();this.busy=true;this.submitButton.disabled=true;this.submitButton.textContent='Submitting…';const controls=[...this.node.querySelectorAll('input,select,textarea')];const disabled=controls.map(i=>i.disabled);controls.forEach(i=>i.disabled=true);let result;try{result=await this.service.submit(payload);}finally{this.busy=false;controls.forEach((i,n)=>i.disabled=disabled[n]);this.submitButton.disabled=false;this.submitButton.innerHTML=this.originalButton;}
+ validate(){
+  const inputs=[...this.node.querySelectorAll('input:not([name="website"]),select,textarea')].filter(i=>!i.matches(':disabled')&&i.name!=='attach_earnings_calculation');let first=null,count=0;
+  for(const input of inputs){const message=errorMessage(input);this.showFieldError(input,message);if(message){first=first||input;count++;}}
+  for(const field of this.node.querySelectorAll('[data-choice-field]')){
+   if(field.closest('[data-cta-role-panel]')?.hidden)continue;
+   const message=field.dataset.required==='true'&&!field.querySelector('input:checked')?(field.dataset.pending==='true'?'These choices need clarification before submission.':'Please select at least one option.'):'';
+   this.showFieldError(field,message);if(message){first=first||field;count++;}
+  }
+  for(const field of this.node.querySelectorAll('[data-cta-field][data-pending="true"]')){
+   if(field.closest('[data-cta-role-panel]')?.hidden)continue;
+   const input=field.querySelector('[required]');if(input){this.showFieldError(input,'These choices need clarification before submission.');first=first||field;count++;}
+  }
+  const summary=this.node.querySelector('.error-summary');summary.hidden=!count;summary.textContent=count?`Please check ${count} ${count===1?'field':'fields'} below.`:'';
+  if(first){if(first.tagName==='FIELDSET'||first.dataset.ctaField)first.tabIndex=-1;first.focus({preventScroll:true});first.scrollIntoView({block:'center',behavior:reducedMotion()?'instant':'smooth'});}return !count;
+ }
+ payload(){const values=this.registrationValues();if(this.a==='general')return {audience:'general',source_page:'/',source_component:'general-enquiry',form_version:config.version,...Object.fromEntries(['full_name','email','organisation','phone','category','message'].map(k=>[k,String(values[k]||'').trim()])),privacy_acknowledgement:this.node.elements.privacy_acknowledgement.checked};const calc=calculators[this.a],attach=this.a==='expert'?this.node.elements.attach_earnings_calculation.checked:Boolean(calc?.attached);return core.buildPayload(config,this.a,values,calc?.prepared,attach,{page:page==='home'?'/':'/'+config.audiences[page].route,component:page==='home'?'homepage-registration':'audience-registration'});}
+ async submit(){if(this.busy||!this.validate())return;if(this.node.elements.website.value)return;const payload=this.payload();this.uploads=[...this.node.querySelectorAll('input[type="file"]')].filter(i=>!i.matches(':disabled')&&i.files.length).map(i=>({name:i.name,files:[...i.files]}));this.busy=true;this.submitButton.disabled=true;this.submitButton.textContent='Submitting…';const controls=[...this.node.querySelectorAll('input,select,textarea')];const disabled=controls.map(i=>i.disabled);controls.forEach(i=>i.disabled=true);let result;try{result=await this.service.submit(payload);}finally{this.busy=false;controls.forEach((i,n)=>i.disabled=disabled[n]);this.submitButton.disabled=false;this.submitButton.innerHTML=this.originalButton;}
   const status=this.node.querySelector('.submit-status');if(result.status==='preview'){status.textContent=`Your ${this.a==='expert'?'application':this.a==='general'?'message':'enquiry'} is ready for review. No information has been sent.`+(this.definition?(payload.scenario?' Your confirmed calculation is selected.':' No commercial calculation is attached.'):'');return;}
   if(result.status==='validation'){let first=null;for(const [key,message] of Object.entries(result.fields)){const input=this.node.elements.namedItem(key);if(input&&typeof message==='string'){this.showFieldError(input,message.slice(0,200));first=first||input;}}status.textContent='Please check the highlighted fields. Your entries are still in the form.';first?.focus();return;}
   if(result.status==='retry'||result.status==='throttled'){status.textContent=result.status==='throttled'?'Please wait before trying again. Your entries are still in the form.':`We could not send your ${this.a==='expert'?'application':'enquiry'}. Please check your connection and try again. Your entries are still in the form.`;this.submitButton.firstChild.textContent='Try again ';return;}
@@ -122,4 +181,4 @@ if(page!=='home'){const tool=calculators[page];new IntersectionObserver(entries=
 function applyHash(){const hash=location.hash.slice(1);if(!hash&&page==='home'){const wasInPanel=document.activeElement?.closest('.home-drawer,.tool-panel');for(const a of Object.keys(config.audiences)){reveal(document.querySelector(`[data-form-section="${a}"]`),false);closeTool(a,false);}formIntent=false;syncMobileAction();if(wasInPanel)(lastFormOpener||lastToolOpener)?.focus();return;}for(const [a,d] of Object.entries(config.audiences)){if(hash===d.formAnchor&&(page==='home'||page===a)){openForm(a,null,false);return;}if(hash===(page==='home'?d.homeToolAnchor:d.toolAnchor)&&calculators[a]){openTool(a,null,false);return;}}if(hash==='enquiries'&&general){reveal(general,true);enquiryToggle.setAttribute('aria-expanded','true');focusHeading(general.querySelector('h3'));}if(hash==='why-optimiq')document.querySelector('#why-optimiq')?.scrollIntoView({block:'start'});}
 window.addEventListener('hashchange',applyHash);window.addEventListener('popstate',applyHash);applyHash();syncMobileAction();
 // Navigation does not carry unsubmitted contact or commercial data to another page.
-window.addEventListener('pagehide',()=>{resetNote();if(noteDialog.open)noteDialog.close();for(const form of Object.values(forms)){form.node.reset();form.service.invalidate();form.node.querySelector('.submit-status').textContent='';}for(const calc of Object.values(calculators))calc.reset();setRole('');});
+window.addEventListener('pagehide',()=>{resetNote();if(noteDialog.open)noteDialog.close();for(const form of Object.values(forms)){form.node.reset();form.draft=null;form.uploads=[];form.node.querySelectorAll('[data-file-selection]').forEach(n=>n.replaceChildren());form.service.invalidate();form.node.querySelector('.submit-status').textContent='';}for(const calc of Object.values(calculators))calc.reset();setRole('');showCtaRole('Consultant');});

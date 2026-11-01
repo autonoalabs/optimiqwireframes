@@ -1,0 +1,1242 @@
+{
+  "sources": {
+    "client": "https://staging.optimiqconsultus.com/for-clients-form",
+    "expert": "https://staging.optimiqconsultus.com/for-consultants-form",
+    "firm": "https://staging.optimiqconsultus.com/for-consulting-firms-form"
+  },
+  "pending_options": [
+    {
+      "role": "Consultant",
+      "field": "years_consulting",
+      "label": "Years in Consulting",
+      "required": false,
+      "reason": "No selectable options on existing live form or approved CTA Stage 1 workbook."
+    },
+    {
+      "role": "Strategic Advisor",
+      "field": "sectors_of_expertise",
+      "label": "Sectors of Expertise",
+      "required": true,
+      "reason": "No selectable options on existing live form or approved CTA Stage 1 workbook."
+    },
+    {
+      "role": "Project Manager",
+      "field": "years_as_pm",
+      "label": "Years as PM / Program Lead",
+      "required": true,
+      "reason": "No selectable options on existing live form or approved CTA Stage 1 workbook."
+    }
+  ],
+  "reconciliations": [
+    "Consultant / Secondary Expertise: same existing primary-expertise master as specified in approved CTA workbook.",
+    "Strategic Advisor / Geographic Expertise: reuse existing platform regions as specified in approved CTA workbook.",
+    "Project Manager / Primary Expertise: same existing primary-expertise master as specified in approved CTA workbook.",
+    "Client source uses project_description for both textareas. Preserve both fields using distinct areas_of_concern and project_description keys.",
+    "Client Work Email is required by the already-approved registration email-verification flow. The source HTML omitted its required attribute; the same field is retained with that existing requirement enforced. This is not a new business question."
+  ],
+  "schemas": {
+    "client": [
+      {
+        "id": "consulting-interest-form",
+        "sections": [
+          {
+            "choices": [],
+            "description": "A few details help us understand who we are supporting.",
+            "fields": [
+              {
+                "id": "full_name",
+                "label": "Full Name *",
+                "multiple": false,
+                "name": "full_name",
+                "placeholder": "Enter full name",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "mobile_number",
+                "label": "Mobile / WhatsApp",
+                "multiple": false,
+                "name": "mobile_number",
+                "placeholder": "Enter mobile number",
+                "required": false,
+                "type": "tel"
+              },
+              {
+                "id": "organization_name",
+                "label": "Organization Name",
+                "multiple": false,
+                "name": "organization_name",
+                "placeholder": "Enter organization name",
+                "required": false,
+                "type": "text"
+              },
+              {
+                "id": "work_email",
+                "label": "Work Email",
+                "multiple": false,
+                "name": "work_email",
+                "placeholder": "Enter work email",
+                "required": false,
+                "type": "email"
+              },
+              {
+                "id": "location",
+                "label": "Location",
+                "multiple": false,
+                "name": "location",
+                "placeholder": "City / Country",
+                "required": false,
+                "type": "text"
+              }
+            ],
+            "heading": "Organization & Contact"
+          },
+          {
+            "choices": [
+              {
+                "label": "Consulting Engagement",
+                "name": "engagement_type[]",
+                "type": "checkbox",
+                "value": "Consulting Engagement"
+              },
+              {
+                "label": "Strategic Advisory",
+                "name": "engagement_type[]",
+                "type": "checkbox",
+                "value": "Strategic Advisory"
+              },
+              {
+                "label": "Project Leadership",
+                "name": "engagement_type[]",
+                "type": "checkbox",
+                "value": "Project Leadership"
+              },
+              {
+                "label": "Not sure",
+                "name": "engagement_type[]",
+                "type": "checkbox",
+                "value": "Not sure"
+              }
+            ],
+            "description": "Select the type of support that best matches your requirement.",
+            "fields": [],
+            "heading": "Support Needed"
+          },
+          {
+            "choices": [
+              {
+                "label": "Strategy & Growth",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Strategy & Growth"
+              },
+              {
+                "label": "Revenue Enhancement",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Revenue Enhancement"
+              },
+              {
+                "label": "Customer & Market Experience",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Customer & Market Experience"
+              },
+              {
+                "label": "Digital Transformation",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Digital Transformation"
+              },
+              {
+                "label": "AI & Emerging Tech",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "AI & Emerging Tech"
+              },
+              {
+                "label": "Supply Chain & ESG",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Supply Chain & ESG"
+              },
+              {
+                "label": "Finance & Operations",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Finance & Operations"
+              },
+              {
+                "label": "Talent & Manpower",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "Talent & Manpower"
+              },
+              {
+                "label": "People, L&D & Culture",
+                "name": "domains[]",
+                "type": "checkbox",
+                "value": "People, L&D & Culture"
+              }
+            ],
+            "description": "Choose the business domains where support may be required.",
+            "fields": [],
+            "heading": "Relevant Domains"
+          },
+          {
+            "choices": [
+              {
+                "label": "0–9",
+                "name": "employees",
+                "type": "radio",
+                "value": "0-9"
+              },
+              {
+                "label": "10 to 50",
+                "name": "employees",
+                "type": "radio",
+                "value": "10-50"
+              },
+              {
+                "label": "51–100",
+                "name": "employees",
+                "type": "radio",
+                "value": "51-100"
+              },
+              {
+                "label": "101 to 200",
+                "name": "employees",
+                "type": "radio",
+                "value": "101-200"
+              },
+              {
+                "label": "> 200",
+                "name": "employees",
+                "type": "radio",
+                "value": "200+"
+              }
+            ],
+            "description": "Optional, but useful for context.",
+            "fields": [],
+            "heading": "Organization Size"
+          },
+          {
+            "choices": [],
+            "description": "Tell us what is happening, what needs to change, or what support you need.",
+            "fields": [
+              {
+                "id": "project_description",
+                "label": "Areas of concern / challenges faced",
+                "multiple": false,
+                "name": "project_description",
+                "placeholder": "A short description of challenges faced / areas of concern (optional)",
+                "required": false,
+                "type": "textarea"
+              },
+              {
+                "id": "project_description_details",
+                "label": "Project description",
+                "multiple": false,
+                "name": "project_description",
+                "placeholder": "A short project description (optional)",
+                "required": false,
+                "type": "textarea"
+              },
+              {
+                "id": "resume_files",
+                "label": "Attach Requirements / Scope\n                                                Documents",
+                "multiple": true,
+                "name": "resume_files[]",
+                "placeholder": null,
+                "required": false,
+                "type": "file"
+              }
+            ],
+            "heading": "Project & Requirements"
+          }
+        ]
+      }
+    ],
+    "expert": [
+      {
+        "id": "consultant-profile-form",
+        "sections": [
+          {
+            "description": "Your core professional details.",
+            "fields": [
+              {
+                "id": "consultant_full_name",
+                "label": "Full Name *",
+                "name": "full_name",
+                "placeholder": "Enter full name",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "consultant_email",
+                "label": "Work Email Address *",
+                "name": "email",
+                "placeholder": "Enter work email",
+                "required": true,
+                "type": "email"
+              },
+              {
+                "id": "consultant_phone",
+                "label": "Phone / WhatsApp *",
+                "name": "phone",
+                "placeholder": "Enter phone number",
+                "required": true,
+                "type": "tel"
+              },
+              {
+                "id": "consultant_primary_expertise",
+                "label": "Primary Expertise *",
+                "name": "primary_expertise",
+                "options": [
+                  {
+                    "label": "Strategy & Transformation",
+                    "value": "strategy-transformation"
+                  },
+                  {
+                    "label": "AI & Emerging Technology",
+                    "value": "ai-emerging-technology"
+                  },
+                  {
+                    "label": "People Talent & Culture",
+                    "value": "people-talent-culture"
+                  },
+                  {
+                    "label": "Digital Infrastructure & IT",
+                    "value": "digital-infrastructure-it"
+                  },
+                  {
+                    "label": "Finance Legal & Risk",
+                    "value": "finance-legal-risk"
+                  },
+                  {
+                    "label": "Supply Chain & ESG",
+                    "value": "supply-chain-esg"
+                  },
+                  {
+                    "label": "Revenue Growth & Commercial Excellence",
+                    "value": "revenue-growth-commercial-excellence"
+                  }
+                ],
+                "placeholder": null,
+                "required": true,
+                "type": "select-one"
+              },
+              {
+                "id": "consultant_secondary_expertise",
+                "label": "Secondary Expertise",
+                "name": "secondary_expertise",
+                "options": [],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              },
+              {
+                "id": "consultant_linkedin",
+                "label": "LinkedIn URL",
+                "name": "linkedin_url",
+                "placeholder": "Enter LinkedIn profile URL",
+                "required": false,
+                "type": "url"
+              },
+              {
+                "id": "consultant_years_experience",
+                "label": "Years of Experience *",
+                "name": "years_experience",
+                "options": [
+                  {
+                    "label": "5-10 years",
+                    "value": "5-10"
+                  },
+                  {
+                    "label": "10-15 years",
+                    "value": "10-15"
+                  },
+                  {
+                    "label": "15-20 years",
+                    "value": "15-20"
+                  },
+                  {
+                    "label": "20+ years",
+                    "value": "20-plus"
+                  }
+                ],
+                "placeholder": null,
+                "required": true,
+                "type": "select-one"
+              },
+              {
+                "id": "consultant_years_consulting",
+                "label": "Years in Consulting",
+                "name": "years_consulting",
+                "options": [],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              },
+              {
+                "id": "consultant_day_rate",
+                "label": "Day Rate Expectation",
+                "name": "day_rate",
+                "options": [
+                  {
+                    "label": "$800–$1,200",
+                    "value": "800-1200"
+                  },
+                  {
+                    "label": "$1,200–$1,800",
+                    "value": "1200-1800"
+                  },
+                  {
+                    "label": "$1,800–$2,500",
+                    "value": "1800-2500"
+                  },
+                  {
+                    "label": "$2,500–$3,500",
+                    "value": "2500-3500"
+                  },
+                  {
+                    "label": "$3,500–$5,000",
+                    "value": "3500-5000"
+                  },
+                  {
+                    "label": "Above $5,000",
+                    "value": "above-5000"
+                  },
+                  {
+                    "label": "Prefer to discuss",
+                    "value": "prefer-discuss"
+                  }
+                ],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              }
+            ],
+            "heading": "Profile Basics"
+          },
+          {
+            "description": "Where and how you like to work.",
+            "fields": [
+              {
+                "label": "Regions Available *",
+                "name": "regions_available",
+                "options": [
+                  {
+                    "label": "Saudi Arabia",
+                    "value": "saudi-arabia"
+                  },
+                  {
+                    "label": "Oman",
+                    "value": "oman"
+                  },
+                  {
+                    "label": "Other GCC",
+                    "value": "other-gcc"
+                  },
+                  {
+                    "label": "India",
+                    "value": "india"
+                  },
+                  {
+                    "label": "Romania / Europe",
+                    "value": "romania-europe"
+                  },
+                  {
+                    "label": "MENA",
+                    "value": "mena"
+                  },
+                  {
+                    "label": "Asia-Pacific",
+                    "value": "asia-pacific"
+                  },
+                  {
+                    "label": "North America",
+                    "value": "north-america"
+                  },
+                  {
+                    "label": "Global",
+                    "value": "global"
+                  }
+                ],
+                "placeholder": "Select regions (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "label": "Delivery Models *",
+                "name": "delivery_models",
+                "options": [
+                  {
+                    "label": "Virtual / Remote",
+                    "value": "virtual-remote"
+                  },
+                  {
+                    "label": "Travel on Demand",
+                    "value": "travel-on-demand"
+                  },
+                  {
+                    "label": "On-Site Embedded",
+                    "value": "on-site-embedded"
+                  },
+                  {
+                    "label": "Local Deployment",
+                    "value": "local-deployment"
+                  }
+                ],
+                "placeholder": "Select delivery models (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "label": "Engagement Types",
+                "name": "engagement_types",
+                "options": [
+                  {
+                    "label": "Project-Based",
+                    "value": "project-based"
+                  },
+                  {
+                    "label": "Retainer",
+                    "value": "retainer"
+                  },
+                  {
+                    "label": "Success Fee",
+                    "value": "success-fee"
+                  }
+                ],
+                "placeholder": "Select engagement types (optional)",
+                "type": "multiselect"
+              },
+              {
+                "label": "Languages *",
+                "name": "languages",
+                "options": [
+                  {
+                    "label": "English",
+                    "value": "english"
+                  },
+                  {
+                    "label": "Arabic",
+                    "value": "arabic"
+                  },
+                  {
+                    "label": "Hindi / Urdu",
+                    "value": "hindi-urdu"
+                  },
+                  {
+                    "label": "Romanian",
+                    "value": "romanian"
+                  },
+                  {
+                    "label": "French",
+                    "value": "french"
+                  },
+                  {
+                    "label": "German",
+                    "value": "german"
+                  },
+                  {
+                    "label": "Other",
+                    "value": "other"
+                  }
+                ],
+                "placeholder": "Select languages (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              }
+            ],
+            "heading": "Availability & Delivery"
+          },
+          {
+            "description": "Give us the context behind your experience.",
+            "fields": [
+              {
+                "id": "consultant_story",
+                "label": "Tell Us Your Story *",
+                "name": "story",
+                "placeholder": "Share your professional journey, key achievements, and what makes you unique...",
+                "required": true,
+                "type": "textarea"
+              },
+              {
+                "id": "consultant_cv",
+                "label": "Upload CV *",
+                "name": "cv",
+                "placeholder": null,
+                "required": true,
+                "type": "file"
+              }
+            ],
+            "heading": "Your Story & Evidence",
+            "video": "Add Video (Optional) — You can record or upload a short\n                                                video if you want to add more context to your profile.\n                                                Add\n                                                            Video"
+          }
+        ]
+      },
+      {
+        "id": "strategic-advisor-profile-form",
+        "sections": [
+          {
+            "description": "Your leadership background and contact details.",
+            "fields": [
+              {
+                "id": "advisor_full_name",
+                "label": "Full Name *",
+                "name": "full_name",
+                "placeholder": "Enter full name",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "advisor_current_role",
+                "label": "Current Role / Title *",
+                "name": "current_role",
+                "placeholder": "Enter current role",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "advisor_email",
+                "label": "Email *",
+                "name": "email",
+                "placeholder": "Enter email",
+                "required": true,
+                "type": "email"
+              },
+              {
+                "id": "advisor_phone",
+                "label": "Phone *",
+                "name": "phone",
+                "placeholder": "Enter phone number",
+                "required": true,
+                "type": "tel"
+              },
+              {
+                "id": "advisor_highest_roles",
+                "label": "Highest Roles Held *",
+                "name": "highest_roles",
+                "placeholder": "Describe the key leadership positions held throughout your career...",
+                "required": true,
+                "type": "textarea"
+              }
+            ],
+            "heading": "Profile Basics"
+          },
+          {
+            "description": "Your focus, geography, and engagement preference.",
+            "fields": [
+              {
+                "label": "Sectors of Expertise *",
+                "name": "sectors_of_expertise",
+                "options": [],
+                "placeholder": "Select sectors (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "label": "Geographic Expertise *",
+                "name": "geographic_expertise",
+                "options": [],
+                "placeholder": "Select regions (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "id": "advisor_commitment",
+                "label": "Preferred Commitment *",
+                "name": "preferred_commitment",
+                "options": [
+                  {
+                    "label": "2-3 days per month",
+                    "value": "2-3-days"
+                  },
+                  {
+                    "label": "4-6 days per month",
+                    "value": "4-6-days"
+                  },
+                  {
+                    "label": "7-10 days per month",
+                    "value": "7-10-days"
+                  },
+                  {
+                    "label": "Flexible",
+                    "value": "flexible"
+                  }
+                ],
+                "placeholder": null,
+                "required": true,
+                "type": "select-one"
+              },
+              {
+                "id": "advisor_day_rate",
+                "label": "Day Rate Expectation",
+                "name": "day_rate",
+                "options": [
+                  {
+                    "label": "$2,500–$3,500",
+                    "value": "2500-3500"
+                  },
+                  {
+                    "label": "$3,500–$5,000",
+                    "value": "3500-5000"
+                  },
+                  {
+                    "label": "$5,000–$7,500",
+                    "value": "5000-7500"
+                  },
+                  {
+                    "label": "$7,500–$10,000",
+                    "value": "7500-10000"
+                  },
+                  {
+                    "label": "Above $10,000",
+                    "value": "above-10000"
+                  },
+                  {
+                    "label": "Prefer to discuss confidentially",
+                    "value": "prefer-discuss"
+                  }
+                ],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              },
+              {
+                "label": "Languages *",
+                "name": "languages",
+                "options": [
+                  {
+                    "label": "English",
+                    "value": "english"
+                  },
+                  {
+                    "label": "Arabic",
+                    "value": "arabic"
+                  },
+                  {
+                    "label": "Hindi / Urdu",
+                    "value": "hindi-urdu"
+                  },
+                  {
+                    "label": "Romanian",
+                    "value": "romanian"
+                  },
+                  {
+                    "label": "French",
+                    "value": "french"
+                  },
+                  {
+                    "label": "German",
+                    "value": "german"
+                  },
+                  {
+                    "label": "Other",
+                    "value": "other"
+                  }
+                ],
+                "placeholder": "Select languages (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "id": "advisor_linkedin",
+                "label": "LinkedIn / Bio URL",
+                "name": "linkedin_bio",
+                "placeholder": "Enter LinkedIn or bio URL",
+                "required": false,
+                "type": "url"
+              }
+            ],
+            "heading": "Expertise & Commitment"
+          },
+          {
+            "description": "Show the value you have delivered and why OptimIQ fits.",
+            "fields": [
+              {
+                "id": "advisor_impact",
+                "label": "Tell Us About Your Impact *",
+                "name": "impact",
+                "placeholder": "Describe the strategic impact you have delivered...",
+                "required": true,
+                "type": "textarea"
+              },
+              {
+                "id": "advisor_why_optimq",
+                "label": "Why OptimIQ?",
+                "name": "why_optimiq",
+                "placeholder": "Tell us why you want to work with OptimIQ...",
+                "required": false,
+                "type": "textarea"
+              },
+              {
+                "id": "advisor_cv",
+                "label": "Attach CV",
+                "name": "cv",
+                "placeholder": null,
+                "required": false,
+                "type": "file"
+              }
+            ],
+            "heading": "Impact & Fit"
+          }
+        ]
+      },
+      {
+        "id": "project-manager-profile-form",
+        "sections": [
+          {
+            "description": "Your program leadership details.",
+            "fields": [
+              {
+                "id": "pm_full_name",
+                "label": "Full Name *",
+                "name": "full_name",
+                "placeholder": "Enter full name",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "pm_email",
+                "label": "Email *",
+                "name": "email",
+                "placeholder": "Enter email",
+                "required": true,
+                "type": "email"
+              },
+              {
+                "id": "pm_phone",
+                "label": "Phone *",
+                "name": "phone",
+                "placeholder": "Enter phone number",
+                "required": true,
+                "type": "tel"
+              },
+              {
+                "id": "pm_years",
+                "label": "Years as PM / Program Lead *",
+                "name": "years_as_pm",
+                "options": [],
+                "placeholder": null,
+                "required": true,
+                "type": "select-one"
+              },
+              {
+                "id": "pm_largest_program",
+                "label": "Largest Program Managed",
+                "name": "largest_program",
+                "options": [
+                  {
+                    "label": "$250,000–$500,000",
+                    "value": "250000-500000"
+                  },
+                  {
+                    "label": "$500,000–$1,000,000",
+                    "value": "500000-1000000"
+                  },
+                  {
+                    "label": "$1,000,000–$5,000,000",
+                    "value": "1000000-5000000"
+                  },
+                  {
+                    "label": "Above $5,000,000",
+                    "value": "above-5000000"
+                  }
+                ],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              },
+              {
+                "id": "pm_primary_expertise",
+                "label": "Primary Expertise *",
+                "name": "primary_expertise",
+                "options": [],
+                "placeholder": null,
+                "required": true,
+                "type": "select-one"
+              }
+            ],
+            "heading": "Profile Basics"
+          },
+          {
+            "description": "Certifications, regions, delivery preferences, and languages.",
+            "fields": [
+              {
+                "label": "Certifications",
+                "name": "certifications",
+                "options": [
+                  {
+                    "label": "PMP",
+                    "value": "pmp"
+                  },
+                  {
+                    "label": "PRINCE2 Practitioner / Expert",
+                    "value": "prince2"
+                  },
+                  {
+                    "label": "Agile / Scrum Master / SAFe",
+                    "value": "agile-scrum-safe"
+                  },
+                  {
+                    "label": "Prosci Change Management",
+                    "value": "prosci"
+                  },
+                  {
+                    "label": "PMI-ACP",
+                    "value": "pmi-acp"
+                  },
+                  {
+                    "label": "MBA or equivalent",
+                    "value": "mba"
+                  },
+                  {
+                    "label": "Other",
+                    "value": "other"
+                  },
+                  {
+                    "label": "None",
+                    "value": "none"
+                  }
+                ],
+                "placeholder": "Select certifications (multi-select)",
+                "type": "multiselect"
+              },
+              {
+                "label": "Regions Available *",
+                "name": "regions_available",
+                "options": [
+                  {
+                    "label": "Saudi Arabia",
+                    "value": "saudi-arabia"
+                  },
+                  {
+                    "label": "Oman",
+                    "value": "oman"
+                  },
+                  {
+                    "label": "Other GCC",
+                    "value": "other-gcc"
+                  },
+                  {
+                    "label": "India",
+                    "value": "india"
+                  },
+                  {
+                    "label": "Romania / Europe",
+                    "value": "romania-europe"
+                  },
+                  {
+                    "label": "MENA",
+                    "value": "mena"
+                  },
+                  {
+                    "label": "Asia-Pacific",
+                    "value": "asia-pacific"
+                  },
+                  {
+                    "label": "North America",
+                    "value": "north-america"
+                  },
+                  {
+                    "label": "Global",
+                    "value": "global"
+                  }
+                ],
+                "placeholder": "Select regions (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "label": "Delivery Preference *",
+                "name": "delivery_preference",
+                "options": [
+                  {
+                    "label": "Virtual",
+                    "value": "virtual"
+                  },
+                  {
+                    "label": "Travel on Demand",
+                    "value": "travel-on-demand"
+                  },
+                  {
+                    "label": "On-Site",
+                    "value": "on-site"
+                  }
+                ],
+                "placeholder": "Select delivery preference (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              },
+              {
+                "id": "pm_day_rate",
+                "label": "Day Rate Expectation",
+                "name": "day_rate",
+                "options": [
+                  {
+                    "label": "$1,200–$1,500",
+                    "value": "1200-1500"
+                  },
+                  {
+                    "label": "$1,500–$2,000",
+                    "value": "1500-2000"
+                  },
+                  {
+                    "label": "$2,000–$2,500",
+                    "value": "2000-2500"
+                  },
+                  {
+                    "label": "$2,500–$3,000",
+                    "value": "2500-3000"
+                  },
+                  {
+                    "label": "$3,000–$4,000",
+                    "value": "3000-4000"
+                  },
+                  {
+                    "label": "Prefer to discuss",
+                    "value": "prefer-discuss"
+                  }
+                ],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              },
+              {
+                "label": "Languages *",
+                "name": "languages",
+                "options": [
+                  {
+                    "label": "English",
+                    "value": "english"
+                  },
+                  {
+                    "label": "Arabic",
+                    "value": "arabic"
+                  },
+                  {
+                    "label": "Hindi / Urdu",
+                    "value": "hindi-urdu"
+                  },
+                  {
+                    "label": "Romanian",
+                    "value": "romanian"
+                  },
+                  {
+                    "label": "French",
+                    "value": "french"
+                  },
+                  {
+                    "label": "German",
+                    "value": "german"
+                  },
+                  {
+                    "label": "Other",
+                    "value": "other"
+                  }
+                ],
+                "placeholder": "Select languages (multi-select)",
+                "required": true,
+                "type": "multiselect"
+              }
+            ],
+            "heading": "Capabilities & Availability"
+          },
+          {
+            "description": "Describe the scale, outcomes, and leadership you bring.",
+            "fields": [
+              {
+                "id": "pm_programs",
+                "label": "Tell Us About Your Programs *",
+                "name": "programs",
+                "placeholder": "Share your program leadership experience, outcomes, scale, and key achievements...",
+                "required": true,
+                "type": "textarea"
+              },
+              {
+                "id": "pm_linkedin",
+                "label": "LinkedIn URL",
+                "name": "linkedin_url",
+                "placeholder": "Enter LinkedIn profile URL",
+                "required": false,
+                "type": "url"
+              },
+              {
+                "id": "pm_cv",
+                "label": "Upload CV *",
+                "name": "cv",
+                "placeholder": null,
+                "required": true,
+                "type": "file"
+              }
+            ],
+            "heading": "Program Experience"
+          }
+        ]
+      }
+    ],
+    "firm": [
+      {
+        "id": "consulting-firm-enquiry-form",
+        "sections": [
+          {
+            "choices": [],
+            "description": "Start with the basic details.",
+            "fields": [
+              {
+                "id": "firm_name",
+                "label": "Firm Name *",
+                "name": "firm_name",
+                "placeholder": "Enter firm name",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "contact_name",
+                "label": "Contact Name & Title *",
+                "name": "contact_name",
+                "placeholder": "Enter contact name and title",
+                "required": true,
+                "type": "text"
+              },
+              {
+                "id": "firm_email",
+                "label": "Email *",
+                "name": "firm_email",
+                "placeholder": "Enter firm email",
+                "required": true,
+                "type": "email"
+              },
+              {
+                "id": "firm_phone",
+                "label": "Phone / WhatsApp *",
+                "name": "firm_phone",
+                "placeholder": "Enter phone number",
+                "required": true,
+                "type": "tel"
+              }
+            ],
+            "heading": "Firm & Contact"
+          },
+          {
+            "choices": [
+              {
+                "label": "New client opportunities",
+                "name": "interest[]",
+                "type": "checkbox",
+                "value": "New client opportunities"
+              },
+              {
+                "label": "Additional bench capacity",
+                "name": "interest[]",
+                "type": "checkbox",
+                "value": "Additional bench capacity"
+              },
+              {
+                "label": "Not sure yet",
+                "name": "interest[]",
+                "type": "checkbox",
+                "value": "Not sure yet"
+              }
+            ],
+            "description": "Choose the opportunity that best matches your interest.",
+            "fields": [],
+            "heading": "What Brings You to OptimIQ?"
+          },
+          {
+            "choices": [],
+            "description": "Optional details that help us understand your offer.",
+            "fields": [
+              {
+                "label": "Primary Practice Area",
+                "name": "practice_area",
+                "options": [
+                  {
+                    "label": "Strategy & Growth",
+                    "value": "strategy-growth"
+                  },
+                  {
+                    "label": "Revenue Enhancement",
+                    "value": "revenue-enhancement"
+                  },
+                  {
+                    "label": "Customer & Market Experience",
+                    "value": "customer-market"
+                  },
+                  {
+                    "label": "AI & Emerging Tech",
+                    "value": "ai-emerging-tech"
+                  },
+                  {
+                    "label": "Digital Transformation",
+                    "value": "digital-transformation"
+                  },
+                  {
+                    "label": "Supply Chain & ESG",
+                    "value": "supply-chain-esg"
+                  },
+                  {
+                    "label": "Finance & Operations",
+                    "value": "finance-operations"
+                  },
+                  {
+                    "label": "Talent & Manpower",
+                    "value": "talent-manpower"
+                  },
+                  {
+                    "label": "People, L&D & Culture",
+                    "value": "people-ld-culture"
+                  }
+                ],
+                "placeholder": "Select a practice area",
+                "type": "multiselect"
+              },
+              {
+                "id": "firm_size",
+                "label": "Approximate Firm Size",
+                "name": "firm_size",
+                "options": [
+                  {
+                    "label": "1–10",
+                    "value": "1-10"
+                  },
+                  {
+                    "label": "11–50",
+                    "value": "11-50"
+                  },
+                  {
+                    "label": "51–100",
+                    "value": "51-100"
+                  },
+                  {
+                    "label": "101–200",
+                    "value": "101-200"
+                  },
+                  {
+                    "label": "200+",
+                    "value": "200+"
+                  }
+                ],
+                "placeholder": null,
+                "required": false,
+                "type": "select-one"
+              },
+              {
+                "id": "firm_message",
+                "label": "Tell Us a Bit More",
+                "name": "firm_message",
+                "placeholder": "A sentence or two — the kind of client you want, or the kind of gap you need to fill.",
+                "required": false,
+                "type": "textarea"
+              }
+            ],
+            "heading": "Firm Profile"
+          }
+        ]
+      }
+    ]
+  }
+}

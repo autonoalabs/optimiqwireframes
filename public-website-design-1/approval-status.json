@@ -4,7 +4,7 @@
   "public_website": {
     "design": "Design 1",
     "status": "Approved with feedback and changes",
-    "feedback_status": "Feedback 1 and concept-note simulator implemented; awaiting review of changes",
+    "feedback_status": "Feedback 2 implemented for review; legacy option gaps explicitly tracked",
     "changes_implemented": false,
     "pages": [
       "public-website-design-1/index.html",
@@ -24,6 +24,12 @@
         "status": "Implemented; awaiting review",
         "scope": "Three Design 1 branded PDFs and email-only download simulator",
         "user_decision": "Simulator now; developer will connect backend storage later."
+      },
+      {
+        "id": "FEEDBACK-02",
+        "status": "Implemented; source option choices need clarification",
+        "scope": "Restore all existing CTA fields and visible desktop-equivalent mobile navigation",
+        "notes": "Two required option lists and one optional list are absent from the existing source. Work Email remains required by the approved verification flow."
       }
     ]
   },

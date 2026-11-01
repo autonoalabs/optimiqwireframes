@@ -1,3 +1,13 @@
+# Feedback 2 verification — 1 November 2026
+
+Restored source fields: client 11; Consultant 16; Strategic Advisor 14; Project Manager 14; firm 8. Tests cover active-role field allowlists, grouped choices, separate concern/project descriptions, safe file metadata, exact missing-options list, and existing calculator/submission regressions. Static page/link/label/PDF audit passes.
+
+Browser checks cover client scope-PDF selection and no-data-sent submission, firm contact/interest submission, role tab keyboard switching, tab-only draft simulation, and correct required pending-option blocking. Mobile and tablet checks show all four desktop links visible, correct current-page routing and Register destinations, with no horizontal overflow. The missing sector and PM tenure choices remain business gaps, not fabricated functional completion.
+
+The earlier short three-field-form assertions in the historical reports below are superseded. Current pending production work includes real services/uploads, physical-device keyboards and the source missing-option clarifications documented in feedback-02.md.
+
+---
+
 # Concept-note update verification — 1 November 2026
 
 - Three two-page PDFs recreated in Design 1 green/slate, Plus Jakarta Sans/Inter and OptimIQ logo. All six pages visually inspected. Text assertions cover every substantive source paragraph, examples, process, benefits and CTA. Final first-page numeric labels and values have separated columns. Searchable text, embedded brand fonts, working review-route PDF buttons, approximately 91 KB per file.

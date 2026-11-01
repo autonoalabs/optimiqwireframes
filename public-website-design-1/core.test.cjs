@@ -8,8 +8,8 @@ async function main(){
  const clients=core.calculate('client',defaults('client'));assert.equal(clients.headline,'$180K – $240K');assert.deepEqual(clients.overhead,[120000,160000]);assert.deepEqual(clients.risk,[60000,80000]);
  const expert=core.calculate('expert',defaults('expert'));assert.equal(expert.headline,'+$30K – $40K');assert.equal(expert.level,'Senior Consultant');assert.deepEqual(expert.days,[30,40]);
  const firmDefault=core.calculate('firm',defaults('firm'));assert.equal(firmDefault.headline,'$700K – $1M');assert.deepEqual(firmDefault.mandates,[2,4]);assert.equal(firmDefault.left,2000000);
- for(const a of ['client','expert','firm']){assert.equal(config.audiences[a].fields.filter(f=>f.required).length,3);assert.ok(core.validScenario(config,a,defaults(a)));assert.ok(!core.validScenario(config,a,{}));}
- assert.equal(config.audiences.firm.fields.find(f=>f.name==='practice_area').required,undefined);
+ for(const a of ['client','expert','firm']){assert.ok(core.validScenario(config,a,defaults(a)));assert.ok(!core.validScenario(config,a,{}));}
+ assert.equal(core.fields(config,'firm').find(f=>f.name==='practice_area').required,false);
  for(const a of ['client','expert','firm'])for(const f of config.audiences[a].inputs){
   const allowed=f.choices?f.choices.map(o=>o.value):f.discrete?f.values:[f.min,f.max];
   for(const value of allowed){const v={...defaults(a),[f.name]:value};assert.ok(core.validScenario(config,a,v));const r=core.calculate(a,v);assert.ok(!JSON.stringify(r).includes('null'));assert.ok(!r.headline.includes('NaN'));assert.ok(r.total[0]<=r.total[1]);}
@@ -30,7 +30,20 @@ async function main(){
  assert.equal(declined.full_name,'O’Connor Example');assert.equal(declined.role,'Project Manager');assert.equal(declined.attach_earnings_calculation,false);for(const key of ['daily_rate','target_annual_billings','internal_margin','scenario'])assert.ok(!(key in declined));
  const attached=core.buildPayload(config,'expert',form,{...defaults('expert'),target_annual_billings:135000},true,source);assert.deepEqual(attached.scenario,defaults('expert'));assert.equal(attached.attach_earnings_calculation,true);
  assert.equal(core.buildPayload(config,'expert',form,{days:90},true,source).attach_earnings_calculation,false);
- const firm=core.buildPayload(config,'firm',{firm_name:'Example',contact_name_role:'Example, Partner',email:'partner@example.com'},null,false,source);assert.ok(!('practice_area' in firm));assert.equal(firm.new_project_opportunities,false);assert.ok(!firm.scenario);
+ const firm=core.buildPayload(config,'firm',{firm_name:'Example',contact_name_role:'Example, Partner',email:'partner@example.com'},null,false,source);assert.ok(!('practice_area' in firm));assert.ok(!('new_project_opportunities' in firm));assert.ok(!firm.scenario);
+ const sourceFields={client:['full_name','mobile_number','organization_name','work_email','location','engagement_type','domains','employees','areas_of_concern','project_description','resume_files'],firm:['firm_name','contact_name','firm_email','firm_phone','interest','practice_area','firm_size','firm_message']};
+ for(const a of ['client','firm'])assert.deepEqual(core.fields(config,a).map(f=>f.name),sourceFields[a]);
+ assert.equal(core.fields(config,'expert','Consultant').length,16);assert.equal(core.fields(config,'expert','Strategic Advisor').length,14);assert.equal(core.fields(config,'expert','Project Manager').length,14);
+ assert.throws(()=>core.fields(config,'expert','Invalid role'));
+ assert.equal(core.fields(config,'client').find(f=>f.name==='work_email').required,true);
+ const sourceClient=core.buildPayload(config,'client',{full_name:'Client Example',work_email:'review@example.com',organization_name:'Example Org',engagement_type:['Strategic Advisory','bad-value'],domains:['Strategy & Growth'],employees:'10-50',areas_of_concern:'A challenge',project_description:'The scope',resume_files:[{name:'scope.pdf',size:100,type:'application/pdf',private:'excluded'}]},null,false,source);
+ assert.deepEqual(sourceClient.engagement_type,['Strategic Advisory']);assert.equal(sourceClient.areas_of_concern,'A challenge');assert.equal(sourceClient.project_description,'The scope');assert.equal(sourceClient.organization_name,'Example Org');assert.deepEqual(sourceClient.resume_files,[{name:'scope.pdf',size:100,type:'application/pdf'}]);
+ const sourceFirm=core.buildPayload(config,'firm',{firm_name:'Firm Example',contact_name:'Partner',firm_email:'review@example.com',firm_phone:'+971 500000000',interest:['New client opportunities','Additional bench capacity','Not sure yet'],practice_area:['strategy-growth'],firm_size:'11-50',firm_message:'Our firm'},null,false,source);
+ assert.equal(sourceFirm.interest.length,3);assert.deepEqual(sourceFirm.practice_area,['strategy-growth']);assert.equal(sourceFirm.firm_email,'review@example.com');
+ const sourcePm=core.buildPayload(config,'expert',{role:'Project Manager',full_name:'PM Example',email:'review@example.com',phone:'1234567',day_rate:'1200-1500',current_role:'Should not carry from Advisor',daily_rate:9999,certifications:['pmp'],regions_available:['india'],delivery_preference:['virtual'],languages:['english'],programs:'Program evidence'},defaults('expert'),false,source);
+ assert.equal(sourcePm.day_rate,'1200-1500');assert.ok(!('current_role' in sourcePm));assert.ok(!('daily_rate' in sourcePm));assert.ok(!('scenario' in sourcePm));assert.deepEqual(sourcePm.certifications,['pmp']);
+ const pendingOptions=Object.entries(config.audiences.expert.roleProfiles).flatMap(([role,p])=>p.sections.flatMap(s=>s.fields.filter(f=>f.needsClarification).map(f=>role+':'+f.name)));
+ assert.deepEqual(pendingOptions,['Consultant:years_consulting','Strategic Advisor:sectors_of_expertise','Project Manager:years_as_pm']);
  assert.equal(core.nextStep('expert',{receipt:false,reference:'x'}),null);
  assert.ok(!core.nextStep('expert',{receipt:true,reference:'x',verification:'failed'}).text.includes('Check your email'));
  assert.ok(core.nextStep('expert',{receipt:true,reference:'x',verification:'queued'}).text.includes('Check your email'));
@@ -53,6 +66,6 @@ async function main(){
  }
  assert.throws(()=>core.conceptNotePayload(config,'unknown','reviewer@example.com',source));
  assert.ok(Object.values(config.integrations.endpoints).every(v=>v===null));
- console.log('Passed client-reference defaults, all discrete values and enums, year-level boundaries, capacity/zero-loss branches, range boundaries, three-field forms, firm optional practice, role/earnings separation, opt-in/out, raw-input allowlists, durable receipt, retries, duplicate prevention and failure-state tests.');
+ console.log('Passed client-reference defaults, all discrete values and enums, year-level boundaries, capacity/zero-loss branches, range boundaries, legacy field parity, three role forms, grouped choices and upload metadata, role/earnings separation, opt-in/out, raw-input allowlists, durable receipt, retries, duplicate prevention and failure-state tests.');
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

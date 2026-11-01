@@ -49,7 +49,7 @@
       "item": "Practice master",
       "status": "Needs confirmation",
       "owner": "Client business owner",
-      "question": "Confirm the nine proposed public labels and stable backend identifiers. All practice fields are optional and start empty; preview labels follow the designer list."
+      "question": "Registration choices now match the existing source forms and their exact IDs; see legacy-form-reference.json. Confirm mapping between those source domain/expertise IDs and the nine longer proposed public marketing practice labels before production."
     },
     {
       "id": "WEB-ROLE-01",
@@ -63,21 +63,21 @@
       "item": "Below five years of experience",
       "status": "Needs clarification",
       "owner": "Client Talent owner",
-      "question": "The Feedback 1 calculator includes 3–4 years and an illustrative Associate starting level, as supplied by the client. Confirm the corresponding application route/eligibility policy: approved short-application bands still begin at five years. Do not change private CTQ or falsely classify candidates."
+      "question": "Calculator supports 3–4 years as supplied. Restored source registration offers its exact 5-10 / 10-15 / 15-20 / 20+ experience options. Below-five application eligibility remains a business clarification; approved CTQ is unchanged."
     },
     {
       "id": "WEB-API-01",
       "item": "Submissions, CRM routing and follow-up",
       "status": "Integration pending",
       "owner": "Backend and Operations",
-      "question": "Confirm real endpoints, durable receipt schema, queue owners, server validation/recomputation, idempotent retry and safe response contracts. Static preview never claims receipt."
+      "question": "Connect restored legacy registration fields and active role to durable validation, existing identity/verification, CRM routing and file storage. Payload version public-website-feedback-02; files use multipart registration JSON plus named file parts. Simulator sends no data."
     },
     {
       "id": "WEB-IDENTITY-01",
       "item": "Portal continuation and verification",
-      "status": "Needs integration decision",
+      "status": "Approved flow retained; integration pending",
       "owner": "Portal and Talent teams",
-      "question": "Confirm existing CTA/account provisioning relationship to the new short enquiries/applications, approved portal URL, verification token lifetime and controlled resend. Member portal is unchanged."
+      "question": "Existing registration already owns verification/password setup, followed by shared portal login. Reuse that approved identity flow; connect the restored website forms to those services during backend development. No duplicate account/verification journey is introduced."
     },
     {
       "id": "WEB-INTRO-01",
@@ -127,6 +127,13 @@
       "status": "Deferred; simulator approved by user",
       "owner": "Backend developer",
       "question": "Connect email-only note requests to durable lead storage later. The current simulator validates email and downloads the PDF without retaining email. See concept-notes.md for the allowlisted payload and receipt/retry contract."
+    },
+    {
+      "id": "WEB-CTA-LISTS-01",
+      "item": "Three empty legacy consultant dropdown lists",
+      "status": "Needs clarification",
+      "owner": "Client business owner",
+      "question": "Supply Years in Consulting (optional), Strategic Advisor Sectors of Expertise (required), and PM Years as PM / Program Lead (required). These existing-source gaps are visible and tracked; required pending choices cannot be submitted as complete."
     }
   ]
 }
