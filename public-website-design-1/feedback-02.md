@@ -17,6 +17,8 @@ The reference is recorded in legacy-form-reference.json: visible field names, la
 - Consulting firm: eight fields/groups, including four required contacts, all three interest options, practice-area multi-select, firm size and narrative.
 - General enquiries and the separate email-only concept-note simulator remain distinct from registration.
 
+Known source select placeholders and compact multi-select dropdowns are preserved. Multi-select summaries show selections, close on outside click/Escape, and use the same input styling across all roles.
+
 All three website CTA entry points and their dedicated audience pages use the same component/master. Register links, direct actions, calculator continuation and legacy preview GET redirects reach the matching complete registration form. Registration is a simulator, with no live submission endpoint. Existing account/email verification and password setup remain the approved continuation; no duplicate verification or login process is introduced. Initial CTA role is separate from the approved common CTQ and later multi-role fit selection.
 
 ## Source gaps and reconciliations

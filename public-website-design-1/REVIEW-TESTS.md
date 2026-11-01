@@ -2,7 +2,7 @@
 
 Restored source fields: client 11; Consultant 16; Strategic Advisor 14; Project Manager 14; firm 8. Tests cover active-role field allowlists, grouped choices, separate concern/project descriptions, safe file metadata, exact missing-options list, and existing calculator/submission regressions. Static page/link/label/PDF audit passes.
 
-Browser checks cover client scope-PDF selection and no-data-sent submission, firm contact/interest submission, role tab keyboard switching, tab-only draft simulation, and correct required pending-option blocking. Mobile and tablet checks show all four desktop links visible, correct current-page routing and Register destinations, with no horizontal overflow. The missing sector and PM tenure choices remain business gaps, not fabricated functional completion.
+Browser checks also verify source-style multi-select selection counts, outside dismissal and Escape focus handling. Browser checks cover client scope-PDF selection and no-data-sent submission, firm contact/interest submission, role tab keyboard switching, tab-only draft simulation, and correct required pending-option blocking. Mobile and tablet checks show all four desktop links visible, correct current-page routing and Register destinations, with no horizontal overflow. The missing sector and PM tenure choices remain business gaps, not fabricated functional completion.
 
 The earlier short three-field-form assertions in the historical reports below are superseded. Current pending production work includes real services/uploads, physical-device keyboards and the source missing-option clarifications documented in feedback-02.md.
 

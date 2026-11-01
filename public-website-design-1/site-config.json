@@ -492,7 +492,8 @@
                       "label": "Revenue Growth & Commercial Excellence",
                       "value": "revenue-growth-commercial-excellence"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select primary expertise"
                 },
                 {
                   "name": "secondary_expertise",
@@ -531,7 +532,8 @@
                       "value": "revenue-growth-commercial-excellence"
                     }
                   ],
-                  "optionSource": "Approved CTA workbook: existing primary-expertise master"
+                  "optionSource": "Approved CTA workbook: existing primary-expertise master",
+                  "placeholder": "Select secondary expertise (optional)"
                 },
                 {
                   "name": "linkedin_url",
@@ -566,7 +568,8 @@
                       "label": "20+ years",
                       "value": "20-plus"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select years of experience"
                 },
                 {
                   "name": "years_consulting",
@@ -576,7 +579,8 @@
                   "source_id": "consultant_years_consulting",
                   "source_name": "years_consulting",
                   "options": [],
-                  "needsClarification": true
+                  "needsClarification": true,
+                  "placeholder": "Select years in consulting (optional)"
                 },
                 {
                   "name": "day_rate",
@@ -614,7 +618,8 @@
                       "label": "Prefer to discuss",
                       "value": "prefer-discuss"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select day rate range (optional)"
                 }
               ]
             },
@@ -667,7 +672,8 @@
                       "label": "Global",
                       "value": "global"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "delivery_models",
@@ -694,7 +700,8 @@
                       "label": "Local Deployment",
                       "value": "local-deployment"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "engagement_types",
@@ -717,7 +724,8 @@
                       "label": "Success Fee",
                       "value": "success-fee"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "languages",
@@ -756,7 +764,8 @@
                       "label": "Other",
                       "value": "other"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 }
               ]
             },
@@ -865,7 +874,8 @@
                   "source_name": "sectors_of_expertise",
                   "placeholder": "Select sectors (multi-select)",
                   "options": [],
-                  "needsClarification": true
+                  "needsClarification": true,
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "geographic_expertise",
@@ -913,7 +923,8 @@
                       "value": "global"
                     }
                   ],
-                  "optionSource": "Approved CTA workbook: existing platform region list"
+                  "optionSource": "Approved CTA workbook: existing platform region list",
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "preferred_commitment",
@@ -939,7 +950,8 @@
                       "label": "Flexible",
                       "value": "flexible"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select preferred commitment"
                 },
                 {
                   "name": "day_rate",
@@ -973,7 +985,8 @@
                       "label": "Prefer to discuss confidentially",
                       "value": "prefer-discuss"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select day rate range (optional)"
                 },
                 {
                   "name": "languages",
@@ -1012,7 +1025,8 @@
                       "label": "Other",
                       "value": "other"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "linkedin_bio",
@@ -1104,7 +1118,8 @@
                   "source_id": "pm_years",
                   "source_name": "years_as_pm",
                   "options": [],
-                  "needsClarification": true
+                  "needsClarification": true,
+                  "placeholder": "Select years as PM / Program Lead"
                 },
                 {
                   "name": "largest_program",
@@ -1130,7 +1145,8 @@
                       "label": "Above $5,000,000",
                       "value": "above-5000000"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select program value (optional)"
                 },
                 {
                   "name": "primary_expertise",
@@ -1169,7 +1185,8 @@
                       "value": "revenue-growth-commercial-excellence"
                     }
                   ],
-                  "optionSource": "Approved CTA workbook: existing primary-expertise master"
+                  "optionSource": "Approved CTA workbook: existing primary-expertise master",
+                  "placeholder": "Select primary expertise"
                 }
               ]
             },
@@ -1218,7 +1235,8 @@
                       "label": "None",
                       "value": "none"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "regions_available",
@@ -1265,7 +1283,8 @@
                       "label": "Global",
                       "value": "global"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "delivery_preference",
@@ -1288,7 +1307,8 @@
                       "label": "On-Site",
                       "value": "on-site"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 },
                 {
                   "name": "day_rate",
@@ -1322,7 +1342,8 @@
                       "label": "Prefer to discuss",
                       "value": "prefer-discuss"
                     }
-                  ]
+                  ],
+                  "placeholder": "Select day rate range (optional)"
                 },
                 {
                   "name": "languages",
@@ -1361,7 +1382,8 @@
                       "label": "Other",
                       "value": "other"
                     }
-                  ]
+                  ],
+                  "presentation": "multiselect"
                 }
               ]
             },
@@ -1598,7 +1620,8 @@
                   "label": "People, L&D & Culture",
                   "value": "people-ld-culture"
                 }
-              ]
+              ],
+              "presentation": "multiselect"
             },
             {
               "name": "firm_size",
@@ -1628,7 +1651,8 @@
                   "label": "200+",
                   "value": "200+"
                 }
-              ]
+              ],
+              "placeholder": "Select firm size"
             },
             {
               "name": "firm_message",
