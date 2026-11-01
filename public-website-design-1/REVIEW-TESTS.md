@@ -93,3 +93,10 @@ Static preview limitation: model coefficients are public prototype placeholders 
 6. Physical iOS/Android keyboards and safe areas, screen-reader review, real browser zoom, media accessibility and commissioned Arabic/RTL acceptance. Responsive browser checks do not substitute for these.
 
 Client review entry is review.html or the repository's main index. Screen readiness does not mean production release is approved.
+
+
+## Complete Why OptimIQ summary — 1 November 2026
+
+The homepage now covers all three audiences across six concise benefits using the existing responsive component. See [source mapping and limitations](why-overview.md). This supersedes the certification-only homepage copy in feedback-03.md; certification remains the first trust pillar. Business rules, source forms, calculators, portal and approved base theme are unchanged.
+
+Focused verification: eight-page static audit passed. Desktop uses the existing three-column grid in two rows; 320px and 390px mobile views stack all six points without text clipping. CSS hash matches the approved version. Calculator and form logic are unchanged. Browser checks cover this copy update only.

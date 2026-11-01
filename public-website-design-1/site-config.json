@@ -1726,22 +1726,34 @@
       "pages": 2
     }
   },
-  "reviewVersion": "feedback-03",
+  "reviewVersion": "why-overview-1",
   "assurance": {
     "eyebrow": "WHY OPTIMIQ",
-    "heading": "OptimIQ Certified. Confidence backed by evidence.",
+    "heading": "The right expertise. A better way to work together.",
     "points": [
       {
-        "title": "Proven experience",
-        "text": "Real projects and delivered outcomes inform assessment."
+        "title": "Evidence before introduction",
+        "text": "OptimIQ Certified builds trust through proven work, professional judgment and ongoing review."
       },
       {
-        "title": "Rigorous evaluation",
-        "text": "Capability is assessed beyond a polished profile."
+        "title": "Local insight, global expertise",
+        "text": "Combine GCC and Saudi understanding with international specialists, without a fully international team’s overhead."
       },
       {
-        "title": "Ongoing assurance",
-        "text": "Standing is reviewed through feedback, delivery and development."
+        "title": "Support from scoping to delivery",
+        "text": "Match your challenge to consultants, advisors and project managers, with scoping support and optional senior delivery oversight."
+      },
+      {
+        "title": "Flexible work. Clear terms.",
+        "text": "Agree scope and fees upfront: project, retainer or success-fee arrangements, delivered on-site, remotely or through a hybrid team."
+      },
+      {
+        "title": "Recognition and relevant opportunities",
+        "text": "Consultants build standing on delivered work and connect with projects that fit their expertise."
+      },
+      {
+        "title": "Firm growth, on your terms",
+        "text": "Access selected mandates and specialist capacity while keeping your firm’s brand and client relationships."
       }
     ]
   }

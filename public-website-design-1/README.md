@@ -83,3 +83,8 @@ The calculator accepts 3–4 years as the reference does; application eligibilit
 ## Concept-note update — 1 November 2026
 
 Three PDFs have been supplied and rebranded. Get the concept note opens an email-only simulator and downloads the matching PDF. User explicitly deferred lead storage to the backend developer. Read concept-notes.md for the precise decision, source-content reconciliation, PDF regeneration and future service contract. The old missing-guide gate is superseded for these three assets.
+
+
+## Complete Why OptimIQ summary — 1 November 2026
+
+The homepage now covers all three audiences across six concise benefits using the existing responsive component. See [source mapping and limitations](why-overview.md). This supersedes the certification-only homepage copy in feedback-03.md; certification remains the first trust pillar. Business rules, source forms, calculators, portal and approved base theme are unchanged.
