@@ -63,11 +63,43 @@ class ContactForm{
 }
 
 document.querySelectorAll('[data-calculator]').forEach(node=>{calculators[node.dataset.calculator]=new Calculator(node);});
-class GuideForm extends ContactForm{
- transport(){const endpoint=config.guides[this.node.dataset.guideAudience]?.endpoint;if(!endpoint)return null;return async payload=>{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':payload.request_id},body:JSON.stringify(payload),credentials:'same-origin'});if(!response.ok)throw new Error('Guide request unavailable');return response.json();};}
- payload(){return {audience:'guide',guide_id:config.guides[this.node.dataset.guideAudience].id,full_name:this.node.elements.full_name.value.trim(),email:this.node.elements.email.value.trim(),source_page:'/'+config.audiences[page].route,source_component:'guide-request',form_version:config.version};}
-}
-document.querySelectorAll('[data-contact-form]').forEach(node=>{forms[node.dataset.contactForm]=node.dataset.contactForm==='guide'?new GuideForm(node):new ContactForm(node);});
+document.querySelectorAll('[data-contact-form]').forEach(node=>{forms[node.dataset.contactForm]=new ContactForm(node);});
+
+// The review download works without retaining email. A configured service must acknowledge
+// a durable lead before production download; no browser storage or public-repository writes.
+const noteDialog=document.querySelector('#concept-note-dialog'),noteForm=document.querySelector('#concept-note-form');
+let noteAudience=null,noteSource=null,noteService=null,noteBusy=false,noteOpener=null;
+const noteEmail=noteForm.elements.email,noteStatus=noteForm.querySelector('[data-note-status]'),noteError=noteForm.querySelector('.field-error'),noteDownload=noteForm.querySelector('[data-note-download]'),noteSubmit=noteForm.querySelector('[type="submit"]');
+function resetNote(){noteForm.reset();noteStatus.textContent='';noteError.hidden=true;noteEmail.removeAttribute('aria-invalid');noteDownload.hidden=true;noteDownload.removeAttribute('href');noteService?.invalidate();}
+document.querySelectorAll('[data-concept-note]').forEach(button=>button.addEventListener('click',()=>{
+ const a=button.dataset.conceptNote,guide=config.guides[a];if(!guide?.approved||!guide.url)return;
+ resetNote();noteAudience=a;noteSource=button.dataset.noteSource;noteOpener=button;
+ noteForm.querySelector('h2').textContent=guide.title;noteDialog.querySelector('#concept-note-description').textContent='Enter your email address to download the two-page PDF.';
+ const endpoint=guide.endpoint;noteService=OptimIQSubmission.createSubmissionService({transport:endpoint?async payload=>{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':payload.request_id},body:JSON.stringify(payload),credentials:'same-origin'});if(response.status===429)return {status:'throttled'};if(response.status===422)return {status:'validation',fields:(await response.json()).fields||{}};if(!response.ok)throw new Error('Concept note request failed');return response.json();}:null});
+ noteForm.querySelector('[data-note-preview]').hidden=Boolean(endpoint);noteDialog.showModal();noteEmail.focus();
+}));
+noteForm.querySelector('[data-close-note]').addEventListener('click',()=>{if(!noteBusy)noteDialog.close();});
+noteDialog.addEventListener('click',event=>{const r=noteDialog.getBoundingClientRect();if(!noteBusy&&event.target===noteDialog&&(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom))noteDialog.close();});
+noteDialog.addEventListener('cancel',event=>{if(noteBusy)event.preventDefault();});
+noteDialog.addEventListener('close',()=>{resetNote();noteAudience=null;noteOpener?.focus();});
+noteEmail.addEventListener('input',()=>{noteService?.invalidate();noteStatus.textContent='';noteError.hidden=true;noteEmail.removeAttribute('aria-invalid');noteDownload.hidden=true;noteDownload.removeAttribute('href');});
+noteForm.addEventListener('submit',async event=>{
+ event.preventDefault();if(noteBusy||!noteAudience)return;
+ const email=noteEmail.value.trim(),message=!email?'Please enter your email address.':noteEmail.validity.typeMismatch?'Please enter a valid email address.':'';
+ if(message){noteError.textContent=message;noteError.hidden=false;noteEmail.setAttribute('aria-invalid','true');noteEmail.focus();return;}
+ if(noteForm.elements.website.value)return;
+ const payload=core.conceptNotePayload(config,noteAudience,email,{page:page==='home'?'/':'/'+config.audiences[page].route,component:noteSource});
+ noteBusy=true;noteSubmit.disabled=true;noteEmail.disabled=true;noteSubmit.textContent='Preparing PDF…';let result;
+ try{result=await noteService.submit(payload);}finally{noteBusy=false;noteSubmit.disabled=false;noteEmail.disabled=false;noteSubmit.innerHTML='Download PDF <span aria-hidden="true">↓</span>';}
+ if(result.status==='preview'||result.status==='accepted'){
+  const guide=config.guides[noteAudience],base=new URL(page==='home'?'./':'../',location.href);noteDownload.href=new URL(guide.url,base).href;noteDownload.download=guide.filename;noteDownload.hidden=false;
+  noteStatus.textContent=result.status==='preview'?'Your PDF is ready. This is a simulator; your email has not been saved. If the download does not start, use the link below.':'Your concept note is ready. If the download does not start, use the link below.';
+  noteDownload.click();return;
+ }
+ if(result.status==='validation'){noteError.textContent=typeof result.fields.email==='string'?result.fields.email.slice(0,200):'Please check your email address.';noteError.hidden=false;noteEmail.setAttribute('aria-invalid','true');noteEmail.focus();return;}
+ noteStatus.textContent=result.status==='throttled'?'Please wait before trying again. Your email is still in the form.':'We could not prepare your download. Please try again. Your email is still in the form.';
+});
+
 document.querySelectorAll('[data-role-card]').forEach(button=>button.addEventListener('click',()=>setRole(button.getAttribute('aria-pressed')==='true'?'':button.dataset.roleCard)));
 document.querySelectorAll('[data-tool]').forEach(trigger=>trigger.addEventListener('click',e=>{e.preventDefault();openTool(trigger.dataset.tool,trigger);}));
 document.querySelectorAll('[data-register]').forEach(trigger=>trigger.addEventListener('click',e=>{const a=trigger.dataset.register;if(page==='home'||page===a){e.preventDefault();openForm(a,trigger);}}));
@@ -90,4 +122,4 @@ if(page!=='home'){const tool=calculators[page];new IntersectionObserver(entries=
 function applyHash(){const hash=location.hash.slice(1);if(!hash&&page==='home'){const wasInPanel=document.activeElement?.closest('.home-drawer,.tool-panel');for(const a of Object.keys(config.audiences)){reveal(document.querySelector(`[data-form-section="${a}"]`),false);closeTool(a,false);}formIntent=false;syncMobileAction();if(wasInPanel)(lastFormOpener||lastToolOpener)?.focus();return;}for(const [a,d] of Object.entries(config.audiences)){if(hash===d.formAnchor&&(page==='home'||page===a)){openForm(a,null,false);return;}if(hash===(page==='home'?d.homeToolAnchor:d.toolAnchor)&&calculators[a]){openTool(a,null,false);return;}}if(hash==='enquiries'&&general){reveal(general,true);enquiryToggle.setAttribute('aria-expanded','true');focusHeading(general.querySelector('h3'));}if(hash==='why-optimiq')document.querySelector('#why-optimiq')?.scrollIntoView({block:'start'});}
 window.addEventListener('hashchange',applyHash);window.addEventListener('popstate',applyHash);applyHash();syncMobileAction();
 // Navigation does not carry unsubmitted contact or commercial data to another page.
-window.addEventListener('pagehide',()=>{for(const form of Object.values(forms)){form.node.reset();form.service.invalidate();form.node.querySelector('.submit-status').textContent='';}for(const calc of Object.values(calculators))calc.reset();setRole('');});
+window.addEventListener('pagehide',()=>{resetNote();if(noteDialog.open)noteDialog.close();for(const form of Object.values(forms)){form.node.reset();form.service.invalidate();form.node.querySelector('.submit-status').textContent='';}for(const calc of Object.values(calculators))calc.reset();setRole('');});

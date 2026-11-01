@@ -30,7 +30,9 @@ for path,page in pages.items():
 for path in [ROOT/'index.html',*(ROOT/route/'index.html' for route in ['for-clients','for-consultants','for-consulting-firms'])]:
  text=path.read_text()
  if 'staging.optimiqconsultus.com' in text:errors.append(f'Legacy first-step link remains: {path}')
- if 'data-contact-form="guide"' in text:errors.append('Unapproved guide unexpectedly visible')
+ if 'id="concept-note-dialog"' not in text:errors.append(f'Missing concept-note dialog: {path}')
+ for a,g in json.loads((ROOT/'site-config.json').read_text(encoding='utf-8'))['guides'].items():
+  if not g.get('approved') or not (ROOT/g['url']).exists():errors.append(f'Missing approved concept-note PDF: {a}')
  if 'name="robots" content="noindex,nofollow"' not in text:errors.append(f'Missing preview noindex: {path}')
 if errors:print('\n'.join(errors));raise SystemExit(1)
-print(f'Passed {len(pages)} static pages: local links, image/script/font destinations, anchors, label targets, unique IDs, H1 counts, legacy-link exclusion, hidden guides and preview metadata.')
+print(f'Passed {len(pages)} static pages: local links, image/script/font destinations, anchors, label targets, unique IDs, H1 counts, legacy-link exclusion, concept-note PDFs/dialogs and preview metadata.')

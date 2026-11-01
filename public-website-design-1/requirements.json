@@ -32,10 +32,10 @@
     },
     {
       "id": "WEB-GUIDES-01",
-      "item": "Three supporting guides",
-      "status": "Awaiting approved assets",
+      "item": "Three audience concept-note PDFs",
+      "status": "Supplied; branded PDFs ready for review",
       "owner": "Client content owners",
-      "question": "Client Overview, Professional Guide and Firm Partnership Guide. Components stay hidden until approved assets and destinations are configured."
+      "question": "Client supplied all three concept notes on 1 November. Branded two-page PDFs and email-only download simulator are available. Backend storage is explicitly deferred by the user."
     },
     {
       "id": "WEB-LEGAL-01",
@@ -120,6 +120,13 @@
       "status": "Production implementation pending",
       "owner": "Backend and business owners",
       "question": "Feedback 1 public prototype implemented as requested, with source placeholder benchmarks and no visible formulas. Move authoritative calculation/configuration to the backend before public production; confirm the production benchmark dataset and starting-level mapping. A static preview cannot conceal browser code."
+    },
+    {
+      "id": "WEB-CONCEPT-LEAD-01",
+      "item": "Concept-note lead persistence",
+      "status": "Deferred; simulator approved by user",
+      "owner": "Backend developer",
+      "question": "Connect email-only note requests to durable lead storage later. The current simulator validates email and downloads the PDF without retaining email. See concept-notes.md for the allowlisted payload and receipt/retry contract."
     }
   ]
 }

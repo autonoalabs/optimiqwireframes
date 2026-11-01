@@ -16,6 +16,11 @@
   if(payload[definition.attachmentFlag])payload.scenario=snapshot(config,a,scenario);
   return payload;
  }
+ function conceptNotePayload(config,a,email,source){
+  const guide=config.guides[a];if(!guide?.approved||!guide.url)throw new Error('Concept note unavailable');
+  email=String(email||'').trim();if(!email||email.length>254||!/^[^\s@]+@[^\s@]+$/.test(email))throw new Error('Invalid email');
+  return {audience:a,lead_type:'concept_note',concept_note_id:guide.id,email,form_version:config.version,source_page:source.page,source_component:source.component};
+ }
  function nextStep(a,result){if(!result||!result.receipt||!result.reference)return null;const headings={guide:'Your guide is ready.',client:'Thank you. We have received your project enquiry.',expert:'Thank you. We have received your application.',firm:'Thank you. We have received your partnership enquiry.',general:'Thank you. We have received your message.'};let text={guide:'Download your copy below. This guide request is separate from an application or enquiry.',client:'Our client team will review your information and contact you to discuss your project requirements and pricing.',expert:'Your application has been received for review.',firm:'Our partnerships team will review your information and contact you to discuss partnership terms.',general:'Our team will review your enquiry and reply to your email address.'}[a];if(a==='expert'&&result.verification==='queued')text='Check your email to verify your address and continue your profile.';if(a==='expert'&&result.verification==='failed')text='Your application has been received, but we could not send the verification email. Please contact our team for help continuing.';return {heading:headings[a],text};}
- const api={keys,validField,validScenario,calculate,snapshot,buildPayload,nextStep};if(typeof module==='object'&&module.exports)module.exports=api;else root.OptimIQPublic=Object.freeze(api);
+ const api={conceptNotePayload,keys,validField,validScenario,calculate,snapshot,buildPayload,nextStep};if(typeof module==='object'&&module.exports)module.exports=api;else root.OptimIQPublic=Object.freeze(api);
 })(typeof globalThis!=='undefined'?globalThis:this);

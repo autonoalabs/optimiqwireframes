@@ -1,3 +1,17 @@
+# Concept-note update verification — 1 November 2026
+
+- Three two-page PDFs recreated in Design 1 green/slate, Plus Jakarta Sans/Inter and OptimIQ logo. All six pages visually inspected. Text assertions cover every substantive source paragraph, examples, process, benefits and CTA. Final first-page numeric labels and values have separated columns. Searchable text, embedded brand fonts, working review-route PDF buttons, approximately 61 KB per file.
+- Browser downloads completed for client, expert and firm from homepage concept-note buttons; names and matching PDF URLs verified. Client download from its dedicated audience page also completed with the correct parent asset route.
+- Empty email and invalid email are rejected; a valid review email starts the correct PDF download. A visible fallback download link remains available. Simulator explicitly says email has not been saved.
+- Closing clears email and returns focus to the same audience trigger. Escape and backdrop click dismiss correctly. Native dialog provides keyboard focus containment.
+- Homepage and all three dedicated-page email dialogs measured at 320 and 390 CSS-pixel widths: no document or dialog horizontal overflow. Mobile firm dialog and desktop presentation inspected. No page JavaScript errors observed during tested downloads.
+- Unit checks cover email/note payload allowlist, all audience IDs, invalid email/audience rejection, null simulator endpoints and existing calculator/submission regressions. Static audit checks all PDF asset destinations, dialog IDs and existing pages.
+- User-approved scope is a simulator. No real CRM/database persistence, email delivery or production lead receipt is claimed. Backend integration remains deferred and documented in concept-notes.md.
+
+Previous calculator and website verification records follow as history. Their missing-guide statements are superseded for the three supplied concept notes.
+
+---
+
 # Feedback 1 verification — 1 November 2026
 
 The following checks apply to the new client-supplied calculators. The older report below is retained as history; its arithmetic and zero-loss output are superseded.

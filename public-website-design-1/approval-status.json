@@ -4,7 +4,7 @@
   "public_website": {
     "design": "Design 1",
     "status": "Approved with feedback and changes",
-    "feedback_status": "Feedback 1 implemented for review; further feedback supplied one by one",
+    "feedback_status": "Feedback 1 and concept-note simulator implemented; awaiting review of changes",
     "changes_implemented": false,
     "pages": [
       "public-website-design-1/index.html",
@@ -18,6 +18,12 @@
         "source": "https://claude.ai/artifact/E61LmBv78Qr3ojQNSRuDfh",
         "status": "Implemented; awaiting client review of changes",
         "scope": "All three audience calculators and related copy"
+      },
+      {
+        "id": "CONCEPT-NOTES-01",
+        "status": "Implemented; awaiting review",
+        "scope": "Three Design 1 branded PDFs and email-only download simulator",
+        "user_decision": "Simulator now; developer will connect backend storage later."
       }
     ]
   },

@@ -44,7 +44,14 @@ async function main(){
  const syncFailure=createSubmissionService({transport:()=>{throw new Error('failed');}});assert.equal((await syncFailure.submit(declined)).status,'retry');assert.equal((await syncFailure.submit(declined)).status,'retry');
  const validation=createSubmissionService({transport:async()=>({status:'validation',fields:{email:'Please enter a valid email address.'}})});assert.equal((await validation.submit(declined)).fields.email,'Please enter a valid email address.');
  const throttled=createSubmissionService({transport:async()=>({status:'throttled'})});assert.equal((await throttled.submit(declined)).status,'throttled');
- for(const a of ['client','expert','firm'])assert.equal(config.guides[a],null);
+ for(const a of ['client','expert','firm']){
+  assert.equal(config.guides[a].approved,true);assert.equal(config.guides[a].endpoint,null);
+  const lead=core.conceptNotePayload(config,a,' reviewer@example.com ',{page:'/',component:'calculator'});
+  assert.equal(lead.email,'reviewer@example.com');assert.equal(lead.audience,a);assert.equal(lead.lead_type,'concept_note');assert.equal(lead.concept_note_id,config.guides[a].id);
+  assert.deepEqual(Object.keys(lead).sort(),['audience','lead_type','concept_note_id','email','form_version','source_page','source_component'].sort());
+  for(const bad of ['', 'wrong-email', 'a'.repeat(255)+'@example.com'])assert.throws(()=>core.conceptNotePayload(config,a,bad,source));
+ }
+ assert.throws(()=>core.conceptNotePayload(config,'unknown','reviewer@example.com',source));
  assert.ok(Object.values(config.integrations.endpoints).every(v=>v===null));
  console.log('Passed client-reference defaults, all discrete values and enums, year-level boundaries, capacity/zero-loss branches, range boundaries, three-field forms, firm optional practice, role/earnings separation, opt-in/out, raw-input allowlists, durable receipt, retries, duplicate prevention and failure-state tests.');
 }

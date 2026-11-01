@@ -1,5 +1,5 @@
 {
-  "version": "public-website-feedback-01",
+  "version": "public-website-concept-notes-1",
   "practiceAreas": [
     {
       "id": "strategy-growth",
@@ -453,8 +453,32 @@
     }
   },
   "guides": {
-    "client": null,
-    "expert": null,
-    "firm": null
+    "client": {
+      "id": "concept-note-client-v1",
+      "title": "Client concept note",
+      "approved": true,
+      "url": "assets/concept-notes/OptimIQ_Concept_Note_Clients.pdf",
+      "filename": "OptimIQ_Concept_Note_Clients.pdf",
+      "endpoint": null,
+      "pages": 2
+    },
+    "expert": {
+      "id": "concept-note-expert-v1",
+      "title": "Expert concept note",
+      "approved": true,
+      "url": "assets/concept-notes/OptimIQ_Concept_Note_Experts.pdf",
+      "filename": "OptimIQ_Concept_Note_Experts.pdf",
+      "endpoint": null,
+      "pages": 2
+    },
+    "firm": {
+      "id": "concept-note-firm-v1",
+      "title": "Consulting firm concept note",
+      "approved": true,
+      "url": "assets/concept-notes/OptimIQ_Concept_Note_Firms.pdf",
+      "filename": "OptimIQ_Concept_Note_Firms.pdf",
+      "endpoint": null,
+      "pages": 2
+    }
   }
 }
