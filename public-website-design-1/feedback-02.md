@@ -48,3 +48,6 @@ With a future configured endpoint, submissions containing files use multipart/fo
 Node regressions cover all restored field keys and role counts, grouped-choice allowlists, separate client narratives, file metadata, role-specific data exclusion, commercial opt-out, and the three pending option lists. Existing calculator/reference and submission/receipt/retry tests remain passing.
 
 Browser: client details, scope-PDF selection and simulated submission completed; firm contacts and Not sure yet interest submitted in preview; Advisor filled required details stops at its missing required sector choices with a clear message. Role tabs support mouse/keyboard and draft simulation. Four pages checked at 320/390/768 widths with visible desktop-equivalent links and no horizontal overflow; navigation and Register route to the correct audience. Desktop final visual review is included before publishing. Physical-device upload/keyboard and live integration tests remain later production checks.
+
+
+Static review links include the non-personal reviewVersion query so repeat client visits receive current HTML; same-page actions preserve it. This is review hosting behavior, not a production route or business field.
