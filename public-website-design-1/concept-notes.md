@@ -10,7 +10,7 @@ The dialog states Review simulator: your email is not saved. It never claims a r
 
 ## PDF assets
 
-Three two-page, searchable PDFs: Clients, Experts and Firms. They retain the supplied problem, calculator example, process, benefits, quote and CTA copy. Branding uses #0D5C3A green, #10B981 mint, #0F172A slate, Plus Jakarta Sans headings, Inter body and the current OptimIQ logo. Fonts are embedded. Files are approximately 61 KB each.
+Three two-page, searchable PDFs: Clients, Experts and Firms. They retain the supplied problem, calculator example, process, benefits, quote and CTA copy. Branding uses #0D5C3A green, #10B981 mint, #0F172A slate, Plus Jakarta Sans headings, Inter body and the current OptimIQ logo. Fonts are embedded. Files are approximately 91 KB each.
 
 Navigation inside the review PDFs points to working GitHub audience calculator/application routes. At production cutover, set BASE in pdf-source/build_concept_notes.py to the approved production base and regenerate. The footer's unsupported statement that the benchmark model is not published was replaced with a neutral illustrative-model disclaimer, consistent with the existing public prototype. No formulas or coefficients appear in the PDFs.
 

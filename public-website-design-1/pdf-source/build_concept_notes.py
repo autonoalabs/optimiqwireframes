@@ -31,6 +31,15 @@ for family,file,weights in [('Inter','Inter-Variable.ttf',[400,500,600]),('Jakar
   target=TMP/f'{family}-{weight}.ttf'
   if not target.exists():
    font=Font(ASSETS/file);instantiateVariableFont(font,{'wght':weight},inplace=True).save(target)
+  # Unique PostScript names prevent PDF font caches merging different static weights.
+  font=Font(target)
+  ps=f'{"PlusJakartaSans" if family=="Jakarta" else family}-{weight}'
+  style={400:'Regular',500:'Medium',600:'SemiBold',700:'Bold'}[weight]
+  for rec in list(font['name'].names):
+   if rec.nameID in (2,4,6):
+    value=style if rec.nameID==2 else ps
+    font['name'].setName(value,rec.nameID,rec.platformID,rec.platEncID,rec.langID)
+  font.save(target)
   pdfmetrics.registerFont(TTFont(f'{family}{weight}',str(target)))
 
 GREEN='#0D5C3A';MINT='#10B981';SLATE='#0F172A';MUTED='#64748B';LINE='#CBD5E1';BG='#F8F9FA'
