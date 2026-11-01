@@ -1726,7 +1726,7 @@
       "pages": 2
     }
   },
-  "reviewVersion": "why-overview-1",
+  "reviewVersion": "contact-login-1",
   "assurance": {
     "eyebrow": "WHY OPTIMIQ",
     "heading": "The right expertise. A better way to work together.",
@@ -1755,6 +1755,56 @@
         "title": "Firm growth, on your terms",
         "text": "Access selected mandates and specialist capacity while keeping your firm’s brand and client relationships."
       }
+    ]
+  },
+  "publicLinks": {
+    "memberPortalPreview": "OptimIQ_Portal_Login_Concept.html",
+    "memberPortalProduction": null
+  },
+  "contact": {
+    "phone": {
+      "label": "+91 9168772020",
+      "href": "tel:+919168772020"
+    },
+    "emails": [
+      {
+        "label": "Client enquiries",
+        "address": "solutions@optimiqconsultus.com"
+      },
+      {
+        "label": "Assignments & joining",
+        "address": "joinus@optimiqconsultus.com"
+      }
+    ],
+    "presence": [
+      "India",
+      "UAE",
+      "Saudi Arabia"
+    ],
+    "officeAddresses": [],
+    "socials": [
+      {
+        "id": "linkedin",
+        "label": "LinkedIn",
+        "url": null
+      },
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "url": null
+      },
+      {
+        "id": "x",
+        "label": "X",
+        "url": null
+      }
+    ],
+    "source": "https://staging.optimiqconsultus.com/contact",
+    "pending": [
+      "Official street addresses",
+      "Official LinkedIn company URL",
+      "Official Instagram and X URLs",
+      "Production member portal URL"
     ]
   }
 }

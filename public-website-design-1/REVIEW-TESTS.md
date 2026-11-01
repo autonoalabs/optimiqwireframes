@@ -100,3 +100,11 @@ Client review entry is review.html or the repository's main index. Screen readin
 The homepage now covers all three audiences across six concise benefits using the existing responsive component. See [source mapping and limitations](why-overview.md). This supersedes the certification-only homepage copy in feedback-03.md; certification remains the first trust pillar. Business rules, source forms, calculators, portal and approved base theme are unchanged.
 
 Focused verification: eight-page static audit passed. Desktop uses the existing three-column grid in two rows; 320px and 390px mobile views stack all six points without text clipping. CSS hash matches the approved version. Calculator and form logic are unchanged. Browser checks cover this copy update only.
+
+
+## Member sign-in and contacts — 1 November 2026
+
+See [contact/login update and outstanding source details](contact-login.md). Shared visitor header, footer and registration forms now provide member sign-in. Source phone/emails/presence are restored. Exact addresses and working social profile URLs remain client requirements.
+
+Focused verification: eight-page static HTML audit passes. All four visitor pages have header/footer Member login links; all audience registration forms use the matching audience context. Browser navigation reaches the unchanged shared portal screen. Desktop, 900px tablet, 800px wrapped navigation and 320px mobile header/footer layouts were inspected; the 320px document has no horizontal overflow. New telephone/email links match their displayed source details. Socials with missing URLs are non-interactive and labelled coming soon. No email/call was sent and no login credentials were submitted.
+

@@ -77,7 +77,7 @@
       "item": "Portal continuation and verification",
       "status": "Approved flow retained; integration pending",
       "owner": "Portal and Talent teams",
-      "question": "Existing registration already owns verification/password setup, followed by shared portal login. Reuse that approved identity flow; connect the restored website forms to those services during backend development. No duplicate account/verification journey is introduced."
+      "question": "Existing registration already owns verification/password setup, followed by shared portal login. Reuse that approved identity flow; connect the restored website forms to those services during backend development. No duplicate account/verification journey is introduced. Header/footer and registration Member login links now reach the existing shared static portal screen. Audience pages carry only demo audience context. Homepage is a neutral shared entry; the existing demo uses remembered audience when available. Production must identify audience from the authenticated account and use the confirmed production portal URL; do not infer identity from a query parameter."
     },
     {
       "id": "WEB-INTRO-01",
@@ -89,9 +89,9 @@
     {
       "id": "WEB-CONTACT-01",
       "item": "Corporate contact channels and regional presence",
-      "status": "Awaiting verified details",
+      "status": "Published source contacts added; addresses and social URLs pending",
       "owner": "Client Operations",
-      "question": "Verify corporate emails, telephone numbers, locations and monitored owners. Unverified channels and speculative offices are hidden."
+      "question": "Phone +91 9168772020, joinus@optimiqconsultus.com, solutions@optimiqconsultus.com and presence in India/UAE/Saudi Arabia are restored from the existing site. Supply official street addresses and official LinkedIn, Instagram and X profile URLs. Source social anchors are javascript:void(0); they are not working profiles. User approved using existing details and tracking the rest as pending. Do not substitute directory listings or guessed profiles."
     },
     {
       "id": "WEB-HOST-01",

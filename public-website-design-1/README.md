@@ -88,3 +88,8 @@ Three PDFs have been supplied and rebranded. Get the concept note opens an email
 ## Complete Why OptimIQ summary — 1 November 2026
 
 The homepage now covers all three audiences across six concise benefits using the existing responsive component. See [source mapping and limitations](why-overview.md). This supersedes the certification-only homepage copy in feedback-03.md; certification remains the first trust pillar. Business rules, source forms, calculators, portal and approved base theme are unchanged.
+
+
+## Member sign-in and contacts — 1 November 2026
+
+See [contact/login update and outstanding source details](contact-login.md). Shared visitor header, footer and registration forms now provide member sign-in. Source phone/emails/presence are restored. Exact addresses and working social profile URLs remain client requirements.
