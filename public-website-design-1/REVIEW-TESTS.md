@@ -1,6 +1,6 @@
 # Connected public website verification
 
-31 October 2026. Status: ready for client design review, awaiting approval and the documented release dependencies. This report distinguishes browser preview checks, mocked service checks and production checks that cannot yet run.
+31 October 2026. Client approval update 1 November 2026: Design 1 approved with feedback and changes pending. The checks below remain the 31 October verification record; release dependencies remain separate. This report distinguishes browser preview checks, mocked service checks and production checks that cannot yet run.
 
 ## Browser and layout results
 

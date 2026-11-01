@@ -1,5 +1,7 @@
 # OptimIQ public website connected preview
 
+Client decision recorded 1 November 2026: Design 1 approved with feedback and changes pending. The user will provide changes one by one. This records design approval, not implementation of unspecified changes or production release. Member portal screens through CTQ are also approved. See approval-status.json for the precise scope.
+
 Based on Homepage Wireframe Documentation v1.2 and Comprehensive Design and Developer Handover v1.0, received 31 October 2026. Local repository: C:/Users/majid/Downloads/OptimIQ_Wireframes. Static client review entry remains the repository's index.html; public website overview is public-website-design-1/review.html. No portal theme change is included.
 
 ## Routes

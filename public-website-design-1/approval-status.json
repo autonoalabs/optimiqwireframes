@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-01",
+  "source": "Direct user report of client review",
+  "public_website": {
+    "design": "Design 1",
+    "status": "Approved with feedback and changes",
+    "feedback_status": "Awaiting individual feedback items",
+    "changes_implemented": false,
+    "pages": [
+      "public-website-design-1/index.html",
+      "public-website-design-1/for-clients/",
+      "public-website-design-1/for-consultants/",
+      "public-website-design-1/for-consulting-firms/"
+    ]
+  },
+  "portal": {
+    "status": "Approved through CTQ",
+    "audiences": [
+      "Consultant",
+      "Consulting Firm",
+      "Client"
+    ],
+    "screens": [
+      "OptimIQ_Portal_Login_Concept.html",
+      "OptimIQ_Consultant_Terms_Declarations.html",
+      "OptimIQ_Consultant_Profile_CTQ_Stepper.html",
+      "OptimIQ_Consulting_Firm_Terms_Declarations.html",
+      "OptimIQ_Consulting_Firm_CTQ_Stepper.html",
+      "OptimIQ_Client_Terms_Declarations.html",
+      "OptimIQ_Client_Categorization_Enrichment.html"
+    ],
+    "boundary": "CTA, shared sign-in, terms and CTQ. No broader approval of post-CTQ role-fit, dashboards, Phase 2 or admin configuration is inferred."
+  },
+  "preserve": [
+    "Locked portal theme",
+    "Outstanding business and legal clarification records",
+    "Missing assets and production integration requirements"
+  ],
+  "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design."
+}
