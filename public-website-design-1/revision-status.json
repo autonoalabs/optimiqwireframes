@@ -1,5 +1,5 @@
 {
-  "version": "brand-v43-20261114",
+  "version": "brand-v43-feedback-20261114",
   "status": "Awaiting client feedback",
   "brand": "Client brand kit received 14 November 2026",
   "pages": [
@@ -11,17 +11,32 @@
     {
       "name": "For clients",
       "path": "for-clients/",
-      "status": "Ready for review \u00b7 registration specifics pending"
+      "status": "Updated preview \u00b7 local form included"
+    },
+    {
+      "name": "Client registration",
+      "path": "for-clients-form/",
+      "status": "Preview form \u00b7 verification needs clarification"
     },
     {
       "name": "For consultants",
       "path": "for-consultants/",
-      "status": "Ready for review \u00b7 exception policy pending"
+      "status": "Updated preview \u00b7 local form included"
+    },
+    {
+      "name": "Consultant application",
+      "path": "for-consultants-form/",
+      "status": "Preview form \u00b7 verification needs clarification"
     },
     {
       "name": "For consulting firms",
       "path": "for-consulting-firms/",
-      "status": "Ready for review \u00b7 affiliation workflow pending"
+      "status": "Updated preview \u00b7 local form included"
+    },
+    {
+      "name": "Firm registration",
+      "path": "for-consulting-firms-form/",
+      "status": "Preview form \u00b7 verification needs clarification"
     },
     {
       "name": "OptimIQ Certified",
@@ -89,6 +104,6 @@
     "No lead storage or verification",
     "No private calculator model included",
     "No certification engine or scoring change",
-    "Existing portal and legacy forms unchanged"
+    "Existing portal and external staging site unchanged; local forms are preview simulators"
   ]
 }

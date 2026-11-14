@@ -65,9 +65,9 @@
   "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design.",
   "current_revision": {
     "date": "2026-11-14",
-    "version": "brand-v43-20261114",
-    "status": "Awaiting client feedback",
-    "scope": "Clear v4.3 content and supplied Brand Kit; existing portal unchanged",
+    "version": "brand-v43-feedback-20261114",
+    "status": "User feedback incorporated; awaiting client review",
+    "scope": "Slide-specific visual placeholders, local preview forms, comparison redesign, consistent Nine Areas and video frames; portal unchanged",
     "details": "revision-status.json",
     "historical_approval": "Existing approval records below remain history; they do not approve this new revision."
   }

@@ -13,11 +13,11 @@ ROOT.mkdir(parents=True,exist_ok=True)
 BRAND=ROOT/'assets'/'brand'; BRAND.mkdir(parents=True,exist_ok=True)
 # Client marks have already been extracted to assets/brand.
 
-V='brand-v43-20261114'
+V='brand-v43-feedback-20261114'
 AREAS=[('Strategy & Growth','Transformation · Go-to-market · Operational excellence'),('Revenue Enhancement','Business development · Marketing · Sales'),('Customer & Market Experience','Customer journeys · Brand · CX'),('Digital Transformation','Cybersecurity · Cloud · Data & analytics'),('AI & Emerging Tech','GenAI integration · Automation · Machine learning'),('Supply Chain & ESG','Sustainable sourcing · Logistics · ESG compliance'),('Finance & Operations','FP&A · Legal compliance · Process improvement'),('Talent & Manpower','High-volume sourcing · Mobilization · Executive search'),('People, L&D & Culture','Corporate training · Leadership coaching · Change')]
 PATHS={'client':'for-clients','expert':'for-consultants','firm':'for-consulting-firms'}
 CTA={'client':'Share Your Requirement','expert':'Apply in 2 Minutes','firm':'Register Your Firm'}
-FORM={'client':'https://staging.optimiqconsultus.com/for-clients-form','expert':'https://staging.optimiqconsultus.com/for-consultants-form','firm':'https://staging.optimiqconsultus.com/for-consulting-firms-form'}
+FORM={a:'../'+route+'-form/' for a,route in PATHS.items()}
 PENDING=[]
 def button(label,href,secondary=False):
     return f'<a class="btn{ " secondary" if secondary else ""}" href="{esc(href,quote=True)}">{esc(label)}<span aria-hidden="true">↗</span></a>'
@@ -51,18 +51,56 @@ def film(title,number,points=None,cta=None):
 def doors(pre=''):
     data=[('Organizations','Proven experts, without big-firm overhead.','Find Your Expert','for-clients'),('Consultants & Advisors','Better projects. A clear path up.','Join the Network','for-consultants'),('Consulting Firms','More clients. Extra experts when needed.','Partner With Us','for-consulting-firms')]
     return '<div class="doors">'+''.join(f'<article><span class="item-no">0{i+1}</span><h3>{a}</h3><p>{b}</p>{button(c,pre+d+"/")}</article>' for i,(a,b,c,d) in enumerate(data))+'</div>'
-def proof_visual(home=False):
-    return '''<div class="proof-visual" aria-label="Experience, evidence and client results inform verification"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="orbit-dot dot-one"></span><span class="orbit-dot dot-two"></span><div class="evidence evidence-one"><span class="check">✓</span><div><small>REAL EXPERIENCE</small><b>Knowledge confirmed</b></div></div><div class="evidence evidence-two"><span class="check">✓</span><div><small>PROVEN DELIVERY</small><b>Results checked</b></div></div><div class="proof-seal"><span>OPTIMIQ</span><b>Proven.</b><small>Not polished.</small></div><div class="evidence evidence-three"><span class="check">✓</span><div><small>CLIENT EVIDENCE</small><b>Impact verified</b></div></div></div>'''
-def carousel(slides,pre='',home=False):
+VISUALS={
+ 'home': ['A glossy CV dissolves; a plain profile with a verified seal stays.', 'Leaders in a Riyadh boardroom review three verified profiles.', 'A phone lights up: “New project match”.', 'A small team grid expands as verified profiles slot in.'],
+ 'client':['A stack of glossy CVs; one verified card slides forward.', 'A short form turns into three matched profile cards.', 'A fee bar shrinks as brand and overhead blocks fall away.'],
+ 'expert':['A CV where the big logo blurs and the results sharpen.', 'Three professionals walk toward one gateway.', 'Map pins light up across the GCC and beyond.'],
+ 'firm':['Two proposals; the big logo gets picked up.', 'Client mandates flow along a line into the firm.', 'Verified profiles slot into the firm’s team grid.']
+}
+def visual_placeholder(description,index=0):
+    return f'<div class="visual-placeholder" data-visual="{index}"{ " hidden" if index else ""}><div class="visual-frame" aria-hidden="true"><svg viewBox="0 0 80 64" fill="none"><rect x="1" y="1" width="78" height="62" rx="5"/><circle cx="24" cy="21" r="7"/><path d="m5 57 22-20 15 12 12-20 21 28"/></svg></div><span class="placeholder-label">Visual placeholder · {index+1:02d}</span><p>{esc(description)}</p><small>Blueprint visual · final asset pending</small></div>'
+def carousel(slides,pre='',home=False,audience=None):
     panels=''.join(f'<div class="slide" data-slide="{i}"{ " hidden" if i else ""}><p class="eyebrow">{esc(a)}</p><h1>{esc(b)}</h1><p class="hero-copy">{esc(c)}</p>{button(d,h)}</div>' for i,(a,b,c,d,h) in enumerate(slides))
-    tabs=''.join(f'<button type="button" data-go="{i}" aria-pressed="{str(i==0).lower()}"><span>{i+1:02d}</span> {esc(s[0].title())}</button>' for i,s in enumerate(slides))
-    return f'<section class="hero" data-carousel><div class="wrap hero-grid"><div class="hero-content">{panels}<div class="slide-controls" aria-label="Hero slides">{tabs}</div><p class="sr-only" data-slide-status aria-live="polite">Slide 1 of {len(slides)}</p></div>{proof_visual(home)}</div></section>'
+    tabs=''.join(f'<button type="button" data-go="{i}" aria-pressed="{str(i==0).lower()}"><span>{i+1:02d}</span> {esc(v[0].title())}</button>' for i,v in enumerate(slides))
+    visuals=''.join(visual_placeholder(t,i) for i,t in enumerate(VISUALS['home' if home else audience]))
+    return f'<section class="hero" data-carousel><div class="wrap hero-grid"><div class="hero-content">{panels}<div class="slide-controls" aria-label="Hero slides">{tabs}</div><p class="sr-only" data-slide-status aria-live="polite">Slide 1 of {len(slides)}</p></div><div class="hero-visuals">{visuals}</div></div></section>'
+def expertise():
+    return section('Nine Areas. One Clear Result.','<div class="expertise-grid">'+''.join(f'<details><summary>{esc(a)}</summary><p>{esc(b)}</p></details>' for a,b in AREAS)+'</div>')
+def comparison():
+    def icon(index):
+        paths=['<circle cx="8" cy="8" r="3"/><circle cx="18" cy="8" r="3"/><path d="M2 23v-3a6 6 0 0 1 12 0v3m2-9a6 6 0 0 1 8 6v3"/>','<path d="M6 2h10l6 6v18H6zM16 2v7h6M10 14h8m-8 5h8"/>','<path d="M3 4h22v16H13l-6 5v-5H3zM8 10h12m-12 5h8"/>']
+        return '<svg viewBox="0 0 28 28" fill="none" aria-hidden="true">'+paths[index]+'</svg>'
+    left=''.join(f'<li><span class="comparison-icon">{icon(i)}</span><span>{t}</span><small>{i+1:02d}</small></li>' for i,t in enumerate(['A friend’s referral','A nice-looking CV','One good meeting']))
+    right=''.join(f'<li><span class="comparison-check" aria-hidden="true">✓</span><span>{t}</span><small>{i+1:02d}</small></li>' for i,t in enumerate(['Verified knowledge','Tested behaviour','Confirmed client results']))
+    return '<div class="proof-comparison"><article class="comparison-before"><div class="comparison-heading"><span class="eyebrow">Today</span><span class="comparison-label">The usual signals</span></div><ul>'+left+'</ul><div class="comparison-result"><span aria-hidden="true">↘</span> Costly mismatch</div></article><span class="comparison-connector" aria-hidden="true">→</span><article class="comparison-after"><div class="comparison-heading"><span class="eyebrow">With OptimIQ</span><span class="comparison-label">Evidence first</span></div><ul>'+right+'</ul><div class="comparison-result"><span aria-hidden="true">✓</span> Confident hire</div></article></div>'
 def career():return cards([('Associate','Trusted client work'),('Professional','Leads workstreams'),('Senior Practitioner','High-stakes projects'),('Principal','Highest trust')],'career')+'<p class="fine center">Delivered results move you up. Actual certification follows evaluation.</p>'
 def guide(a):
     names={'client':'Client Guide','expert':"Professional’s Guide",'firm':'Firm Partnership Guide'}
     return section('Want the full picture?',f'<div class="guide"><div><p>{ {"client":"Pricing models, how matching works and a worked cost example.","expert":"Each step, what to prepare, and the career levels.","firm":"Tiers, shared experts and how we work together."}[a]}</p></div><button class="btn secondary" data-asset="The {names[a]} (8–12 pages) is awaiting the final approved file. The supplied two-page concept note is a separate document.">Download the {names[a]} <span aria-hidden="true">↓</span></button></div>',kind='mist')
+def field(name,label,kind='text',required=False,options=None,wide=False,autocomplete=None):
+    ident='field-'+name
+    mark=' <span aria-hidden="true">*</span>' if required else ''
+    attrs=f' id="{ident}" name="{name}"'+(' required' if required else '')+(f' autocomplete="{autocomplete}"' if autocomplete else '')
+    if options:
+        control=f'<select{attrs}><option value="">Select one</option>'+''.join(f'<option>{esc(x)}</option>' for x in options)+'</select>'
+    elif kind=='textarea':control=f'<textarea{attrs} rows="4" maxlength="2000"></textarea>'
+    elif kind=='file':control=f'<input{attrs} type="file" accept=".pdf,.doc,.docx">'
+    else:control=f'<input{attrs} type="{kind}"'+(' maxlength="254"' if kind=='email' else ' maxlength="160"')+'>'
+    return f'<div class="form-field{ " full" if wide else ""}"><label for="{ident}">{esc(label)}{mark}</label>{control}</div>'
 def registration(a):
-    return f'<section class="section registration" id="registration"><div class="wrap"><p class="eyebrow">Your next step</p><h2>{esc(CTA[a])}</h2><p class="reg-copy">{ {"client":"Tell us what you need.","expert":"Finish your full profile later, at your own pace.","firm":"Start your partnership journey."}[a]}</p>{button(CTA[a],FORM[a])}<p class="fine">Already registered? <a href="../../OptimIQ_Portal_Login_Concept.html?audience={ {"expert":"consultant","firm":"firm","client":"client"}[a]}">Member login</a></p></div></section>'
+    required=True
+    if a=='client':
+        fields=field('full_name','Full name',required=True,autocomplete='name')+field('email','Work email','email',True,autocomplete='email')+field('phone','Phone / WhatsApp','tel',True,autocomplete='tel')+field('organization','Organization',required=True,autocomplete='organization')+field('need','I need',required=True,options=['A Consultant','A Strategic Advisor','A Project Manager','Not sure yet'])+field('area','Area',options=[x[0] for x in AREAS])+field('challenge','What do you want to solve?','textarea',wide=True)
+        submit='Share Your Requirement';intro='Tell us what you need.'
+    elif a=='expert':
+        fields=field('role',"I’m applying as",required=True,options=['Consultant','Strategic Advisor','Project Manager'],wide=True)+field('full_name','Full name',required=True,autocomplete='name')+field('email','Work email','email',True,autocomplete='email')+field('phone','Phone / WhatsApp','tel',True,autocomplete='tel')+field('area','Main area',required=True,options=[x[0] for x in AREAS])+field('experience','Years of experience',required=True,options=['5–10','10–15','15–20','20+'],wide=True)
+        fields+='<fieldset class="evidence-inputs full"><legend>LinkedIn or CV <span aria-hidden="true">*</span></legend><p>Provide either your LinkedIn profile or your CV.</p><div class="form-grid">'+field('linkedin','LinkedIn profile','url')+field('cv','Upload CV','file')+'</div><p class="evidence-error" role="alert" hidden>Add a LinkedIn profile or choose your CV to continue.</p></fieldset>'
+        submit='Start My Application';intro='Finish your full profile later, at your own pace.'
+    else:
+        fields=field('firm_name','Firm name',required=True,autocomplete='organization')+field('representative','Your name & title',required=True)+field('email','Email','email',True,autocomplete='email')+field('phone','Phone / WhatsApp','tel',True,autocomplete='tel')+field('need','What do you need?',required=True,options=['New clients','Extra capacity','Both'])+field('area','Main area',options=[x[0] for x in AREAS])+field('firm_size','Firm size',options=['1–10','11–50','51–100','101–200','200+'],wide=True)+field('notes','Anything else?','textarea',wide=True)
+        submit='Register Your Firm';intro='About a minute.'
+    destination='../thank-you-'+('consultant' if a=='expert' else a)+'/?preview=1'
+    return f'<section class="section registration" id="registration"><div class="wrap"><div class="registration-layout"><div class="registration-intro"><p class="eyebrow">Your next step</p><h2>{esc(CTA[a])}</h2><p class="reg-copy">{intro}</p><div class="registration-note"><span aria-hidden="true">↗</span><p>Complete the short form. Your full profile comes next.</p></div><p class="fine">Already registered? <a href="../../OptimIQ_Portal_Login_Concept.html?audience={ {"expert":"consultant","firm":"firm","client":"client"}[a]}">Member login</a></p></div><form class="registration-form" data-registration="{a}" data-next="{destination}"><div class="form-grid">{fields}</div><p class="form-preview-note">Preview only. Information is not submitted or saved; no account is created.</p><button class="btn" type="submit">{submit} <span aria-hidden="true">↗</span></button></form></div></div></section>'
 def faqs(items):
     return section('Your questions, answered.','<div class="faqs">'+''.join(f'<details><summary>{esc(q)}</summary><p>{esc(ans)}</p></details>' for q,ans in items)+'</div>')
 def calculator(a,standalone=False):
@@ -77,10 +115,10 @@ def calculator(a,standalone=False):
 home_slides=[('OPTIMIQ','Proven, Not Polished.','Real results beat a nice-looking CV. Every time.','Watch the Film','#film'),('CLIENTS','The Right Expert. Without the Big-Firm Bill.','Seasoned consultants, advisors and project managers, already verified.','Find Your Expert','for-clients/'),('EXPERTS','Your Results Speak First.','Better projects. Global clients. A clear path up.','Apply in 2 Minutes','for-consultants/#registration'),('FIRMS','Grow Bigger. Without Hiring More.','The right clients, and verified experts when you need them.','Register Your Firm','for-consulting-firms/#registration')]
 body=carousel(home_slides,home=True)
 body+=film('Why Results Beat Nice CVs.',1)
-body+=section('Most Experts Are Chosen on Too Little Proof.','<div class="comparison"><div><p class="eyebrow">Today</p>'+cards([(a,b) for a,b in [('A friend’s referral',''),('A nice-looking CV',''),('One good meeting','')]],'comparison-items')+'<span class="comparison-outcome">Costly mismatch</span></div><div><p class="eyebrow">With OptimIQ</p>'+cards([('Verified knowledge',''),('Tested behaviour',''),('Confirmed client results','')],'comparison-items')+'<span class="comparison-outcome positive">Confident hire</span></div></div>')
+body+=section('Most Experts Are Chosen on Too Little Proof.',comparison())
 body+=section('Every Expert Passes Three Checks.',cards([('Knowledge','Confirmed, not assumed'),('Behaviour','How they actually work with clients'),('Judgement','Tested, not claimed')])+'<div class="section-tail"><p>Technology organises the evidence. Experienced people make the final call.</p><a href="certified/">How certification works ↗</a></div>',kind='mist')
 body+=section('Where Do You Fit?',doors(),eyebrow='Three paths. One standard.')
-body+=section('Nine Areas. One Clear Result.','<div class="expertise-strip">'+''.join(f'<span>{a}</span>' for a,b in AREAS)+'</div>')
+body+=expertise()
 body+=section('We Verify the Talent. You Get the Result.','<div class="actions">'+button('Find an Expert','for-clients/#registration')+button('Apply as a Consultant','for-consultants/#registration',True)+button('Register Your Firm','for-consulting-firms/#registration',True)+'</div>',kind='closing')
 page('','Proven, Not Polished.',body,'Home')
 
@@ -89,15 +127,15 @@ slides={
 'expert':[('THE PROBLEM','Great Work. Not Enough Projects?','Too often, a famous logo beats real results.','See How That Changes','#film'),('THE FIX','Your Results Speak First.','Global firm, small firm or independent: one standard for all.',CTA['expert'],'#registration'),('THE REWARD','Better Projects. Global Clients. A Clear Path Up.','Work with international experts and grow from Associate upward.','See What You Could Earn','#calculator')],
 'firm':[('THE PROBLEM','Lost the Bid to a Bigger Name?','Clients often pick the logo before comparing delivery.','See How to Change That','#film'),('THE FIX','More of the Right Clients and Projects.','We bring you projects that fit your strengths.',CTA['firm'],'#registration'),('THE SCALE','Team Full? Say Yes Anyway.','Add verified experts when you need them. No fixed cost.',"See What You’re Missing",'#calculator')]}
 for a in PATHS:
-    b=carousel(slides[a],pre='../')
+    b=carousel(slides[a],pre='../',audience=a)
     b+=film({'client':"What If Your Next Project Couldn’t Fail?",'expert':'Can You Prove It?','firm':'Grow Bigger. Without Hiring More.'}[a],{'client':2,'expert':3,'firm':4}[a],{'client':['Experts verified on real delivery','No big-firm overhead','One accountable lead, your terms'],'expert':['Judged on results, not logos','A steady flow of better projects','A clear career path, global teams'],'firm':['Better clients and projects','Extra experts when needed','Your brand stays yours']}[a],button(CTA[a],'#registration'))
     if a=='client':
         b+=section('Pay for Expertise, Not Overhead.','<div class="team-compare"><article><p class="eyebrow">Traditional firm</p><div class="team-icons" aria-label="Six international specialists">'+''.join('<span>↗</span>' for _ in range(6))+'</div><p>Every seat at international rates, plus travel & accommodation</p></article><article><p class="eyebrow">OptimIQ team</p><div class="team-icons">'+''.join(f'<span class="{ "local" if i<4 else ""}">{ "●" if i<4 else "↗"}</span>' for i in range(6))+'</div><p>International rates only where the expertise is genuinely needed</p><small>● Local consultant &nbsp; ↗ International specialist</small></article></div><p class="fine center">Illustrative team of six</p>')
         b+=calculator(a)+steps('Four Simple Steps.',[('Share your need','About 2 minutes'),('Meet verified experts','A matched shortlist'),('Agree terms','Project · retainer · success fee'),('Deliver','One accountable lead')])
-        b+=section('Nine Areas. One Clear Result.','<div class="expertise-grid">'+''.join(f'<details><summary>{a}</summary><p>{b}</p></details>' for a,b in AREAS)+'</div>')
+        b+=expertise()
         faq=[('How do you check your experts?','On real experience and results, confirmed with past clients. See OptimIQ Certified.'),('How do you charge?','Project, retainer or success fee, agreed upfront.')]
     elif a=='expert':
-        b+=section('What Do You Do?','<div class="doors">'+''.join(f'<article><h3>{r}</h3><p>{t}</p>{button(l,FORM[a])}</article>' for r,t,l in [('Consultant','Solve real problems.','Apply as a Consultant'),('Strategic Advisor','Guide big decisions.','Apply as an Advisor'),('Project Manager','Own the delivery.','Apply as a PM')])+'</div>')
+        b+=section('What Do You Do?','<div class="doors">'+''.join(f'<article><h3>{r}</h3><p>{t}</p>{f'<a class="btn" href="#registration" data-select-role="{r}">{l}<span aria-hidden="true">↗</span></a>'}</article>' for r,t,l in [('Consultant','Solve real problems.','Apply as a Consultant'),('Strategic Advisor','Guide big decisions.','Apply as an Advisor'),('Project Manager','Own the delivery.','Apply as a PM')])+'</div>')
         b+=steps('Five Steps. Save and Resume Anytime.',[('Apply','2 minutes'),('Build profile','At your pace'),('Talk to us','A short call'),('Review','Real people check'),('Your result','See your level')])+calculator(a)+section('A Clear Path Up.',career())
         faq=[('Can I apply without a big-firm background?','Yes. The same standard applies to everyone.'),('How do I get paid?','By project, retainer or success fee.')]
     else:
@@ -107,6 +145,7 @@ for a in PATHS:
         faq=[('Do we keep our brand and clients?','Yes. Always.'),('How are projects matched?','By your specialism, capacity and the client’s need.'),('Can our consultants be certified?','Your internal or dedicated professionals can be certified and linked to your firm. External deployment requires your firm’s permission.')]
     b+=registration(a)+faqs(faq)+guide(a)
     page(PATHS[a],{'client':'For Clients','expert':'For Consultants','firm':'For Consulting Firms'}[a],b,{'client':'For clients','expert':'For consultants','firm':'For consulting firms'}[a])
+    page(PATHS[a]+'-form',CTA[a],registration(a).replace('<h2>','<h1>',1).replace('</h2>','</h1>',1))
     calc_title={'client':'Project Value Calculator','expert':'Experience Earnings Calculator','firm':'Firm Opportunity Calculator'}[a]
     page('calculator-'+a,calc_title,calculator(a,True).replace('<h2>','<h1>',1).replace('</h2>','</h1>',1))
 
@@ -127,11 +166,11 @@ contact+=section('Talk to Our Team.','<div class="direct"><a href="mailto:soluti
 page('contact','Contact',contact)
 for a in PATHS:
     label={'client':'Thank You. We’re On It.','expert':'You’re In. Check Your Email and Phone.','firm':'Thank You. Let’s Grow Together.'}[a]
-    page('thank-you-'+('consultant' if a=='expert' else a),'Thank You',section(label,'<p class="hero-copy">Confirmation-page design preview. No registration has been submitted from this page.</p><div class="actions">'+button('Member login','../../OptimIQ_Portal_Login_Concept.html')+button('Back to your journey','../'+PATHS[a]+'/',True)+'</div>',kind='page-hero'))
+    page('thank-you-'+('consultant' if a=='expert' else a),'Thank You',section(label,'<p class="hero-copy">Preview form completed. Your information was not submitted or saved and no account was created. Email/WhatsApp verification and portal handoff await the approved implementation.</p><div class="actions">'+button('Member login','../../OptimIQ_Portal_Login_Concept.html')+button('Back to your journey','../'+PATHS[a]+'/',True)+'</div>',kind='page-hero'))
 for route,title in [('privacy','Privacy'),('terms','Terms'),('cookies','Cookies')]:
     page(route,title,section(title,'<p class="hero-copy">The final policy text is awaiting client approval.</p>'+button('Contact our team','../contact/'),kind='page-hero'))
 
-review_rows=[('Home','index.html','Ready for review · film pending'),('For clients','for-clients/','Ready for review · registration specifics pending'),('For consultants','for-consultants/','Ready for review · exception policy pending'),('For consulting firms','for-consulting-firms/','Ready for review · affiliation workflow pending'),('OptimIQ Certified','certified/','Ready for review · framework ratification pending'),('About','about/','Ready for review · leadership assets pending'),('Contact','contact/','Ready for review · message service pending')]
+review_rows=[('Home','index.html','Ready for review · film pending'),('For clients','for-clients/','Updated preview · local form included'),('Client registration','for-clients-form/','Preview form · verification needs clarification'),('For consultants','for-consultants/','Updated preview · local form included'),('Consultant application','for-consultants-form/','Preview form · verification needs clarification'),('For consulting firms','for-consulting-firms/','Updated preview · local form included'),('Firm registration','for-consulting-firms-form/','Preview form · verification needs clarification'),('OptimIQ Certified','certified/','Ready for review · framework ratification pending'),('About','about/','Ready for review · leadership assets pending'),('Contact','contact/','Ready for review · message service pending')]
 review_rows += [(f'{a.title()} calculator','calculator-'+a+'/','Fixed example · live model approval pending') for a in PATHS]
 review_rows += [(f'{a.title()} thank-you','thank-you-'+('consultant' if a=='expert' else a)+'/','Design placeholder · verification/next steps pending') for a in PATHS]
 review_rows += [(t,r+'/','Policy wording pending') for r,t in [('privacy','Privacy'),('terms','Terms'),('cookies','Cookies')]]
@@ -139,5 +178,5 @@ rows=''.join(f'<a class="review-row" href="{href}"><strong>{name}</strong><span>
 review=section('Public Website Review.','<p class="hero-copy">Blueprint v4.3 · Client brand kit · 14 November 2026</p><p class="review-note">Updated screens are awaiting client feedback. Prior Design 1 approval does not approve this revision.</p><div class="review-list">'+rows+'</div><h2 class="review-subhead">What remains open</h2><p>Registration and verification details; calculator approval and result disclosure; certification policy; films, captions, guides and concept-note refresh; Arabic copy; legal and organisation details. The clarification Excel is supplied separately to the client.</p><div class="actions">'+button('All portal screens','../index.html',True)+'</div>',kind='page-hero')
 page('','Proven, Not Polished.',body,'Home')
 (ROOT/'review.html').write_text((lambda h:h)(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Website client review | OptimIQ</title><link rel="stylesheet" href="v43.css?v={V}"></head><body>{header("","")}<main id="main">{review}</main>{footer("")}<script src="v43.js?v={V}"></script></body></html>'),encoding='utf8')
-(ROOT/'revision-status.json').write_text(json.dumps({'version':V,'status':'Awaiting client feedback','brand':'Client brand kit received 14 November 2026','pages':[{'name':n,'path':r,'status':s} for n,r,s in review_rows],'implementationLimits':['Static client preview','No lead storage or verification','No private calculator model included','No certification engine or scoring change','Existing portal and legacy forms unchanged']},indent=2),encoding='utf8')
+(ROOT/'revision-status.json').write_text(json.dumps({'version':V,'status':'Awaiting client feedback','brand':'Client brand kit received 14 November 2026','pages':[{'name':n,'path':r,'status':s} for n,r,s in review_rows],'implementationLimits':['Static client preview','No lead storage or verification','No private calculator model included','No certification engine or scoring change','Existing portal and external staging site unchanged; local forms are preview simulators']},indent=2),encoding='utf8')
 print('Built',len(review_rows)+1,'review screens')
