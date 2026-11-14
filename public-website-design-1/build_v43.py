@@ -13,7 +13,7 @@ ROOT.mkdir(parents=True,exist_ok=True)
 BRAND=ROOT/'assets'/'brand'; BRAND.mkdir(parents=True,exist_ok=True)
 # Client marks have already been extracted to assets/brand.
 
-V='brand-v43-qa-20261115'
+V='brand-v43-hero-images-20261115'
 AREAS=[('Strategy & Growth','Transformation · Go-to-market · Operational excellence'),('Revenue Enhancement','Business development · Marketing · Sales'),('Customer & Market Experience','Customer journeys · Brand · CX'),('Digital Transformation','Cybersecurity · Cloud · Data & analytics'),('AI & Emerging Tech','GenAI integration · Automation · Machine learning'),('Supply Chain & ESG','Sustainable sourcing · Logistics · ESG compliance'),('Finance & Operations','FP&A · Legal compliance · Process improvement'),('Talent & Manpower','High-volume sourcing · Mobilization · Executive search'),('People, L&D & Culture','Corporate training · Leadership coaching · Change')]
 PATHS={'client':'for-clients','expert':'for-consultants','firm':'for-consulting-firms'}
 CTA={'client':'Share Your Requirement','expert':'Apply in 2 Minutes','firm':'Register Your Firm'}
@@ -57,12 +57,17 @@ VISUALS={
  'expert':['A CV where the big logo blurs and the results sharpen.', 'Three professionals walk toward one gold gateway.', 'Map pins light up across the GCC and beyond.'],
  'firm':['Two proposals; the big logo gets picked up.', 'Client mandates flow along a line into the firm.', 'Verified profiles slot into the firm’s team grid.']
 }
-def visual_placeholder(description,index=0,pre=""):
-    return f'<figure class="hero-image" data-visual="{index}"{ " hidden" if index else ""}><img src="{pre}assets/image-placeholder.svg" width="1200" height="900" alt="Image placeholder" aria-describedby="image-brief-{index}"><figcaption class="image-pending-caption" id="image-brief-{index}"><strong>Image pending from client</strong><p><span>Blueprint image brief:</span> {esc(description)}</p></figcaption></figure>'
+HERO_IMAGES={'home':['1_1','2_1','3_1','4_1'],'client':['1_2','2_2','3_2'],'expert':['1_3','2_3','3_3'],'firm':['1_4','2_4','3_4']}
+
+def visual_placeholder(description,index=0,pre="",group='home'):
+    image=HERO_IMAGES[group][index]
+    base=f'{pre}assets/hero-images/{image}'
+    priority='loading="eager" fetchpriority="high"' if index==0 else 'loading="lazy"'
+    return f'<figure class="hero-image" data-visual="{index}"{ " hidden" if index else ""}><img data-supplied-hero="{image}" src="{base}-1200.webp" srcset="{base}-480.webp 480w, {base}-800.webp 800w, {base}-1200.webp 1200w" sizes="(max-width:600px) calc(100vw - 36px), (max-width:900px) min(620px, calc(100vw - 48px)), (max-width:1180px) 45vw, 530px" width="1200" height="896" alt="{esc(description,quote=True)}" aria-describedby="image-brief-{index}" {priority}><figcaption class="image-pending-caption" id="image-brief-{index}"><strong>Image pending from client</strong><p><span>Blueprint image brief:</span> {esc(description)}</p></figcaption></figure>'
 def carousel(slides,pre='',home=False,audience=None):
     panels=''.join(f'<div class="slide" data-slide="{i}"{ " hidden" if i else ""}><p class="eyebrow">{esc(a)}</p><h1>{esc(b)}</h1><p class="hero-copy">{esc(c)}</p>{button(d,h)}</div>' for i,(a,b,c,d,h) in enumerate(slides))
     tabs=''.join(f'<button type="button" data-go="{i}" aria-pressed="{str(i==0).lower()}"><span>{i+1:02d}</span> {esc(v[0].title())}</button>' for i,v in enumerate(slides))
-    visuals=''.join(visual_placeholder(t,i,pre) for i,t in enumerate(VISUALS['home' if home else audience]))
+    visuals=''.join(visual_placeholder(t,i,pre,'home' if home else audience) for i,t in enumerate(VISUALS['home' if home else audience]))
     return f'<section class="hero" data-carousel><div class="wrap hero-grid"><div class="hero-content"><div class="hero-slides">{panels}</div><div class="slide-controls" aria-label="Hero slides">{tabs}</div><p class="sr-only" data-slide-status aria-live="polite">Slide 1 of {len(slides)}</p></div><div class="hero-visuals">{visuals}</div></div></section>'
 def expertise():
     return section('Nine Areas. One Clear Result.','<div class="expertise-grid">'+''.join(f'<details><summary>{esc(a)}</summary><p>{esc(b)}</p></details>' for a,b in AREAS)+'</div>')

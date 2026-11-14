@@ -57,3 +57,6 @@ footer .tagline>span{display:inline-block;white-space:nowrap}
 .comparison-before .comparison-result>span{background:var(--mist);color:var(--muted)}
 @media(max-width:1180px){:root{--header-height:83px}}
 @media(max-width:600px){:root{--header-height:77px}.story{grid-template-columns:1fr}}
+
+/* Supplied artwork keeps its complete composition in the existing hero frame. */
+.hero-image img[data-supplied-hero]{object-fit:contain}

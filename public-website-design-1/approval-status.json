@@ -65,9 +65,9 @@
   "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design.",
   "current_revision": {
     "date": "2026-11-15",
-    "version": "brand-v43-qa-20261115",
-    "status": "QA refinements implemented; awaiting client review",
-    "scope": "Public-site registration anchor clearance and menu dismissal; stable hero tabs; independent Nine Areas cards; centred Certified/About headers; footer and heading polish",
+    "version": "brand-v43-hero-images-20261115",
+    "status": "Supplied hero images placed; awaiting client review",
+    "scope": "All 13 supplied images mapped to Home, Client, Consultant and Firm hero slides. Existing amber Image pending from client captions intentionally retained unchanged.",
     "details": "revision-status.json",
     "historical_approval": "Existing approval records below remain history; they do not approve this new revision."
   }

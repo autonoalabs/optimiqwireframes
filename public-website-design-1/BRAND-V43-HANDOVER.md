@@ -35,3 +35,7 @@ Revision brand-v43-captions-20261114: user requests that the blueprint image des
 ## Public website QA refinement 15 November 2026
 
 Revision brand-v43-qa-20261115. Registration anchors clear the measured sticky header by 24px; Get started dismisses after selection. Hero text and visual panels reserve the tallest slide at each viewport, with inactive content invisible/inert. Nine Areas cards align independently. Certified/About use centred editorial headers; About paragraphs align vertically. Footer divider and phrase wrapping, comparison-result icon symmetry and relaxed display-heading tracking retain the supplied brand and copy. Final media and production form/backend checks remain pending. Existing Client registration ID was present and retained. New revision awaits client feedback; no calculator, portal or policy change.
+
+## Supplied hero images 15 November 2026
+
+Revision brand-v43-hero-images-20261115. Thirteen supplied PNGs are mapped by the user: 1_1 through 4_1 to Home; 1_2 through 3_2 to Clients; 1_3 through 3_3 to Consultants; 1_4 through 3_4 to Firms. Responsive WebP delivery variants retain full artwork without cropping or retouching. All existing amber Image pending from client labels and blueprint descriptions remain exactly as requested. The label is deliberately retained for review and no longer means these 13 files are missing. Final asset approval, films and other outstanding requirements remain separate. Shared layout, fonts, copy, calculator examples and member portal are unchanged.
