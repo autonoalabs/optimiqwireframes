@@ -27,3 +27,7 @@ Hero artwork replaced by slide-specific visual placeholders from blueprint pages
 ## Image and login refinement
 
 Revision brand-v43-images-20261114: hero visual slots are actual image elements with a local neutral SVG placeholder; art briefs remain in accessible captions. Decorative launch arrows removed from web CTAs/content; rate-comparison teams are people pictograms, local versus international, with a key and illustrative caption. Fonts remain Plus Jakarta Sans (headings) / Inter (body); the available kit excerpt embeds Liberation Serif but does not declare a website font standard. Original font assets are privately backed up for later restoration, outside this public repository. All public Member login actions use the exact Azure URL supplied by the user; approval-catalog portal previews remain separate static screens.
+
+## Visible pending-image briefs
+
+Revision brand-v43-captions-20261114: user requests that the blueprint image description be visible and highlighted, beneath each actual image placeholder. All 13 hero captions now use an amber panel labelled Image pending from client. Caption text follows the source blueprint, including its gold seal/gateway references; the website palette remains the supplied teal branding. Final image artwork is still pending. This supersedes the preceding hidden-only caption treatment.

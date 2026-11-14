@@ -65,8 +65,8 @@
   "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design.",
   "current_revision": {
     "date": "2026-11-14",
-    "version": "brand-v43-images-20261114",
-    "status": "Image/login feedback incorporated; awaiting client review",
+    "version": "brand-v43-captions-20261114",
+    "status": "Image pending captions added; awaiting client review",
     "scope": "Image elements in hero slots, team-member illustrations instead of arrow circles, reduced decorative arrows, actual Member login endpoint; existing fonts preserved",
     "details": "revision-status.json",
     "historical_approval": "Existing approval records below remain history; they do not approve this new revision."

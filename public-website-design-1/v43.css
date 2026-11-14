@@ -30,3 +30,7 @@
 @media(max-width:600px){.hero-image{aspect-ratio:4/3}.team-comparison{grid-template-columns:1fr;gap:18px}.team-panel{padding:24px}.team-panel-heading{display:flex}.team-panel-heading>span{margin-top:0;max-width:130px;text-align:right}.team-roster{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px;margin:26px 0}.team-member svg{width:40px;height:57px}.team-member span{font-size:.66rem}.team-key{justify-content:flex-start;gap:12px 20px}.team-key small{width:100%;padding:0;border:0}.challenge-divider{display:none}.challenge-list strong:before{content:none}.btn{justify-content:center}.start>button{justify-content:center}}
 
 .review-row>b{font-size:.65rem;font-weight:600;letter-spacing:.02em}
+
+/* Client-review asset requirement: visible without replacing the image slot. */
+.hero-image{aspect-ratio:auto}.hero-image img{height:auto;aspect-ratio:4/3}.image-pending-caption{display:block;padding:16px 18px;background:#FFF3D5;border-top:1px solid #E5C878;text-align:left}.image-pending-caption>strong{display:inline-block;font:700 .66rem/1.5 var(--body);letter-spacing:.04em;color:#754800;text-transform:uppercase}.image-pending-caption p{font-size:.79rem;line-height:1.65;color:#68491A;margin-top:7px}.image-pending-caption p>span{font-weight:650}.image-pending-caption p{overflow-wrap:anywhere}
+@media(max-width:600px){.image-pending-caption{padding:14px 15px}.image-pending-caption p{font-size:.75rem}}
