@@ -108,3 +108,5 @@ See [contact/login update and outstanding source details](contact-login.md). Sha
 The user-requested collapsible mobile menu supersedes the earlier always-visible mobile links. See [behaviour and accessibility notes](mobile-navigation.md). Contact is removed from navigation and remains in the footer.
 
 The user requests visible highlighted image briefs: all 13 hero image slots have amber figcaptions labelled Image pending from client, with the blueprint description. The image element remains above the caption.
+
+Latest public revision: brand-v43-qa-20261115. See BRAND-V43-HANDOVER.md for QA layout/navigation refinements and remaining production dependencies.

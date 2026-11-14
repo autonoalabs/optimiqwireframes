@@ -31,3 +31,7 @@ Revision brand-v43-images-20261114: hero visual slots are actual image elements 
 ## Visible pending-image briefs
 
 Revision brand-v43-captions-20261114: user requests that the blueprint image description be visible and highlighted, beneath each actual image placeholder. All 13 hero captions now use an amber panel labelled Image pending from client. Caption text follows the source blueprint, including its gold seal/gateway references; the website palette remains the supplied teal branding. Final image artwork is still pending. This supersedes the preceding hidden-only caption treatment.
+
+## Public website QA refinement 15 November 2026
+
+Revision brand-v43-qa-20261115. Registration anchors clear the measured sticky header by 24px; Get started dismisses after selection. Hero text and visual panels reserve the tallest slide at each viewport, with inactive content invisible/inert. Nine Areas cards align independently. Certified/About use centred editorial headers; About paragraphs align vertically. Footer divider and phrase wrapping, comparison-result icon symmetry and relaxed display-heading tracking retain the supplied brand and copy. Final media and production form/backend checks remain pending. Existing Client registration ID was present and retained. New revision awaits client feedback; no calculator, portal or policy change.

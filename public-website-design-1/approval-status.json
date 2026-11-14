@@ -64,10 +64,10 @@
   ],
   "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design.",
   "current_revision": {
-    "date": "2026-11-14",
-    "version": "brand-v43-captions-20261114",
-    "status": "Image pending captions added; awaiting client review",
-    "scope": "Image elements in hero slots, team-member illustrations instead of arrow circles, reduced decorative arrows, actual Member login endpoint; existing fonts preserved",
+    "date": "2026-11-15",
+    "version": "brand-v43-qa-20261115",
+    "status": "QA refinements implemented; awaiting client review",
+    "scope": "Public-site registration anchor clearance and menu dismissal; stable hero tabs; independent Nine Areas cards; centred Certified/About headers; footer and heading polish",
     "details": "revision-status.json",
     "historical_approval": "Existing approval records below remain history; they do not approve this new revision."
   }
