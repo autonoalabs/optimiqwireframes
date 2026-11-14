@@ -62,5 +62,13 @@
     "Outstanding business and legal clarification records",
     "Missing assets and production integration requirements"
   ],
-  "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design."
+  "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design.",
+  "current_revision": {
+    "date": "2026-11-14",
+    "version": "brand-v43-20261114",
+    "status": "Awaiting client feedback",
+    "scope": "Clear v4.3 content and supplied Brand Kit; existing portal unchanged",
+    "details": "revision-status.json",
+    "historical_approval": "Existing approval records below remain history; they do not approve this new revision."
+  }
 }
