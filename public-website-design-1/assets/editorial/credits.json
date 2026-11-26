@@ -1,0 +1,32 @@
+[
+  {
+    "asset": "meeting.webp",
+    "author": "Campaign Creators",
+    "page": "https://unsplash.com/photos/gMsnXqILjp4",
+    "url": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?fm=webp&w=1600&q=85&fit=max",
+    "license": "https://unsplash.com/license",
+    "usage": "Illustrative editorial stock, not OptimIQ team/client/office evidence",
+    "bytes": 252958,
+    "sha256": "e8ecad98e959551dd570ce9d08dffb5c60e86239f815dce00ad71d9d89651603"
+  },
+  {
+    "asset": "professional.webp",
+    "author": "Christina @ wocintechchat.com",
+    "page": "https://unsplash.com/photos/fjza4oBV8ic",
+    "url": "https://images.unsplash.com/photo-1573496800440-5c9c48a8d0f0?fm=webp&w=1600&q=85&fit=max",
+    "license": "https://unsplash.com/license",
+    "usage": "Illustrative editorial stock, not OptimIQ team/client/office evidence",
+    "bytes": 447380,
+    "sha256": "467823e217519aa105b70d19038f28b1992029796c1c5674a366fc2cbc6d4036"
+  },
+  {
+    "asset": "architecture.webp",
+    "author": "Bernd Dittrich",
+    "page": "https://unsplash.com/photos/3dil0Olji38",
+    "url": "https://images.unsplash.com/photo-1724906019868-93ad2c79414f?fm=webp&w=1600&q=85&fit=max",
+    "license": "https://unsplash.com/license",
+    "usage": "Illustrative editorial stock, not OptimIQ team/client/office evidence",
+    "bytes": 328462,
+    "sha256": "5bc66ad9a688f2f4096243252cbcafa5aca379b1498dfce3364259fdfdc26261"
+  }
+]

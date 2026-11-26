@@ -64,10 +64,10 @@
   ],
   "feedback_handling": "User will provide changes one by one. Apply each as an incremental change to the approved design.",
   "current_revision": {
-    "date": "2026-11-15",
-    "version": "brand-v43-hero-images-20261115",
-    "status": "Supplied hero images placed; awaiting client review",
-    "scope": "All 13 supplied images mapped to Home, Client, Consultant and Firm hero slides. Existing amber Image pending from client captions intentionally retained unchanged.",
+    "date": "2026-11-26",
+    "version": "creative-v43-20261126",
+    "status": "Creative redesign proposed; awaiting client review",
+    "scope": "Wide animated hero sliders, editorial typography, licensed illustrative photography, varied section compositions and accessible motion; blueprint copy and section sequence retained.",
     "details": "revision-status.json",
     "historical_approval": "Existing approval records below remain history; they do not approve this new revision."
   }

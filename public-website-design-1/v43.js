@@ -12,9 +12,7 @@ document.addEventListener('click',event=>{if(!event.target.closest('.site-header
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(menu?.getAttribute('aria-expanded')==='true')closeNav(true);if(start?.getAttribute('aria-expanded')==='true'){closeStart();start.focus();}}});
 document.addEventListener('focusin',event=>{if(!event.target.closest('.site-header')){closeNav();closeStart();}});
 matchMedia('(min-width:1181px)').addEventListener('change',event=>{if(event.matches){closeNav();closeStart();}});
-document.querySelectorAll('[data-carousel]').forEach(carousel=>{const panels=[...carousel.querySelectorAll('[data-slide]')];const buttons=[...carousel.querySelectorAll('[data-go]')];function activate(index){panels.forEach((p,i)=>{p.hidden=i!==index;p.inert=i!==index;p.setAttribute('aria-hidden',String(i!==index));});buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));carousel.querySelectorAll('[data-visual]').forEach((visual,i)=>{visual.hidden=i!==index;visual.inert=i!==index;visual.setAttribute('aria-hidden',String(i!==index));});carousel.querySelector('[data-slide-status]').textContent=`Slide ${index+1} of ${panels.length}`;}
- activate(0);
- buttons.forEach((button,i)=>{button.addEventListener('click',()=>activate(i));button.addEventListener('keydown',event=>{let target;if(event.key==='ArrowRight')target=(i+1)%buttons.length;if(event.key==='ArrowLeft')target=(i-1+buttons.length)%buttons.length;if(target!==undefined){event.preventDefault();activate(target);buttons[target].focus();}});});});
+// Hero slideshow is owned by creative.js.
 const dialog=document.querySelector('#asset-dialog');
 document.querySelectorAll('[data-asset]').forEach(button=>button.addEventListener('click',()=>{if(!dialog)return;dialog.querySelector('#asset-message').textContent=button.dataset.asset;dialog.showModal();}));
 dialog?.querySelectorAll('.dialog-close').forEach(button=>button.addEventListener('click',()=>dialog.close()));

@@ -5,7 +5,7 @@ This generator uses the standard library and the supplied local assets only.
 """
 from pathlib import Path
 from html import escape as esc
-import json, shutil
+import json, shutil, re
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE
@@ -13,7 +13,7 @@ ROOT.mkdir(parents=True,exist_ok=True)
 BRAND=ROOT/'assets'/'brand'; BRAND.mkdir(parents=True,exist_ok=True)
 # Client marks have already been extracted to assets/brand.
 
-V='brand-v43-hero-images-20261115'
+V='creative-v43-20261126'
 AREAS=[('Strategy & Growth','Transformation · Go-to-market · Operational excellence'),('Revenue Enhancement','Business development · Marketing · Sales'),('Customer & Market Experience','Customer journeys · Brand · CX'),('Digital Transformation','Cybersecurity · Cloud · Data & analytics'),('AI & Emerging Tech','GenAI integration · Automation · Machine learning'),('Supply Chain & ESG','Sustainable sourcing · Logistics · ESG compliance'),('Finance & Operations','FP&A · Legal compliance · Process improvement'),('Talent & Manpower','High-volume sourcing · Mobilization · Executive search'),('People, L&D & Culture','Corporate training · Leadership coaching · Change')]
 PATHS={'client':'for-clients','expert':'for-consultants','firm':'for-consulting-firms'}
 CTA={'client':'Share Your Requirement','expert':'Apply in 2 Minutes','firm':'Register Your Firm'}
@@ -27,14 +27,50 @@ def header(pre,active):
     nav=[('index.html','Home'),('for-clients/','For clients'),('for-consultants/','For consultants'),('for-consulting-firms/','For consulting firms'),('certified/','OptimIQ Certified'),('about/','About')]
     links=''.join(f'<a href="{pre}{href}"{ " aria-current=\"page\"" if active==label else ""}>{label}</a>' for href,label in nav)
     choices=''.join(f'<a href="{pre}{path}/#registration">{label}</a>' for path,label in [('for-clients','I need an expert'),('for-consultants',"I’m a consultant"),('for-consulting-firms','I run a consulting firm')])
-    return f'''<a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="nav-wrap"><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span></button>{logo(pre)}<nav id="site-nav" aria-label="Main navigation">{links}<a href="https://optimiq-consultus-moiz.azurewebsites.net/login">Member login</a></nav><div class="start"><button aria-expanded="false" aria-controls="start-menu">Get started <span aria-hidden="true">⌄</span></button><div id="start-menu" hidden>{choices}</div></div></div></header>'''
+    return f'''<a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="nav-wrap"><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span></button>{logo(pre,light=True)}<nav id="site-nav" aria-label="Main navigation">{links}<a href="https://optimiq-consultus-moiz.azurewebsites.net/login">Member login</a></nav><div class="start"><button aria-expanded="false" aria-controls="start-menu">Get started <span aria-hidden="true">⌄</span></button><div id="start-menu" hidden>{choices}</div></div></div></header>'''
 def footer(pre):
-    return f'''<footer><div class="wrap footer-grid"><div>{logo(pre)}<p class="tagline"><span>Global Expertise |</span> <span>Connected Impact |</span> <span>Optimized Results.</span></p></div><div><h2>Find your path</h2><a href="{pre}for-clients/">For clients</a><a href="{pre}for-consultants/">For consultants</a><a href="{pre}for-consulting-firms/">For consulting firms</a></div><div><h2>OptimIQ</h2><a href="{pre}certified/">OptimIQ Certified</a><a href="{pre}about/">About</a><a href="{pre}contact/">Contact</a><a href="https://optimiq-consultus-moiz.azurewebsites.net/login">Member login</a></div><div><h2>Get in touch</h2><a href="mailto:solutions@optimiqconsultus.com">solutions@optimiqconsultus.com</a><a href="mailto:joinus@optimiqconsultus.com">joinus@optimiqconsultus.com</a><a href="tel:+919168772020">+91 9168772020</a><p>India · UAE · Saudi Arabia</p></div></div><div class="wrap footer-bottom"><span>© 2026 OptimIQ Consultus</span><div><a href="{pre}privacy/">Privacy</a><a href="{pre}terms/">Terms</a><a href="{pre}cookies/">Cookies</a></div></div></footer>'''
+    return f'''<footer><div class="wrap footer-grid"><div>{logo(pre)}<p class="tagline"><span>Global Expertise |</span> <span>Connected Impact |</span> <span>Optimized Results.</span></p></div><div><h2>Find your path</h2><a href="{pre}for-clients/">For clients</a><a href="{pre}for-consultants/">For consultants</a><a href="{pre}for-consulting-firms/">For consulting firms</a></div><div><h2>OptimIQ</h2><a href="{pre}certified/">OptimIQ Certified</a><a href="{pre}about/">About</a><a href="{pre}contact/">Contact</a><a href="https://optimiq-consultus-moiz.azurewebsites.net/login">Member login</a></div><div><h2>Get in touch</h2><a href="mailto:solutions@optimiqconsultus.com">solutions@optimiqconsultus.com</a><a href="mailto:joinus@optimiqconsultus.com">joinus@optimiqconsultus.com</a><a href="tel:+919168772020">+91 9168772020</a><p>India · UAE · Saudi Arabia</p></div></div><div class="wrap footer-bottom"><span>© 2026 OptimIQ Consultus</span><div><a href="{pre}privacy/">Privacy</a><a href="{pre}terms/">Terms</a><a href="{pre}cookies/">Cookies</a></div></div><div class="wrap photo-credit"><button data-asset="Illustrative stock photography: Campaign Creators, Christina @ wocintechchat.com and Bernd Dittrich, via Unsplash. These photographs do not depict OptimIQ staff, clients or offices. Source and licence details are in assets/editorial/credits.json.">Photography credits</button></div></footer>'''
 def download_dialog():
     return '''<dialog id="download-dialog" aria-labelledby="download-title"><button class="dialog-close" aria-label="Close download">×</button><p class="eyebrow">Concept note</p><h2 id="download-title">Get the full picture.</h2><form data-download-form><label class="download-label">Email address<input type="email" name="email" required autocomplete="email" maxlength="254" placeholder="you@company.com"></label><p class="fine">Preview only. Your email is not sent or saved.</p><button class="btn" type="submit">Download the PDF <span aria-hidden="true">↓</span></button><p class="form-status" role="status"></p></form></dialog>'''
+def creative_body(body,route,pre):
+    # Presentation only: retain section order and supplied marketing/form copy.
+    def photograph_paths(match):
+        source=match.group(1)
+        photos=iter([('meeting','Professionals collaborating around a table'),('professional','An independent professional working on a laptop'),('architecture','A contemporary workplace atrium')])
+        def item(article):
+            name,alt=next(photos)
+            return '<article><div class="path-photo"><img src="'+pre+'assets/editorial/'+name+'.webp" alt="'+alt+'" width="1600" height="1067" loading="lazy"></div><div class="path-copy">'+article.group(1)+'</div></article>'
+        return '<div class="doors photo-paths">'+re.sub(r'<article>(.*?)</article>',item,source,flags=re.S)+'</div>'
+    body=re.sub(r'<div class="doors">(.*?)</div>',photograph_paths,body,flags=re.S)
+    area_index=iter(range(1,10))
+    if '<div class="expertise-grid">' in body:
+        body=re.sub(r'(<details><summary>)([^<]+)(</summary><p>)',lambda m:m.group(1)+'<span class="area-index" aria-hidden="true">'+f'{next(area_index):02d}'+'</span><span>'+m.group(2)+'</span>'+m.group(3),body,count=9)
+    if route=='about':
+        body=body.replace('<div class="story">','<div class="story-layout"><img class="story-photo" src="'+pre+'assets/editorial/meeting.webp" alt="Professionals discussing their work in a meeting" width="1600" height="1067" loading="lazy"><div class="story">',1)
+        body=body.replace('We built OptimIQ so proof comes first, for everyone.</p></div>','We built OptimIQ so proof comes first, for everyone.</p></div></div>',1)
+    section_names={
+      'Most Experts Are Chosen on Too Little Proof.':'proof',
+      'Every Expert Passes Three Checks.':'checks',
+      'Where Do You Fit?':'paths',
+      'Nine Areas. One Clear Result.':'expertise',
+      'How OptimIQ Clears the Way.':'challenges',
+      'A Clear Path Up.':'career',
+      'Four Levels. One Standard.':'career',
+      'We Verify the Talent. You Get the Result.':'closing',
+      'More Clients. More Capacity. More Growth.':'checks',
+      'What We Examine.':'checks',
+      'Proof Beats Guessing.':'checks',
+      'Our Presence.':'presence'}
+    for title,kind in section_names.items():
+        pattern=r'(<section class=")([^"]*)("><div class="wrap"><div class="section-head">(?:<p class=eyebrow>.*?</p>)?<h[12]>'+re.escape(title)+r'</h[12]>)'
+        body=re.sub(pattern,lambda m:m.group(1)+m.group(2)+' section--'+kind+m.group(3),body)
+    return body
+
+
 def page(route,title,body,active='',description='OptimIQ Consultus. Global Expertise | Connected Impact | Optimized Results.'):
     pre='../' if route else ''
-    html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{esc(description)}"><title>{esc(title)} | OptimIQ Consultus</title><link rel="icon" type="image/png" sizes="32x32" href="{pre}assets/brand/favicon-32.png"><link rel="stylesheet" href="{pre}v43.css?v={V}"><script defer src="{pre}v43.js?v={V}"></script></head><body>{header(pre,active)}<main id="main">{body}</main>{footer(pre)}<dialog id="asset-dialog" aria-labelledby="asset-title"><button class="dialog-close" aria-label="Close">×</button><p class="eyebrow">Client preview</p><h2 id="asset-title">Asset awaiting delivery</h2><p id="asset-message"></p><button class="btn dialog-close">Close</button></dialog></body></html>'''
+    body=creative_body(body,route,pre)
+    html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{esc(description)}"><title>{esc(title)} | OptimIQ Consultus</title><link rel="icon" type="image/png" sizes="32x32" href="{pre}assets/brand/favicon-32.png"><link rel="stylesheet" href="{pre}v43.css?v={V}"><link rel="stylesheet" href="{pre}creative.css?v={V}"><script defer src="{pre}v43.js?v={V}"></script><script defer src="{pre}creative.js?v={V}"></script></head><body class="creative-site">{header(pre,active)}<main id="main">{body}</main>{footer(pre)}<dialog id="asset-dialog" aria-labelledby="asset-title"><button class="dialog-close" aria-label="Close">×</button><p class="eyebrow">Client preview</p><h2 id="asset-title">Asset awaiting delivery</h2><p id="asset-message"></p><button class="btn dialog-close">Close</button></dialog></body></html>'''
     html=html.replace('</body>',download_dialog()+'</body>')
     out=ROOT/route/'index.html' if route else ROOT/'index.html';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(html,encoding='utf8')
 def section(title,inner,eyebrow='',kind=''):
@@ -44,10 +80,11 @@ def cards(items,cls='cards'):
     return f'<div class="{cls}">'+''.join(f'<article><span class="item-no">{i+1:02d}</span><h3>{esc(a)}</h3><p>{esc(b)}</p></article>' for i,(a,b) in enumerate(items))+'</div>'
 def steps(title,items):return section(title,cards(items,'steps'))
 def film(title,number,points=None,cta=None):
-    action=f'<button class="film" data-asset="Film {number}, captions and approved English/Arabic versions are awaiting client delivery." aria-label="Preview film: {esc(title)}"><span class="play" aria-hidden="true">▷</span><span>Film {number:02d}</span><strong>{esc(title)}</strong><small>Film awaiting delivery</small></button>'
+    action=f'<button class="film film--{number}" data-asset="Film {number}, captions and approved English/Arabic versions are awaiting client delivery. The image shown is an illustrative stock photograph, not a film still." aria-label="Preview film: {esc(title)}"><span class="play" aria-hidden="true">▷</span><span class="film-meta">Film {number:02d}</span><strong>{esc(title)}</strong><small>Film awaiting delivery</small></button>'
     inner=action
-    if points: inner=f'<div class="film-layout">{action}<div class="takeaways"><ul>'+''.join(f'<li>{esc(t)}</li>' for t in points)+f'</ul>{cta or ""}</div></div>'
+    if points:inner=f'<div class="film-layout">{action}<div class="takeaways"><ul>'+''.join(f'<li>{esc(t)}</li>' for t in points)+f'</ul>{cta or ""}</div></div>'
     return f'<section class="section film-section" id="film"><div class="wrap"><div class="section-head"><p class="eyebrow">Watch the story</p><h2>{esc(title)}</h2></div>{inner}</div></section>'
+
 def doors(pre=''):
     data=[('Organizations','Proven experts, without big-firm overhead.','Find Your Expert','for-clients'),('Consultants & Advisors','Better projects. A clear path up.','Join the Network','for-consultants'),('Consulting Firms','More clients. Extra experts when needed.','Partner With Us','for-consulting-firms')]
     return '<div class="doors">'+''.join(f'<article><span class="item-no">0{i+1}</span><h3>{a}</h3><p>{b}</p>{button(c,pre+d+"/")}</article>' for i,(a,b,c,d) in enumerate(data))+'</div>'
@@ -65,10 +102,22 @@ def visual_placeholder(description,index=0,pre="",group='home'):
     priority='loading="eager" fetchpriority="high"' if index==0 else 'loading="lazy"'
     return f'<figure class="hero-image" data-visual="{index}"{ " hidden" if index else ""}><img data-supplied-hero="{image}" src="{base}-1200.webp" srcset="{base}-480.webp 480w, {base}-800.webp 800w, {base}-1200.webp 1200w" sizes="(max-width:600px) calc(100vw - 36px), (max-width:900px) min(620px, calc(100vw - 48px)), (max-width:1180px) 45vw, 530px" width="1200" height="896" alt="{esc(description,quote=True)}" aria-describedby="image-brief-{index}" {priority}><figcaption class="image-pending-caption" id="image-brief-{index}"><strong>Image pending from client</strong><p><span>Blueprint image brief:</span> {esc(description)}</p></figcaption></figure>'
 def carousel(slides,pre='',home=False,audience=None):
-    panels=''.join(f'<div class="slide" data-slide="{i}"{ " hidden" if i else ""}><p class="eyebrow">{esc(a)}</p><h1>{esc(b)}</h1><p class="hero-copy">{esc(c)}</p>{button(d,h)}</div>' for i,(a,b,c,d,h) in enumerate(slides))
-    tabs=''.join(f'<button type="button" data-go="{i}" aria-pressed="{str(i==0).lower()}"><span>{i+1:02d}</span> {esc(v[0].title())}</button>' for i,v in enumerate(slides))
-    visuals=''.join(visual_placeholder(t,i,pre,'home' if home else audience) for i,t in enumerate(VISUALS['home' if home else audience]))
-    return f'<section class="hero" data-carousel><div class="wrap hero-grid"><div class="hero-content"><div class="hero-slides">{panels}</div><div class="slide-controls" aria-label="Hero slides">{tabs}</div><p class="sr-only" data-slide-status aria-live="polite">Slide 1 of {len(slides)}</p></div><div class="hero-visuals">{visuals}</div></div></section>'
+    group='home' if home else audience
+    panels=[];visuals=[];notes=[]
+    for i,(eyebrow,title,copy,cta,href) in enumerate(slides):
+        # Only wrap existing words; no changed claims or extra marketing copy.
+        words=title.rsplit(' ',1)
+        heading=esc(words[0])+' <span class="hero-accent">'+esc(words[1])+'</span>' if len(words)==2 else esc(title)
+        panels.append(f'<div class="slide" data-slide="{i}"{ " hidden inert aria-hidden=true" if i else ""}><p class="eyebrow">{esc(eyebrow)}</p><h1>{heading}</h1><p class="hero-copy">{esc(copy)}</p>{button(cta,href)}</div>')
+        image=HERO_IMAGES[group][i];base=f'{pre}assets/hero-images/{image}'
+        description=VISUALS[group][i]
+        priority='loading="eager" fetchpriority="high"' if i==0 else 'loading="lazy"'
+        visuals.append(f'<figure class="hero-image" data-visual="{i}"{ " hidden inert aria-hidden=true" if i else ""}><img data-supplied-hero="{image}" src="{base}-1200.webp" srcset="{base}-480.webp 480w, {base}-800.webp 800w, {base}-1200.webp 1200w" sizes="(max-width:760px) 100vw, 75vw" width="1200" height="896" alt="{esc(description,quote=True)}" aria-describedby="image-brief-{i}" {priority}></figure>')
+        notes.append(f'<div class="image-pending-caption" data-brief="{i}" id="image-brief-{i}"{ " hidden" if i else ""}><strong>Image pending from client</strong><p><span>Blueprint image brief:</span> {esc(description)}</p></div>')
+    tabs=''.join(f'<button type="button" data-go="{i}" aria-pressed="{str(i==0).lower()}"><span>{i+1:02d}</span><strong>{esc(slide[0].title())}</strong><i aria-hidden="true"></i></button>' for i,slide in enumerate(slides))
+    return f'''<section class="hero story-hero" data-carousel aria-roledescription="carousel" aria-label="{'OptimIQ' if home else esc(audience)} introduction"><div class="hero-stage"><div class="hero-visuals">{''.join(visuals)}</div><div class="hero-shade" aria-hidden="true"></div><div class="hero-inner wrap"><div class="hero-slides">{''.join(panels)}</div><div class="slider-dock"><div class="slide-controls" aria-label="Hero slides">{tabs}</div><div class="slider-actions"><span class="slide-count" aria-hidden="true"><b data-slide-number>01</b> / {len(slides):02d}</span><button type="button" class="slider-pause" data-slide-pause aria-label="Pause slideshow" aria-pressed="false"><span data-pause-label>Pause</span></button><button type="button" class="slider-arrow" data-slide-prev aria-label="Previous slide">‹</button><button type="button" class="slider-arrow" data-slide-next aria-label="Next slide">›</button></div></div></div></div><div class="hero-notes"><div class="wrap">{''.join(notes)}</div></div><p class="sr-only" data-slide-status aria-live="polite">Slide 1 of {len(slides)}</p></section>'''
+
+
 def expertise():
     return section('Nine Areas. One Clear Result.','<div class="expertise-grid">'+''.join(f'<details><summary>{esc(a)}</summary><p>{esc(b)}</p></details>' for a,b in AREAS)+'</div>')
 def comparison():
@@ -188,8 +237,8 @@ review_rows += [(f'{a.title()} calculator','calculator-'+a+'/','Fixed example ·
 review_rows += [(f'{a.title()} thank-you','thank-you-'+('consultant' if a=='expert' else a)+'/','Design placeholder · verification/next steps pending') for a in PATHS]
 review_rows += [(t,r+'/','Policy wording pending') for r,t in [('privacy','Privacy'),('terms','Terms'),('cookies','Cookies')]]
 rows=''.join(f'<a class="review-row" href="{href}"><strong>{name}</strong><span>{status}</span><b aria-hidden="true">View</b></a>' for name,href,status in review_rows)
-review=section('Public Website Review.','<p class="hero-copy">Blueprint v4.3 · Client brand kit · QA update 15 November 2026</p><p class="review-note">Updated screens are awaiting client feedback. Prior Design 1 approval does not approve this revision.</p><div class="review-list">'+rows+'</div><h2 class="review-subhead">What remains open</h2><p>Registration and verification details; calculator approval and result disclosure; certification policy; films, captions, guides and concept-note refresh; Arabic copy; legal and organisation details. The clarification Excel is supplied separately to the client.</p><div class="actions">'+button('All portal screens','../index.html',True)+'</div>',kind='page-hero')
+review=section('Public Website Review.','<p class="hero-copy">Blueprint v4.3 · Client brand kit · Creative redesign 26 November 2026</p><p class="review-note">Updated screens are awaiting client feedback. Prior Design 1 approval does not approve this revision.</p><div class="review-list">'+rows+'</div><h2 class="review-subhead">What remains open</h2><p>Registration and verification details; calculator approval and result disclosure; certification policy; films, captions, guides and concept-note refresh; Arabic copy; legal and organisation details. The clarification Excel is supplied separately to the client.</p><div class="actions">'+button('All portal screens','../index.html',True)+'</div>',kind='page-hero')
 page('','Proven, Not Polished.',body,'Home')
-(ROOT/'review.html').write_text((lambda h:h)(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Website client review | OptimIQ</title><link rel="stylesheet" href="v43.css?v={V}"></head><body>{header("","")}<main id="main">{review}</main>{footer("")}<script src="v43.js?v={V}"></script></body></html>'),encoding='utf8')
+(ROOT/'review.html').write_text((lambda h:h)(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Website client review | OptimIQ</title><link rel="stylesheet" href="v43.css?v={V}"><link rel="stylesheet" href="creative.css?v={V}"></head><body class="creative-site">{header("","")}<main id="main">{review}</main>{footer("")}<script src="v43.js?v={V}"></script><script src="creative.js?v={V}"></script></body></html>'),encoding='utf8')
 (ROOT/'revision-status.json').write_text(json.dumps({'version':V,'status':'Awaiting client feedback','brand':'Client brand kit received 14 November 2026','pages':[{'name':n,'path':r,'status':s} for n,r,s in review_rows],'implementationLimits':['Static client preview','No lead storage or verification','No private calculator model included','No certification engine or scoring change','Existing portal and external staging site unchanged; local forms are preview simulators']},indent=2),encoding='utf8')
 print('Built',len(review_rows)+1,'review screens')
