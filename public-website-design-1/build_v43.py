@@ -15,7 +15,7 @@ ROOT.mkdir(parents=True,exist_ok=True)
 BRAND=ROOT/'assets'/'brand'; BRAND.mkdir(parents=True,exist_ok=True)
 # Client marks have already been extracted to assets/brand.
 
-V='creative-v43-20261126'
+V='creative-v43-proof-flow-r1-20261127'
 AREAS=[('Strategy & Growth','Transformation · Go-to-market · Operational excellence'),('Revenue Enhancement','Business development · Marketing · Sales'),('Customer & Market Experience','Customer journeys · Brand · CX'),('Digital Transformation','Cybersecurity · Cloud · Data & analytics'),('AI & Emerging Tech','GenAI integration · Automation · Machine learning'),('Supply Chain & ESG','Sustainable sourcing · Logistics · ESG compliance'),('Finance & Operations','FP&A · Legal compliance · Process improvement'),('Talent & Manpower','High-volume sourcing · Mobilization · Executive search'),('People, L&D & Culture','Corporate training · Leadership coaching · Change')]
 PATHS={'client':'for-clients','expert':'for-consultants','firm':'for-consulting-firms'}
 CTA={'client':'Share Your Requirement','expert':'Apply in 2 Minutes','firm':'Register Your Firm'}
@@ -76,7 +76,7 @@ def page(route,title,body,active='',description='OptimIQ Consultus. Global Exper
     alias={'calculator-client':'project-cost','calculator-expert':'expert-earnings','calculator-firm':'firm-growth'}.get(route)
     canonical=f'<link rel="canonical" href="../tools/{alias}/">' if alias else ''
     body=creative_body(body,route,pre)
-    html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="{esc(description)}"><title>{esc(title)} | OptimIQ Consultus</title>{canonical}<link rel="icon" type="image/png" sizes="32x32" href="{pre}assets/brand/favicon-32.png"><link rel="stylesheet" href="{pre}v43.css?v={V}"><link rel="stylesheet" href="{pre}creative.css?v={V}"><link rel="stylesheet" href="{pre}journey.css?v={V}"><link rel="stylesheet" href="{pre}calculator.css?v={V}"><script defer src="{pre}calculator-v43.js?v={V}"></script><script defer src="{pre}calculator-interactions.js?v={V}"></script><script defer src="{pre}v43.js?v={V}"></script><script defer src="{pre}creative.js?v={V}"></script><script defer src="{pre}journey.js?v={V}"></script><script defer src="{pre}arabic-complement.js?v={V}"></script></head><body class="creative-site">{header(pre,active)}<main id="main">{body}</main>{footer(pre)}<dialog id="asset-dialog" aria-labelledby="asset-title"><button class="dialog-close" aria-label="Close">×</button><p class="eyebrow">Client preview</p><h2 id="asset-title">Asset awaiting delivery</h2><p id="asset-message"></p><button class="btn dialog-close">Close</button></dialog></body></html>'''
+    html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="{esc(description)}"><title>{esc(title)} | OptimIQ Consultus</title>{canonical}<link rel="icon" type="image/png" sizes="32x32" href="{pre}assets/brand/favicon-32.png"><link rel="stylesheet" href="{pre}v43.css?v={V}"><link rel="stylesheet" href="{pre}creative.css?v={V}"><link rel="stylesheet" href="{pre}journey.css?v={V}"><link rel="stylesheet" href="{pre}proof-scene.css?v={V}"><link rel="stylesheet" href="{pre}calculator.css?v={V}"><script defer src="{pre}calculator-v43.js?v={V}"></script><script defer src="{pre}calculator-interactions.js?v={V}"></script><script defer src="{pre}v43.js?v={V}"></script><script defer src="{pre}proof-scene.js?v={V}"></script><script defer src="{pre}creative.js?v={V}"></script><script defer src="{pre}journey.js?v={V}"></script><script defer src="{pre}arabic-complement.js?v={V}"></script></head><body class="creative-site">{header(pre,active)}<main id="main">{body}</main>{footer(pre)}<dialog id="asset-dialog" aria-labelledby="asset-title"><button class="dialog-close" aria-label="Close">×</button><p class="eyebrow">Client preview</p><h2 id="asset-title">Asset awaiting delivery</h2><p id="asset-message"></p><button class="btn dialog-close">Close</button></dialog></body></html>'''
     html=html.replace('</body>',download_dialog()+'</body>')
     html='\n'.join(line.rstrip() for line in html.splitlines())+'\n'
     out=ROOT/route/'index.html' if route else ROOT/'index.html';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(html,encoding='utf8')
@@ -102,6 +102,38 @@ VISUALS={
  'firm':['Two proposals; the big logo gets picked up.', 'Client mandates flow along a line into the firm.', 'Verified profiles slot into the firm’s team grid.']
 }
 HERO_IMAGES={'home':['1_1','2_1','3_1','4_1'],'client':['1_2','2_2','3_2'],'expert':['1_3','2_3','3_3'],'firm':['1_4','2_4','3_4']}
+PROOF_STAGES={
+ 'home':[
+  [('CV','Experience evidence','Verified'),('Three checks','Knowledge · behaviour · client results','Three profiles shortlisted')],
+  [('Project need','Role fit','Three profiles shortlisted'),('Relevant evidence','Three checks','Verified match'),('Client brief','Capability fit','Right expert introduced')],
+  [('Experience','Evidence reviewed','Verified standing'),('Profile','Opportunity fit','Project match'),('Career level','Assessed results','Clear next step')],
+  [('Client mandate','Capacity reviewed','Extra experts matched'),('Demand','Specialist capacity','Team strengthened'),('Project need','Verified profiles','Delivery team ready')]
+ ],
+ 'client':[
+  [('Project need','Scope clarified','Three profiles shortlisted'),('Experience','Evidence reviewed','Verified fit'),('Expertise needed','Role match','Right expert introduced')],
+  [('Profile','Knowledge · behaviour · results','Verified expert'),('Requirement','Fit checked','Three profiles shortlisted'),('Project brief','Relevant evidence','Confident introduction')],
+  [('Project scope','Team shaped to need','Local + global expertise')]
+ ],
+ 'expert':[
+  [('CV','Knowledge · behaviour · results','Verified profile'),('Experience','Client outcomes checked','Evidence-led standing'),('Verified profile','Project fit','Better-matched opportunity')],
+  [('Expert profile','Project need','Relevant match'),('Evidence','Role fit','Opportunity introduced'),('Career level','Assessed results','Clear path upward')],
+  [('Experience','Regional reach','Cross-border opportunities')]
+ ],
+ 'firm':[
+  [('Client mandate','Capacity reviewed','Specialists shortlisted'),('Firm capability','Verified profiles','Team strengthened'),('Project need','Role fit','Delivery-ready team')],
+  [('Proposal','Capability confirmed','Stronger-fit opportunity'),('Client demand','Available capacity','More work considered'),('Team gap','Verified specialists','Capacity added')],
+  [('Firm team','Specialist match','Delivery capacity expanded')]
+ ]
+}
+def proof_scene(group,index,description):
+    stages=PROOF_STAGES[group][index]
+    stage_cards=[f'<div class="proof-stage" data-proof-step="{i}"><span class="proof-stage-no">0{i+1}</span><strong>{esc(label)}</strong><small>{esc(detail)}</small></div>' for i,(label,detail,_) in enumerate(stages)]
+    flow=''.join((('<i class="proof-link" aria-hidden="true"></i>' if i else '')+card) for i,card in enumerate(stage_cards))
+    evidence=' · '.join(stages[0][1:-1])
+    result=stages[-1][-1]
+    flow_label=" then ".join([stage[0] for stage in stages]+[result])
+    controls=f'<div class="proof-controls" aria-label="Proof flow controls"><button type="button" data-proof-prev aria-label="Previous stage">← <span>Back</span></button><p data-proof-status aria-live="polite">Stage 1 of {len(stages)+1}</p><button type="button" data-proof-play aria-pressed="false">Play flow</button><button type="button" data-proof-next aria-label="Next stage"><span>Next</span> →</button></div>'
+    return f'<div class="proof-scene" role="group" data-visual="{index}" data-proof-scene="{group}" data-proof-total="{len(stages)+1}" style="--proof-count:{len(stages)-1}" aria-labelledby="proof-title-{group}-{index}"><p class="proof-kicker" id="proof-title-{group}-{index}">From evidence to outcome</p><div class="proof-flow" data-flow-english="{esc(flow_label,quote=True)}" aria-label="{esc(flow_label,quote=True)}">{flow}<div class="proof-result" data-proof-step="{len(stages)}"><span aria-hidden="true">✓</span><span>{esc(result)}</span></div></div><p class="proof-evidence"><span>Evidence</span> <span class="proof-evidence-copy">{esc(evidence or stages[0][1])}</span></p>{controls}</div>'
 
 def visual_placeholder(description,index=0,pre="",group='home'):
     image=HERO_IMAGES[group][index]
@@ -117,11 +149,11 @@ def carousel(slides,pre='',home=False,audience=None):
         heading=esc(words[0])+' <span class="hero-accent">'+esc(words[1])+'</span>' if len(words)==2 else esc(title)
         heading_tag='h1' if i==0 else 'h2'
         panels.append(f'<div class="slide" data-slide="{i}"{ " hidden inert aria-hidden=true" if i else ""}><p class="eyebrow">{esc(eyebrow)}</p><{heading_tag}>{heading}</{heading_tag}><p class="hero-copy">{esc(copy)}</p>{button(cta,href)}</div>')
-        image=HERO_IMAGES[group][i];base=f'{pre}assets/hero-images/{image}'
+        image=HERO_IMAGES[group][i]
         description=VISUALS[group][i]
-        priority='loading="eager" fetchpriority="high"' if i==0 else 'loading="lazy"'
-        visuals.append(f'<figure class="hero-image" data-visual="{i}"{ " hidden inert aria-hidden=true" if i else ""}><img data-supplied-hero="{image}" src="{base}-1200.webp" srcset="{base}-480.webp 480w, {base}-800.webp 800w, {base}-1200.webp 1200w" sizes="(max-width:760px) 100vw, 75vw" width="1200" height="896" alt="{esc(description,quote=True)}" aria-describedby="image-brief-{i}" {priority}></figure>')
-        notes.append(f'<div class="image-pending-caption" data-brief="{i}" id="image-brief-{i}"{ " hidden" if i else ""}><strong>Image pending from client</strong><p><span>Blueprint image brief:</span> {esc(description)}</p></div>')
+        visuals.append(proof_scene(group,i,description))
+        image_path=f'{pre}assets/hero-images/{image}-480.webp'
+        notes.append(f'<div class="image-pending-caption" data-brief="{i}" id="image-brief-{i}"{ " hidden" if i else ""}><strong>Image pending from client</strong><div class="image-review-reference"><img src="{image_path}" width="120" height="90" loading="lazy" alt=""><p><span>Blueprint image brief:</span> {esc(description)}</p></div></div>')
     tabs=''.join(f'<button type="button" data-go="{i}" aria-pressed="{str(i==0).lower()}"><span>{i+1:02d}</span><strong>{esc(slide[0].title())}</strong><i aria-hidden="true"></i></button>' for i,slide in enumerate(slides))
     return f'''<section class="hero story-hero" data-carousel aria-roledescription="carousel" aria-label="{'OptimIQ' if home else esc(audience)} introduction"><div class="hero-stage"><div class="hero-visuals">{''.join(visuals)}</div><div class="hero-shade" aria-hidden="true"></div><div class="hero-inner wrap"><div class="hero-slides">{''.join(panels)}</div><div class="slider-dock"><div class="slide-controls" aria-label="Hero slides">{tabs}</div><div class="slider-actions"><span class="slide-count" aria-hidden="true"><b data-slide-number>01</b> / {len(slides):02d}</span><button type="button" class="slider-pause" data-slide-pause aria-label="Pause slideshow" aria-pressed="false"><span data-pause-label>Pause</span></button><button type="button" class="slider-arrow" data-slide-prev aria-label="Previous slide">‹</button><button type="button" class="slider-arrow" data-slide-next aria-label="Next slide">›</button></div></div></div></div><div class="hero-notes"><div class="wrap">{''.join(notes)}</div></div><p class="sr-only" data-slide-status aria-live="polite">Slide 1 of {len(slides)}</p></section>'''
 
@@ -257,6 +289,6 @@ review_rows += [(t,r+'/','Policy wording pending') for r,t in [('privacy','Priva
 rows=''.join(f'<a class="review-row" href="{href}"><strong>{name}</strong><span>{status}</span><b aria-hidden="true">View</b></a>' for name,href,status in review_rows)
 review=section('Public Website Review.','<p class="hero-copy">Blueprint v4.3 · Client brand kit · Creative redesign 26 November 2026</p><p class="review-note">Updated screens are awaiting client feedback. Prior Design 1 approval does not approve this revision.</p><div class="review-list">'+rows+'</div><h2 class="review-subhead">What remains open</h2><p>Registration and verification details; calculator assumptions and result disclosure; certification policy; final film production and caption approval; guide content and concept-note approval; Arabic copy; legal and organisation details. The clarification Excel is supplied separately to the client.</p><div class="actions">'+button('All portal screens','../index.html',True)+'</div>',kind='page-hero')
 page('','Proven, Not Polished.',body,'Home')
-(ROOT/'review.html').write_text(('\n'.join(line.rstrip() for line in f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website client review | OptimIQ</title><link rel="stylesheet" href="v43.css?v={V}"><link rel="stylesheet" href="creative.css?v={V}"><link rel="stylesheet" href="journey.css?v={V}"><script src="v43.js?v={V}"></script><script src="creative.js?v={V}"></script><script src="journey.js?v={V}"></script><script src="arabic-complement.js?v={V}"></script></head><body class="creative-site">{header("","")}<main id="main">{review}</main>{footer("")}</body></html>'.splitlines())+'\n'),encoding='utf8')
+(ROOT/'review.html').write_text(('\n'.join(line.rstrip() for line in f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Website client review | OptimIQ</title><link rel="stylesheet" href="v43.css?v={V}"><link rel="stylesheet" href="creative.css?v={V}"><link rel="stylesheet" href="journey.css?v={V}"><script src="v43.js?v={V}"></script><script src="proof-scene.js?v={V}"></script><script src="creative.js?v={V}"></script><script src="journey.js?v={V}"></script><script src="arabic-complement.js?v={V}"></script></head><body class="creative-site">{header("","")}<main id="main">{review}</main>{footer("")}</body></html>'.splitlines())+'\n'),encoding='utf8')
 (ROOT/'revision-status.json').write_text(json.dumps({'version':V,'status':'Awaiting client feedback','brand':'Client brand kit received 14 November 2026','pages':[{'name':n,'path':r,'status':s} for n,r,s in review_rows],'implementationLimits':['Static client preview','No lead storage or verification','Client-supplied calculator formulas run in-browser in this review build; assumptions and disclosure await approval','Calculator estimate transfers only after explicit opt-in and remains in session storage until removed or tab closes','No third-party telemetry','No certification engine or scoring change','Existing portal and external staging site unchanged; local forms are preview simulators']},indent=2),encoding='utf8')
 print('Built',len(review_rows)+1,'review screens')

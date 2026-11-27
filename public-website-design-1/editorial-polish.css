@@ -1,0 +1,158 @@
+/* Small editorial refinements for supporting pages and long resource lists. */
+.creative-site .editorial-hero .section-head {
+  max-width: 900px;
+  margin-inline: auto;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.creative-site .editorial-hero .section-head > p:not(.eyebrow) {
+  max-width: 760px;
+  margin-inline: auto;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+/* Keep the tool catalogue legible and editorial instead of card-like. */
+.creative-site .editorial-hero .resource-catalog {
+  gap: 0;
+  border-top: 1px solid #7bd5c266;
+}
+
+.creative-site .editorial-hero .resource-line {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(18px, 3vw, 44px);
+  padding: clamp(20px, 2.4vw, 32px) clamp(18px, 2.6vw, 38px);
+  border: 0;
+  border-bottom: 1px solid #7bd5c266;
+  border-radius: 0;
+  background: #f4fbf9;
+  color: #0c2e2a;
+  box-shadow: none;
+}
+
+.creative-site .editorial-hero .resource-line h3 {
+  color: #0c2e2a;
+  font-family: var(--display);
+  font-size: clamp(1.12rem, 1.8vw, 1.45rem);
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  text-wrap: pretty;
+}
+
+.creative-site .editorial-hero .resource-line > div:first-child {
+  min-width: 0;
+  text-align: start;
+}
+
+.creative-site .editorial-hero .resource-line p {
+  max-width: 62ch;
+  margin-block: 8px 0;
+  color: #41564b;
+  line-height: 1.6;
+}
+
+.creative-site .editorial-hero .resource-line .eyebrow {
+  color: #17644c;
+  font-size: .65rem;
+  line-height: 1.4;
+}
+
+.creative-site .editorial-hero .resource-line > div:last-child {
+  justify-content: flex-end;
+  gap: 12px 20px;
+}
+
+.creative-site .editorial-hero .resource-line a,
+.creative-site .editorial-hero .resource-line button {
+  color: #0c2e2a;
+  text-underline-offset: 4px;
+}
+
+.creative-site .editorial-hero .resource-line a:focus-visible,
+.creative-site .editorial-hero .resource-line button:focus-visible {
+  outline: 3px solid #17644c;
+  outline-offset: 4px;
+}
+
+body.is-arabic .editorial-hero .resource-line,
+.creative-site.is-arabic .editorial-hero .resource-line {
+  direction: rtl;
+}
+
+@media (min-width: 761px) {
+  /* Continue the dark proof canvas to the panel edge instead of exposing the
+     pale placeholder background beneath its content-sized scene. */
+  .creative-site .story-hero .hero-visuals > .proof-scene {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1500px) {
+  /* The left hero column cannot fit four tab labels and the transport controls
+     on one line at these widths; use a clear two-by-two label group. */
+  .creative-site .story-hero .slider-dock {
+    gap: 12px;
+    padding-top: 10px;
+  }
+
+  .creative-site .story-hero .slide-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px clamp(12px, 1.5vw, 20px);
+  }
+
+  .creative-site .story-hero .slide-controls:has(button:last-child:nth-child(3)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .creative-site .story-hero .slide-controls button {
+    min-width: 0;
+    min-height: 34px;
+    gap: 6px;
+    padding: 3px 0 7px;
+  }
+
+  .creative-site .story-hero .slide-controls button > strong {
+    white-space: normal;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1500px) and (max-height: 760px) {
+  /* Keep both rows of desktop selectors inside short laptop viewports. */
+  .creative-site .story-hero .slider-dock {
+    transform: translateY(max(-42px, min(0px, calc(100vh - 759px))));
+  }
+}
+
+@media (max-width: 760px) {
+  .creative-site .editorial-hero .section-head {
+    margin-bottom: 26px;
+  }
+
+  .creative-site .editorial-hero .resource-line {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px 16px;
+  }
+
+  .creative-site .editorial-hero .resource-line > div:last-child {
+    justify-content: flex-start;
+  }
+
+  /* The narrow scene is vertical; keep the connector lines from inheriting
+     the old two-column layout's full-width connector size. */
+  .creative-site .story-hero [data-proof-scene] .proof-flow > .proof-link {
+    width: 1px;
+    min-width: 1px;
+    max-width: 1px;
+    flex-basis: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creative-site .editorial-hero .resource-line,
+  .creative-site .editorial-hero .resource-line * {
+    scroll-behavior: auto;
+    transition-duration: .01ms !important;
+  }
+}
