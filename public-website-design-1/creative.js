@@ -9,10 +9,10 @@ document.querySelectorAll('[data-carousel]').forEach(carousel=>{
   const controls=[...carousel.querySelectorAll('[data-go]')];
   const pauseButton=carousel.querySelector('[data-slide-pause]');
   const stage=carousel.querySelector('.hero-stage');
-  const duration=8000;
+  const duration=6000;
   let active=0,elapsed=0,last=0,userPaused=motionPreference.matches,hover=false,inView=true,raf=0;
   const animations=new Set();
-  let imageMotion=null;
+  let imageMotion=null,firstActivation=true;
   function syncImageMotion(){if(!imageMotion)return;if(userPaused||hover||!inView||document.hidden)imageMotion.pause();else imageMotion.play();}
   function animate(element,frames,options){
     if(motionPreference.matches||!element?.animate)return;
@@ -24,6 +24,7 @@ document.querySelectorAll('[data-carousel]').forEach(carousel=>{
   function syncPause(){pauseButton.disabled=motionPreference.matches;pauseButton.setAttribute('aria-label',motionPreference.matches?'Automatic slideshow disabled by reduced motion':userPaused?'Play slideshow':'Pause slideshow');pauseButton.setAttribute('aria-pressed',String(userPaused));pauseButton.querySelector('[data-pause-label]').textContent=motionPreference.matches?'Static':userPaused?'Play':'Pause';}
   function activate(index,manual=false){
     active=(index+panels.length)%panels.length;elapsed=0;last=0;
+    const initial=firstActivation;firstActivation=false;
     animations.forEach(a=>a.cancel());animations.clear();
     panels.forEach((panel,i)=>{panel.hidden=i!==active;panel.inert=i!==active;panel.setAttribute('aria-hidden',String(i!==active));});
     visuals.forEach((visual,i)=>{visual.hidden=i!==active;visual.inert=i!==active;visual.setAttribute('aria-hidden',String(i!==active));});
@@ -32,9 +33,8 @@ document.querySelectorAll('[data-carousel]').forEach(carousel=>{
     carousel.querySelector('[data-slide-number]').textContent=String(active+1).padStart(2,'0');
     if(manual){userPaused=true;carousel.querySelector('[data-slide-status]').textContent=`Slide ${active+1} of ${panels.length}: ${panels[active].querySelector('h1').textContent}`;}
     const children=panels[active].querySelectorAll('.eyebrow,h1,.hero-copy,.btn');
-    children.forEach((child,i)=>animate(child,[{opacity:0,transform:'translateY(24px)'},{opacity:1,transform:'translateY(0)'}],{duration:650,delay:i*65,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'}));
-    animate(visuals[active],[{opacity:0,clipPath:'inset(0 0 0 12%)'},{opacity:1,clipPath:'inset(0 0 0 0)'}],{duration:850,easing:'cubic-bezier(.22,1,.36,1)'});
-    imageMotion=animate(visuals[active].querySelector('img'),[{transform:'scale(1.035)'},{transform:'scale(1)'}],{duration:duration,easing:'linear'});
+    if(initial){children.forEach(child=>{child.style.opacity='1';child.style.transform='none';});visuals[active].style.opacity='1';visuals[active].style.clipPath='none';imageMotion=null;}
+    else{children.forEach((child,i)=>animate(child,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:450,delay:i*35,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));animate(visuals[active],[{opacity:.78,clipPath:'inset(0 0 0 5%)'},{opacity:1,clipPath:'inset(0 0 0 0)'}],{duration:550,easing:'cubic-bezier(.22,1,.36,1)'});imageMotion=animate(visuals[active].querySelector('img'),[{transform:'scale(1.025)'},{transform:'scale(1)'}],{duration:duration,easing:'linear'});}
     syncImageMotion();
     syncPause();
   }

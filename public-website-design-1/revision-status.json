@@ -55,18 +55,23 @@
     },
     {
       "name": "Client calculator",
-      "path": "calculator-client/",
-      "status": "Fixed example \u00b7 live model approval pending"
+      "path": "tools/project-cost/",
+      "status": "Interactive prototype \u00b7 assumptions pending approval"
     },
     {
       "name": "Expert calculator",
-      "path": "calculator-expert/",
-      "status": "Fixed example \u00b7 live model approval pending"
+      "path": "tools/expert-earnings/",
+      "status": "Interactive prototype \u00b7 assumptions pending approval"
     },
     {
       "name": "Firm calculator",
-      "path": "calculator-firm/",
-      "status": "Fixed example \u00b7 live model approval pending"
+      "path": "tools/firm-growth/",
+      "status": "Interactive prototype \u00b7 assumptions pending approval"
+    },
+    {
+      "name": "Calculators & guides",
+      "path": "tools/",
+      "status": "Interactive calculators \u00b7 downloadable review drafts"
     },
     {
       "name": "Client thank-you",
@@ -102,7 +107,9 @@
   "implementationLimits": [
     "Static client preview",
     "No lead storage or verification",
-    "No private calculator model included",
+    "Client-supplied calculator formulas run in-browser in this review build; assumptions and disclosure await approval",
+    "Calculator estimate transfers only after explicit opt-in and remains in session storage until removed or tab closes",
+    "No third-party telemetry",
     "No certification engine or scoring change",
     "Existing portal and external staging site unchanged; local forms are preview simulators"
   ]

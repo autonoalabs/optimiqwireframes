@@ -18,7 +18,7 @@ document.querySelectorAll('[data-asset]').forEach(button=>button.addEventListene
 dialog?.querySelectorAll('.dialog-close').forEach(button=>button.addEventListener('click',()=>dialog.close()));
 dialog?.addEventListener('click',event=>{const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
 document.querySelector('[data-demo-form]')?.addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const status=form.querySelector('.form-status');status.textContent='Preview complete. Your message has not been sent or saved. Please use the email or phone details below to contact OptimIQ.';status.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});
-const downloadDialog=document.querySelector('#download-dialog');
+const downloadDialog=document.querySelector('#concept-note-dialog');
 let notePath='';
 document.querySelectorAll('[data-note]').forEach(button=>button.addEventListener('click',()=>{notePath=button.dataset.note;downloadDialog.querySelector('form').reset();downloadDialog.querySelector('[role=status]').textContent='';downloadDialog.showModal();}));
 downloadDialog?.querySelector('.dialog-close').addEventListener('click',()=>downloadDialog.close());
