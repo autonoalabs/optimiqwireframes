@@ -49,6 +49,16 @@
   };
 
   const english = new Map();
+  const keyedEnglish = {
+    'journey.flow.eyebrow': 'From evidence to outcome',
+    'journey.flow.title': 'A clear path from need to result.',
+    'journey.flow.evidence': 'Evidence'
+  };
+  const keyedArabic = {
+    'journey.flow.eyebrow': 'من الأدلة إلى النتائج',
+    'journey.flow.title': 'مسار واضح من الحاجة إلى النتيجة.',
+    'journey.flow.evidence': 'الأدلة'
+  };
   function rebuildEnglishMap() {
     english.clear();
     Object.entries(arabic).forEach(([source, translated]) => english.set(translated, source));
@@ -58,7 +68,14 @@
   const descriptionMeta = document.querySelector('meta[name=description]');
   const originalDescription = descriptionMeta?.content || '';
   const originalText = new WeakMap();
-  let currentLanguage = 'en';
+  let currentLanguage = (() => {
+    try {
+      const saved = window.localStorage.getItem('optimiq-site-language');
+      return saved === 'ar' || saved === 'en' ? saved : 'en';
+    } catch (_) {
+      return 'en';
+    }
+  })();
 
   function addLanguageControl() {
     const nav = document.querySelector('.nav-wrap');
@@ -70,7 +87,6 @@
     button.textContent = 'العربية';
     button.setAttribute('aria-label', 'Switch to Arabic review draft');
     nav.append(button);
-    button.addEventListener('click', () => setLanguage(currentLanguage === 'en' ? 'ar' : 'en'));
   }
 
   function localizeCalculatorResults(isArabic) {
@@ -114,7 +130,9 @@
   }
 
   function setLanguage(language) {
+    if (language !== 'ar' && language !== 'en') language = 'en';
     currentLanguage = language;
+    try { window.localStorage.setItem('optimiq-site-language', language); } catch (_) { /* Storage may be disabled. */ }
     const isArabic = language === 'ar';
     localizeCalculatorResults(isArabic);
     document.documentElement.lang = language;
@@ -138,19 +156,45 @@
     }
     if (!isArabic) document.querySelector('.locale-draft')?.remove();
 
+    document.querySelectorAll('.journey-flow-step strong,.journey-flow-step small,.journey-flow-result strong').forEach(element => {
+      if (!element.dataset.flowEnglishText) element.dataset.flowEnglishText = element.textContent.trim();
+    });
+    document.querySelectorAll('.journey-flow-note').forEach(note => {
+      const detailNode = Array.from(note.childNodes).find(child => child.nodeType === Node.TEXT_NODE && child.nodeValue.includes('·'));
+      if (detailNode && !note.dataset.flowEnglishDetail) note.dataset.flowEnglishDetail = detailNode.nodeValue.split('·').slice(1).join('·').trim();
+    });
+
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
       if (!node.nodeValue.trim()) continue;
+      if (node.parentElement?.closest('[data-i18n]')) continue;
       if (!originalText.has(node)) originalText.set(node, node.nodeValue);
       const original = originalText.get(node);
       const trim = original.trim();
-      const translated = isArabic ? arabic[trim] : english.get(trim);
-      if (!translated) continue;
+      const translated = isArabic ? (arabic[trim] || trim) : trim;
       const leading = original.match(/^\s*/)[0];
       const trailing = original.match(/\s*$/)[0];
       node.nodeValue = leading + translated + trailing;
     }
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const key = element.dataset.i18n;
+      const source = keyedEnglish[key] || element.dataset.i18nEnglish || element.textContent.trim();
+      element.dataset.i18nEnglish = source;
+      const translated = keyedArabic[key];
+      element.textContent = isArabic ? (translated || source) : source;
+    });
+    document.querySelectorAll('.journey-flow-step strong,.journey-flow-step small,.journey-flow-result strong').forEach(element => {
+      const source = element.dataset.flowEnglishText || element.textContent.trim();
+      element.textContent = isArabic ? (arabic[source] || source) : source;
+    });
+    document.querySelectorAll('.journey-flow-note').forEach(note => {
+      const detailNode = Array.from(note.childNodes).find(child => child.nodeType === Node.TEXT_NODE && child.nodeValue.includes('·'));
+      if (!detailNode) return;
+      const source = note.dataset.flowEnglishDetail;
+      detailNode.nodeValue = ` · ${isArabic ? (arabic[source] || source) : source}`;
+    });
 
     document.querySelectorAll('[placeholder],[aria-label],[title]').forEach(element => {
       ['placeholder', 'aria-label', 'title'].forEach(attribute => {
@@ -159,12 +203,11 @@
         if (translated && value !== translated) element.setAttribute(attribute, translated);
       });
     });
-    const control = document.querySelector('[data-site-lang]');
-    if (control) {
+    document.querySelectorAll('[data-site-lang],[data-lang]').forEach(control => {
       control.textContent = isArabic ? 'English' : 'العربية';
       control.setAttribute('aria-label', isArabic ? 'Switch to English' : 'Switch to Arabic review draft');
       control.setAttribute('aria-pressed', String(isArabic));
-    }
+    });
     const proofBefore = document.querySelector('[data-proof-before]');
     const proofAfter = document.querySelector('[data-proof-after]');
     const proofLabel = document.querySelector('[data-proof-label]');
@@ -174,14 +217,17 @@
     document.querySelectorAll('[data-caption]').forEach(caption => {
       caption.lang = isArabic ? 'ar' : 'en';
     });
-    document.querySelectorAll('[data-lang]').forEach(button => {
-      if (button.closest('[data-player]')) button.textContent = isArabic ? 'English' : 'العربية';
-    });
     document.dispatchEvent(new CustomEvent('site-language-change', { detail: { language } }));
   }
 
   addLanguageControl();
-  setLanguage('en');
+  document.addEventListener('click', event => {
+    const control = event.target.closest('[data-site-lang],[data-lang]');
+    if (!control) return;
+    event.preventDefault();
+    setLanguage(currentLanguage === 'en' ? 'ar' : 'en');
+  });
+  setLanguage(currentLanguage);
   function addProofScrubber() {
     const visual = document.querySelector('[data-carousel] [data-visual]');
     const image = visual?.querySelector('img[data-supplied-hero]');
@@ -354,7 +400,6 @@
     seek.addEventListener('pointerdown', stop);
     seek.addEventListener('keydown', stop);
     lengthSelect.addEventListener('change', () => setLength(lengthSelect.value));
-    languageButton.addEventListener('click', () => setLanguage(currentLanguage === 'en' ? 'ar' : 'en'));
     document.addEventListener('site-language-change', event => {
       language = event.detail.language;
       languageButton.setAttribute('aria-pressed', String(language === 'ar'));

@@ -85,6 +85,15 @@
     paint();
   }
   scenes.forEach(initialise);
+  if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+    const flowEntrance = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting || entry.target.dataset.flowAnimated === 'true') return;
+      entry.target.dataset.flowAnimated = 'true';
+      flowEntrance.unobserve(entry.target);
+      sync(entry.target, { motion: true, paused: false });
+    }), { threshold: 0.28 });
+    scenes.forEach(scene => flowEntrance.observe(scene));
+  }
   function localise() {
     const isArabic = document.documentElement.lang === 'ar';
     scenes.forEach(scene => {

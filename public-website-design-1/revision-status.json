@@ -1,7 +1,14 @@
 {
-  "version": "creative-v43-proof-flow-r1-20261127",
+  "version": "creative-v43-hero-flow-r1-20261127",
   "status": "Awaiting client feedback",
   "brand": "Client brand kit received 14 November 2026",
+  "revision": {
+    "date": "2026-11-27",
+    "name": "Hero and proof flow refinement",
+    "status": "Awaiting client feedback",
+    "scope": "Matched supplied artwork and headlines in hero carousels, with mapped pending captions retained and an independent proof journey before film.",
+    "approval": "No new client approval inferred."
+  },
   "pages": [
     {
       "name": "Home",
